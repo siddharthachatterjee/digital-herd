@@ -1,0 +1,39 @@
+#sign-up {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+#sign-up main {
+    width: 50vw;
+    height: 300px;
+    padding: 50px;
+    position: relative;
+    background-color: #121024;
+    border-radius: 50px;
+    text-align: left;
+}
+
+#sign-up main .step-titles {
+    position: absolute;
+    top: -60px;
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% - 100px);
+    left: 50px;
+}
+
+#sign-up main .step-title {
+    text-align: center;
+    width: max-content;
+}
+
+#sign-up main .step-title .number {
+    border: 1px solid white;
+    width: max-content;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    margin: auto;
+    margin-bottom: 5px;
+}

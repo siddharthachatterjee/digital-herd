@@ -1,0 +1,19 @@
+.modal-container {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 10;
+    background: whitesmoke;
+    opacity: 0.9;
+}
+
+.modal {
+    width: 75vw;
+    height: 50vh;
+    background: var(--theme-black);
+    position: fixed;
+    top: 25vh;
+    left: 12.5vw;
+    border-radius: 50px;
+    padding: 1em;
+}

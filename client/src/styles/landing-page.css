@@ -1,0 +1,83 @@
+#landing-page, .background-container {
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    background: rgb(1, 5, 22);
+    color: white;
+}
+
+#landing-page {
+    height: 600px;
+}
+#landing-page .content {
+    padding: 7em 5em;
+}
+
+#landing-page .content .heading-text {
+    width: max-content;
+    max-width: 50%;
+}
+
+#landing-page .content .images div {
+    position: absolute;
+    border-radius: 50px;
+    z-index: -1;
+    overflow: hidden;
+    opacity: 0.8;
+}
+
+#panda {
+    right: 50px;
+    top: 100px;
+}
+
+#panda img {
+    width: 20vw;
+}
+
+#tiger {
+    right: calc(20vw + 20px);
+    top: calc(10vh + 100px);
+}
+
+#tiger img {
+    width: 25vw;
+}
+
+#elephant {
+
+    right: 100px;
+    top: calc(20vw + 125px);
+}
+
+#elephant img {
+    width: 15vw;
+}
+
+@media (max-width: 500px) {
+    #landing-page .content .heading-text {
+        width: max-content;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    #landing-page .content .heading-text h1 {
+        width: max-content;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    #panda img {
+        width: 50vw;
+    }
+
+    #tiger img {
+        width: 50vw;
+    }
+    #tiger {
+        left: 0;
+    }
+}
