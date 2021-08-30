@@ -16,7 +16,7 @@
 
 #sign-up main .step-titles {
     position: absolute;
-    top: -60px;
+    top: -80px;
     display: flex;
     justify-content: space-between;
     width: calc(100% - 100px);

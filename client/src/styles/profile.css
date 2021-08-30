@@ -1,0 +1,16 @@
+#profile {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+#profile main {
+    width: 75vw;
+    height: 75vh;
+    padding: 50px;
+    position: relative;
+    background-color: #121024;
+    border-radius: 50px;
+    text-align: left;
+
+}

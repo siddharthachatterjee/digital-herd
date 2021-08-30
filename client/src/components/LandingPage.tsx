@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+//import {useHistory} from "react-router-dom";
 import { Web3Context } from "../context/Web3Context";
 
 import "../styles/landing-page.css";
@@ -23,8 +24,8 @@ export default function LandingPage() {
                         </p>
                         <br />
                         <div className = "buttons">
-                            <button className = "call-to-action primary" onClick = {connect/*() => window.location.pathname = "/sign-up"*/}>
-                                Sign In using an Ethereum wallet
+                            <button className = "call-to-action primary" onClick = {() => window.location.pathname = "/sign-up"}>
+                                Sign Up
                             </button>
 
                         </div>

@@ -15,6 +15,8 @@ code {
 :root {
   --theme-green: rgb(11, 136, 11);
   --theme-black: rgb(1, 5, 22);
+  --theme-gray: #121024;
+  --theme-gray-opaque: rgba(18, 16, 36, 0.4);
 }
 
 .call-to-action {
@@ -39,4 +41,18 @@ code {
 .call-to-action:disabled {
   cursor: not-allowed;
   opacity: 0.6
+}
+
+.input-box.dark {
+  background: var(--theme-black);
+  color: white;
+}
+.input-box {
+ 
+  outline:none;
+  border: none;
+  margin: 0 10px;
+  padding: 10px;
+  border-radius: 20px;
+  width: 50%;
 }

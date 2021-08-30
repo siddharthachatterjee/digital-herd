@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Web3 from "web3";
 
+import AnimalsCollectibleContract from "../contracts/AnimalsCollectible.json";
+
 function initWeb3() {
     return new Promise((res, rej) => {
         if (window.ethereum) {
@@ -14,9 +16,7 @@ function initWeb3() {
             res(web3);
         } 
         else {
-            const provider = new Web3.providers.HttpProvider("http://127.0.0.1:8545");
-            const web3 = new Web3(provider);
-            res(web3);
+            rej({message: "Could not load Ethereum wallet. Make sure you have an Ethereum wallet installed then try again. Download MetaMask at https://metamask.io"});
         }
     })
 }
@@ -28,31 +28,53 @@ export function Web3ContextProvider(props) {
     const [address, setAddress] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [networkId, setNetworkId] = useState(null);
+    const [contract, setContract] = useState(null);
     function connect() {
-        setLoading(true);
-        initWeb3()
-            .then(res => {
-                setLoading(false);
-                if (res.eth === null) {
-                    localStorage.removeItem("address");
-                    setError({message: "Could not load Ethereum wallet. Make sure you have an Ethereum wallet installed then try again. Download MetaMask at https://metamask.io"})
-                }
-                res.eth.getAccounts().then(accounts => {
-                    setAddress(accounts[0]);
-                    localStorage.setItem("address", accounts[0]);
-                    window.location.pathname = "/profile";
+        return new Promise((resolve, rej) => {
+            setLoading(true);
+            initWeb3()
+                .then(res => {
+                    setLoading(false);
+                    if (res.eth === null) {
+                        setError({message: "Could not load Ethereum wallet. Make sure you have an Ethereum wallet installed then try again. Download MetaMask at https://metamask.io"})
+                        localStorage.removeItem("address");
+                        return;
+                    }
+                    res.eth.getAccounts().then(accounts => {
+                        setAddress(accounts[0]);
+                        res.eth.defaultAccount = accounts[0];
+                    
+                        localStorage.setItem("address", accounts[0]);
+                       // window.location.pathname = "/profile";
+                    })
+                   // let networkId_ = "";
+                    res.eth.net.getId().then(id => {
+                        setNetworkId(id);
+                      //  networkId_ = res;
+                        const network = AnimalsCollectibleContract.networks[id];
+                        const instance = new res.eth.Contract(AnimalsCollectibleContract.abi, network && network.address);
+                        instance.defaultAccount = address;
+                        setContract(instance);
+                    })
+                    setWeb3(res);
+        
+                    resolve();
                 })
-                
-                setWeb3(res);
-            })
-            .catch(err => {
-                localStorage.removeItem("address");
-                setLoading(false);
-                setError(err);
-            })
+                .catch(err => {
+                    setLoading(false);
+                    setError(err);
+                    localStorage.removeItem("address");
+                })
+        })
     }
+    useEffect(() => {
+        if (web3 !== null) {
+          
+        }
+    }, [web3])
     return (
-        <Web3Context.Provider value = {{connect, web3, address, loading, error}}>
+        <Web3Context.Provider value = {{connect, contract, web3, address, loading, error, networkId}}>
             {props.children}
         </Web3Context.Provider>
     )
