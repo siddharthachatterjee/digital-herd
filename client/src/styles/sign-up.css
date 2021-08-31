@@ -25,9 +25,19 @@
 
 #sign-up main .step-title {
     text-align: center;
-    width: max-content;
+    background-color: var(--theme-gray);
+    padding: 5px;
+    width: 125px;
+    border-radius: 5px;
 }
 
+
+
+#sign-up main .step-title.current {
+    text-align: center;
+   border-bottom: 2px solid white;
+   box-shadow: 2px 2px 2px solid gray;
+}
 #sign-up main .step-title .number {
     border: 1px solid white;
     width: max-content;
@@ -36,4 +46,14 @@
     height: 20px;
     margin: auto;
     margin-bottom: 5px;
+}
+
+@media (max-width: 500px) {
+    #sign-up main .step-title .title {
+       display: none;
+    }
+    #sign-up main .step-titles {
+       
+       top:-30px;
+    }
 }
