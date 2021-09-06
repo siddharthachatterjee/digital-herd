@@ -45,7 +45,7 @@ export default function SignUp() {
                     )}
                     <br />
 
-                    <button disabled = {loading} onClick = {connect} className = "call-to-action"> Connect to MetaMask  </button>
+                    <button disabled = {loading} onClick = {connect} className = "call-to-action primary"> Connect to MetaMask  </button>
                 </div>
             ) : (
                 <div>
@@ -74,7 +74,7 @@ export default function SignUp() {
                      setFirebaseLoading(false);
                     // setLoggingIn(false);
                      updateProfile(user, {
-                         displayName: username
+                         displayName: username || "Unnamed User"
                      }).then(() => {
 
                          sendEmailVerification(user);
@@ -101,7 +101,7 @@ export default function SignUp() {
             <p>
                 Thank you for signing up. Now build your zoo!
             </p>
-            <button className = "call-to-action primary" onClick = {() => window.location.pathname = "/profile"}>
+            <button className = "call-to-action primary" onClick = {() => window.location.pathname = "/"}>
                 Continue to Profile
             </button>
         </div>

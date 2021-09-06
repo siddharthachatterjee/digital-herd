@@ -6,12 +6,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Web3ContextProvider } from './context/Web3Context';
+import {AuthContextProvider} from "./context/AuthContext";
+
+//import firebase from "./firebase";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Web3ContextProvider>
-        <App />
+        <AuthContextProvider>
+          <App />
+        </AuthContextProvider>
       </Web3ContextProvider>
     </Router>
   </React.StrictMode>,

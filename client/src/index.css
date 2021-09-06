@@ -27,6 +27,7 @@ code {
   font-size: 18px;
   transition: all 1s;
   cursor: pointer;
+  margin: 10px;
 }
 
 .call-to-action.primary {
@@ -54,5 +55,5 @@ code {
   margin: 0 10px;
   padding: 10px;
   border-radius: 20px;
-  width: 50%;
+  width: 90%;
 }

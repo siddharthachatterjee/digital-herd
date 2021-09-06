@@ -6,7 +6,7 @@
 }
 #sign-up main {
     width: 50vw;
-    height: 300px;
+    min-height: 200px;
     padding: 50px;
     position: relative;
     background-color: #121024;
@@ -54,6 +54,6 @@
     }
     #sign-up main .step-titles {
        
-       top:-30px;
+       top:-50px;
     }
 }

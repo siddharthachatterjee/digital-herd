@@ -14,3 +14,19 @@
     text-align: left;
 
 }
+
+#profile .tabs .bar {
+    display: flex;
+}
+
+#profile .tabs .tab {
+    margin: 0 10px;
+    font-size: 18px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#profile .tabs .tab.current {
+    border-bottom: 2px solid var(--theme-green);
+    color: var(--theme-green);
+}

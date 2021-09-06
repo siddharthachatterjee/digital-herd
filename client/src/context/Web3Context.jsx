@@ -25,6 +25,7 @@ export const Web3Context = React.createContext();
 
 export function Web3ContextProvider(props) {
     const [web3, setWeb3] = useState(null);
+    const [account, setAccount] = useState(null);
     const [address, setAddress] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -42,21 +43,27 @@ export function Web3ContextProvider(props) {
                         return;
                     }
                     res.eth.getAccounts().then(accounts => {
+                       // console.log(window.ethereum.accounts);
                         setAddress(accounts[0]);
                         res.eth.defaultAccount = accounts[0];
                     
                         localStorage.setItem("address", accounts[0]);
                        // window.location.pathname = "/profile";
+                       res.eth.net.getId().then(id => {
+                           setNetworkId(id);
+                         //  networkId_ = res;
+                           const network = AnimalsCollectibleContract.networks[id];
+                           const instance = new res.eth.Contract(AnimalsCollectibleContract.abi, network && network.address);
+                           instance.defaultAccount = address;
+                           setContract(instance);
+                           (async() => {
+   
+                               const account_ = await instance.methods.getUser(accounts[0]).call({from: accounts[0]});
+                               setAccount(account_);
+                           })();
+                       })
                     })
                    // let networkId_ = "";
-                    res.eth.net.getId().then(id => {
-                        setNetworkId(id);
-                      //  networkId_ = res;
-                        const network = AnimalsCollectibleContract.networks[id];
-                        const instance = new res.eth.Contract(AnimalsCollectibleContract.abi, network && network.address);
-                        instance.defaultAccount = address;
-                        setContract(instance);
-                    })
                     setWeb3(res);
         
                     resolve();
@@ -74,7 +81,7 @@ export function Web3ContextProvider(props) {
         }
     }, [web3])
     return (
-        <Web3Context.Provider value = {{connect, contract, web3, address, loading, error, networkId}}>
+        <Web3Context.Provider value = {{connect, account, contract, web3, address, loading, error, networkId}}>
             {props.children}
         </Web3Context.Provider>
     )
