@@ -32,14 +32,14 @@ export default function Profile() {
   
     return (
         <div id = "profile" className = "background-container">
-           {user? <main>
+           <> 
+            {address? 
+            <>
+           <main>
                 <h2>
                     <i className="ri-user-3-fill"></i>
                     {user?.displayName}'s Profile
                 </h2>
-                {address? 
-                <>
-                <h4> Connected as {address} </h4>
                 <div style = {{fontSize: 11}}>
 
                 (If your zoo is not showing correctly, you may have purchased NFTs with a different address. Switch to that address then reload the page)
@@ -48,13 +48,10 @@ export default function Profile() {
                 <Tabs tabs = {["Zoo"]} content = {[
                     <Zoo />
                 ]}/>
-                </>:
-                "Connecting to an account..."}
                 
-            </main> :
-            <main>
-                Loading...
-            </main>}
+            </main> 
+            </> : "Connecting to an account"}
+            </>
         </div>
     )
 }

@@ -3,14 +3,14 @@
     height: 100vh;
     position: fixed;
     z-index: 10;
-    background: whitesmoke;
+    background: var(--theme-contrasting);
     opacity: 0.9;
 }
 
 .modal {
     width: 75vw;
     height: 50vh;
-    background: var(--theme-black);
+    background: var(--theme-background);
     position: fixed;
     top: 25vh;
     left: 12.5vw;

@@ -1,0 +1,40 @@
+.section {
+    background-color: var(--theme-complementary);
+    padding: 2em;
+    color: var(--theme-contrasting);
+    display: flex;
+}
+
+.section .image img {
+    max-width: 50vw;
+    max-height: 75vh;
+
+}
+
+.section .text {
+    padding: 1em;
+}
+
+.section .text .content {
+    line-height: 2em;
+}
+
+@media (max-width: 500px) {
+   .section {
+       flex-direction: column;
+       justify-content: center;
+       align-items: center;
+       text-align: center;
+   }
+
+
+   .section .image img {
+       max-width: unset;
+        width: 90vw;
+    }
+    .section .image {
+        width: max-content;
+        max-height: 30vh;
+        overflow: hidden;
+    }
+}

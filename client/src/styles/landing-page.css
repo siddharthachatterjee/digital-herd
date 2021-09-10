@@ -5,8 +5,8 @@
     width: 100%;
     position: relative;
     z-index: 1;
-    background: rgb(1, 5, 22);
-    color: white;
+    background: var(--theme-background-gradient);
+    color: var(--theme-contrasting);
 }
 
 #landing-page {
@@ -14,6 +14,9 @@
 }
 #landing-page .content {
     padding: 7em 5em;
+    position: relative;
+    animation-name: slide-in;
+    animation-duration: 1s;
 }
 
 #landing-page .content .heading-text {

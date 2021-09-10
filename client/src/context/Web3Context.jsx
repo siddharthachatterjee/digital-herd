@@ -7,7 +7,7 @@ function initWeb3() {
     return new Promise((res, rej) => {
         if (window.ethereum) {
             const web3 = new Web3(window.ethereum)
-            window.ethereum.request({ method: 'eth_requestAccounts' })
+            window.ethereum.send('eth_requestAccounts')
                 .then(() => res(web3))
                 .catch(rej);
         }

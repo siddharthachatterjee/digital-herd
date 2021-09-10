@@ -9,7 +9,7 @@
     height: 75vh;
     padding: 50px;
     position: relative;
-    background-color: #121024;
+    background-color: var(--theme-complementary);
     border-radius: 50px;
     text-align: left;
 

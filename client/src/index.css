@@ -14,15 +14,23 @@ code {
 
 :root {
   --theme-green: rgb(11, 136, 11);
-  --theme-black: rgb(1, 5, 22);
-  --theme-gray: #121024;
+
+  --theme-background:rgba(1,5,22,1);
+  --theme-background-gradient: radial-gradient(circle, rgba(1,5,22,1) 50%, rgba(35,30,76,1) 100%);
   --theme-gray-opaque: rgba(18, 16, 36, 0.4);
+  --theme-complementary: #121024;
+  --theme-contrasting: whitesmoke;
+
+  --color2: rgb(12, 12, 139);
+  /* --theme-background: white;
+  --theme-complementary: lightgray;
+  --theme-contrasting: #1c1c1c; */
 }
 
 .call-to-action {
   border: none;
   outline: none;
-  padding: 10px;
+  padding: 10px 20px;
   border-radius: 5px;
   font-size: 18px;
   transition: all 1s;
@@ -45,7 +53,7 @@ code {
 }
 
 .input-box.dark {
-  background: var(--theme-black);
+  background: var(--theme-background);
   color: white;
 }
 .input-box {
@@ -56,4 +64,9 @@ code {
   padding: 10px;
   border-radius: 20px;
   width: 90%;
+}
+
+@keyframes slide-in {
+  from {right:-70px}
+  to {right: 0}
 }

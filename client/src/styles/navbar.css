@@ -1,0 +1,21 @@
+#navbar {
+    background: var(--theme-complementary);
+    padding: 1em;
+    color: var(--theme-contrasting);
+}
+
+#navbar #logo {
+    font-size: 20px;
+    border-right: 1px solid var(--theme-contrasting);
+    width: max-content;
+    padding-right: 10px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+#navbar #links {
+    display: inline-flex;
+    padding-left: 1em;
+    text-transform: uppercase;
+    cursor: pointer;
+}

@@ -21,6 +21,40 @@ export default function SignUp() {
             setCurStep(prev => prev + 1);
         }
     }, [address]);
+    
+    useEffect(() => {
+        [...Array.from(document.getElementsByClassName("step-content"))].forEach((elem) => {
+            elem.animate([
+                { transform:'translateX(100px)', opacity: 0},
+                { transform:"translateX(0px)", opacity: 1 }
+            ], {
+                duration: 500
+            });
+        })
+    }, [curStep])
+
+    function signUp() {
+        setFirebaseLoading(true);
+        createUserWithEmailAndPassword(getAuth(), email, password)
+        .then(({user}) => {
+            setFirebaseLoading(false);
+           // setLoggingIn(false);
+            updateProfile(user, {
+                displayName: username || "Unnamed User",
+            }).then(() => {
+
+                sendEmailVerification(user);
+                setCurStep(prev => prev+ 1)
+               
+              //  setUser(firebase.auth().currentUser);
+              //  window.location = window.location.search.split("=")[1] || "/"
+            })
+        })
+        .catch(err => {
+            setFirebaseError(err);
+            setFirebaseLoading(false);
+        })
+    }
 
   
     const steps = [
@@ -45,7 +79,10 @@ export default function SignUp() {
                     )}
                     <br />
 
-                    <button disabled = {loading} onClick = {connect} className = "call-to-action primary"> Connect to MetaMask  </button>
+                    <button disabled = {loading} onClick = {() => connect()} className = "call-to-action"> 
+                        Connect to MetaMask 
+                        <img src = "/metamask.svg" style = {{margin: "0 10px"}} /> 
+                    </button>
                 </div>
             ) : (
                 <div>
@@ -56,39 +93,18 @@ export default function SignUp() {
             )}
         </div>,
         <div>
-            Username 
+            Username:
             <InputBox className = "dark" state = {username} updateState = {setUsername} />
             <br />
             <br />
-            Email: 
+            Email(optional): 
             <InputBox className = "dark" state = {email} updateState = {setEmail} />
-            <br />
+            {/* <br />
             <br />
             Password:
             <InputBox className = "dark" state = {password} updateState = {setPassword} type = "password" />
-            <br />
-            <button className = "call-to-action primary" onClick = {() => {
-                setFirebaseLoading(true);
-                 createUserWithEmailAndPassword(getAuth(), email, password)
-                 .then(({user}) => {
-                     setFirebaseLoading(false);
-                    // setLoggingIn(false);
-                     updateProfile(user, {
-                         displayName: username || "Unnamed User"
-                     }).then(() => {
-
-                         sendEmailVerification(user);
-                         setCurStep(prev => prev+ 1)
-                        
-                       //  setUser(firebase.auth().currentUser);
-                       //  window.location = window.location.search.split("=")[1] || "/"
-                     })
-                 })
-                 .catch(err => {
-                     setFirebaseError(err);
-                     setFirebaseLoading(false);
-                 })
-            }}>
+            <br /> */}
+            <button className = "call-to-action primary" onClick = {signUp}>
                 Continue
             </button>
             {firebaseLoading&& "Authenticating..."}
@@ -101,8 +117,8 @@ export default function SignUp() {
             <p>
                 Thank you for signing up. Now build your zoo!
             </p>
-            <button className = "call-to-action primary" onClick = {() => window.location.pathname = "/"}>
-                Continue to Profile
+            <button className = "call-to-action primary" onClick = {() => window.location.pathname = "/explore"}>
+                Continue 
             </button>
         </div>
     ];
@@ -112,15 +128,17 @@ export default function SignUp() {
                 <div className = "step-titles">
                     {stepTitles.map((title, i) => (
                         <div className = {`step-title ${curStep === i? "current" : ""}`} key = {i}>
-                            <div className = "number" style = {{background: i == curStep? "white" : (i >= curStep? "initial" : "green"), color: i == curStep? "black" : "white"}}> 
+                            <div className = "number" style = {{background: i == curStep? "var(--theme-contrasting)" : (i >= curStep? "initial" : "green"), color: i == curStep? "var(--theme-background)" : "var(--theme-contrasting)"}}> 
                             {(i >= curStep) ? <i className={`ri-number-${i+1}`}></i> : 
-                            <i style = {{fontSize: 20, color: "white"}} className="ri-check-fill"></i>} 
+                            <i style = {{fontSize: 20, color: "var(--theme-contrasting)"}} className="ri-check-fill"></i>} 
                             </div>
                             <div className = "title">{title} </div>
                         </div>
                     ))}
                 </div>
-                {steps[curStep]}
+                <div className = "step-content">
+                    {steps[curStep]}
+                </div>
             </main>
         </div>
     );

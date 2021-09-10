@@ -9,6 +9,8 @@ import { AuthContext } from './context/AuthContext';
 
 
 import firebase from "./firebase";
+import Navbar from './components/Navbar';
+import Explore from './routes/Explore';
 
 function App() {
   const user = useContext(AuthContext);
@@ -16,10 +18,14 @@ function App() {
     <div>
       <Switch>
         <Route exact path = "/">
-          {user? <Profile /> : <Home />}
+          <Navbar />
+          {localStorage.getItem("address")? <Profile /> : <Home />}
         </Route>
         <Route path = "/sign-up">
           <SignUp />
+        </Route>
+        <Route path = "/explore">
+          <Explore />
         </Route>
       </Switch>
     </div>

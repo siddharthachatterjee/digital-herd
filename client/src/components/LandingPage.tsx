@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import homePageContent from "../content/homePageContent";
 //import {useHistory} from "react-router-dom";
 import { Web3Context } from "../context/Web3Context";
 
@@ -9,23 +10,20 @@ export default function LandingPage() {
     const {connect, loading, error} = useContext(Web3Context);
     return (
         <div id = "landing-page">
-            {(loading) && (
-                <Modal />
-            )}
             <div className = "content">
                 <header>
                     <div className = "heading-text">
                         <h1>
-                            Buy NFTs. Fight for Animal Conservation.
+                            {homePageContent.heading}
                         </h1>
                         <br />
                         <p>
-                            Build your zoo to show off to others, support animals, and learn.
+                            {homePageContent.subHeading}
                         </p>
                         <br />
                         <div className = "buttons">
                             <button className = "call-to-action primary" onClick = {() => window.location.pathname = "/sign-up"}>
-                                Sign Up
+                                Get Started
                             </button>
 
                         </div>
