@@ -12,13 +12,12 @@ export default {
                     100% of your money goes to organizations working on saving endangered species. 
                     In our first batch, we are minting approxiamately the same number of NFTs as real world population for these animals:
                     <ul>
-                        <li> Mountain Gorilla - 180 </li>
-                        <li> Javan Rhino - 60 </li>
-                        <li> North Atlantic Right Whale -400 </li>
-                        <li> Tooth Billed Pigeon - 100 </li>
-                        <li> Gharial - 300 </li>
+                        <li> Snow Leopard - 4000 </li>
                         <li> Bengal Tiger - 2000 </li>
                         <li> Pygmy Elephant - 1500</li>
+                        <li> Red Wolf - 250 </li>
+                        <li> Mountain Gorilla - 180 </li>
+                        <li> Javan Rhino - 60 </li>
                     </ul>
                 </p>
             ]

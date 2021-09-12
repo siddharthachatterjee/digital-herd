@@ -23,11 +23,20 @@ export default function Zoo() {
     }, [account])
     return (
         <div>
-            {Object.values(zoo).map((item: any, i) => (
+            <br />
+            {Object.values(zoo).length? Object.values(zoo).map((item: any, i) => (
                 <div key = {i}>
+                    
                     {item.name}
                 </div>
-            ))}
+            )) : 
+            <>
+            You have no NFTs. 
+            <br />
+            <button className = "call-to-action primary" onClick = {() => window.location.pathname = "/explore"}>
+                Explore Marketplace
+            </button>
+            </>}
         </div>
     );
 }

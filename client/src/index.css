@@ -43,6 +43,19 @@ code {
   color: white;
 }
 
+.call-to-action.secondary {
+  background: none;
+  color: white;
+  border: 2px solid white;
+}
+
+.call-to-action.secondary:hover {
+  background: white;
+  color: black;
+  border: 2px solid white;
+}
+
+
 .call-to-action:hover {
   opacity: 0.8;
 }

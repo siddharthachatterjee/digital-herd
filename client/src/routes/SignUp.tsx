@@ -3,12 +3,13 @@ import InputBox from "../components/InputBox";
 import { Web3Context } from "../context/Web3Context";
 
 import {getAuth, onAuthStateChanged, createUserWithEmailAndPassword,updateProfile,sendEmailVerification,} from "firebase/auth";
+import {getDatabase, ref,set} from "firebase/database";
 
 import "../styles/sign-up.css";
 
 
 export default function SignUp() {
-    const {connect, address, loading, error} = useContext(Web3Context);
+    const {connect, address, loading, error, contract, connectWalletLink, connectMetamask} = useContext(Web3Context);
     const [firebaseError, setFirebaseError] = useState<any>("");
     const [firebaseLoading, setFirebaseLoading] = useState(false);
     const [email, setEmail] = useState("");
@@ -25,7 +26,7 @@ export default function SignUp() {
     useEffect(() => {
         [...Array.from(document.getElementsByClassName("step-content"))].forEach((elem) => {
             elem.animate([
-                { transform:'translateX(100px)', opacity: 0},
+                { transform:'translateX(70px)', opacity: 0},
                 { transform:"translateX(0px)", opacity: 1 }
             ], {
                 duration: 500
@@ -33,27 +34,34 @@ export default function SignUp() {
         })
     }, [curStep])
 
-    function signUp() {
-        setFirebaseLoading(true);
-        createUserWithEmailAndPassword(getAuth(), email, password)
-        .then(({user}) => {
-            setFirebaseLoading(false);
-           // setLoggingIn(false);
-            updateProfile(user, {
-                displayName: username || "Unnamed User",
-            }).then(() => {
+    async function signUp() {
+        const db = getDatabase();
+        set(ref(db, 'users/' + address), {
+            username,
+            email,
+        });
+        //await contract.methods.signUp(username).send({from: address});
+        setCurStep(prev => prev + 1);
+        // setFirebaseLoading(true);
+        // createUserWithEmailAndPassword(getAuth(), email, password)
+        // .then(({user}) => {
+        //     setFirebaseLoading(false);
+        //    // setLoggingIn(false);
+        //     updateProfile(user, {
+        //         displayName: username || "Unnamed User",
+        //     }).then(() => {
 
-                sendEmailVerification(user);
-                setCurStep(prev => prev+ 1)
+        //         sendEmailVerification(user);
+        //         setCurStep(prev => prev+ 1)
                
-              //  setUser(firebase.auth().currentUser);
-              //  window.location = window.location.search.split("=")[1] || "/"
-            })
-        })
-        .catch(err => {
-            setFirebaseError(err);
-            setFirebaseLoading(false);
-        })
+        //       //  setUser(firebase.auth().currentUser);
+        //       //  window.location = window.location.search.split("=")[1] || "/"
+        //     })
+        // })
+        // .catch(err => {
+        //     setFirebaseError(err);
+        //     setFirebaseLoading(false);
+        // })
     }
 
   
@@ -63,13 +71,8 @@ export default function SignUp() {
             {!address ? (
                 <div>
                     <h3> Connect a Wallet </h3>
-                    <p>
-                        To use our features, you must connect to an Ethereum wallet. If you don't have one, you can download 
-                        <a href = "https://metamask.io"> MetaMask </a>. 
-                    </p>
-                    <p>
-                    If you have MetaMask installed, simply click "Connect to MetaMask" and confirm the notification.
-                    </p>
+                
+                    
                     {loading &&"Connecting..." }
                     <br />
                     {error && !loading &&  (
@@ -79,7 +82,11 @@ export default function SignUp() {
                     )}
                     <br />
 
-                    <button disabled = {loading} onClick = {() => connect()} className = "call-to-action"> 
+                    <button disabled = {loading} onClick = {() => connectWalletLink()} className = "call-to-action secondary">
+                        Connect to Coinbase Wallet
+                        <img src = "/walletlink.jpg" width = {20} style = {{margin: "0 10px"}} /> 
+                    </button>
+                    <button disabled = {loading} onClick = {() => connectMetamask()} className = "call-to-action secondary"> 
                         Connect to MetaMask 
                         <img src = "/metamask.svg" style = {{margin: "0 10px"}} /> 
                     </button>
@@ -93,7 +100,7 @@ export default function SignUp() {
             )}
         </div>,
         <div>
-            Username:
+            Profile name:
             <InputBox className = "dark" state = {username} updateState = {setUsername} />
             <br />
             <br />
@@ -117,7 +124,7 @@ export default function SignUp() {
             <p>
                 Thank you for signing up. Now build your zoo!
             </p>
-            <button className = "call-to-action primary" onClick = {() => window.location.pathname = "/explore"}>
+            <button className = "call-to-action primary" onClick = {() => window.location.pathname = "/"}>
                 Continue 
             </button>
         </div>

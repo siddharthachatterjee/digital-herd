@@ -25,6 +25,7 @@ function App() {
           <SignUp />
         </Route>
         <Route path = "/explore">
+          <Navbar />
           <Explore />
         </Route>
       </Switch>

@@ -1,16 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import {getAuth, onAuthStateChanged, User} from "firebase/auth";
+import {get, child, getDatabase, ref} from "firebase/database";
+import { Web3Context } from "./Web3Context";
 
-export const AuthContext = React.createContext<User | null>(null);
+export const AuthContext = React.createContext<any>(null);
 
 export function AuthContextProvider(props: {children: any}) {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<any>(null);
+    const {address} = useContext(Web3Context);
     useEffect(() => {
-        onAuthStateChanged(getAuth(), (authUser) => {
-            setUser(authUser);
-        })
-    }, [])
+        if (address) {
+            const dbRef = ref(getDatabase());
+            get(child(dbRef, `users/${address}`))
+                .then((snapshot) => {
+                    if (snapshot.exists()) {
+                        setUser(snapshot.val());
+                    } else {
+                        console.log("No data available");
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    }, [address])
   
     return (
         <AuthContext.Provider value = {user}>

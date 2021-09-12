@@ -22,7 +22,7 @@ export default function Home(): JSX.Element {
         ))}
         <div className = "background-container"style = {{textAlign: "center", height: "max-content", padding: "5em 0"}}>
             <h1> Build Your Herd to Save the World! </h1>
-            <button onClick = {() => connect().then(() => window.location.pathname = "/explore")} className = "call-to-action primary">
+            <button onClick = {() => window.location.pathname = "/sign-up"} className = "call-to-action primary">
                 Sign Up
             </button>
             {error && !loading &&  (

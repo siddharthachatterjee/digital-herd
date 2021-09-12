@@ -21,12 +21,12 @@ export default function Profile() {
 
     useEffect(() => {
         if (contract) {
-            (async () => {
-                // const account_ = await contract.methods.getUser(address).call({from: address});
+            console.log(address);
+          
             //    // setAccount(account_);
-             //   contract.methods.tokenURI(0).call({from: address}).then((res: any) => console.log(res))
-            })()
-      //   contract.methods.createCollectible(address, '{"name":"Tom the Tiger","image":"http://localhost:3000/tiger.jpeg"}').send({from: address})
+           //  contract.methods.tokenURI(0).call({from: address}).then((res: any) => console.log(res))
+         //   })()
+        contract.methods.createCollectible(address, '{"name":"Tom the Tiger","image":"http://localhost:3000/tiger.jpeg"}').send({from: address})
         }
     }, [contract])
   
@@ -38,15 +38,17 @@ export default function Profile() {
            <main>
                 <h2>
                     <i className="ri-user-3-fill"></i>
-                    {user?.displayName}'s Profile
+                    {user?.username || "Unnamed User"}'s Profile
+                    <div style = {{fontSize: 11}}>
+                        {user?.email}
+                    </div>
                 </h2>
-                <div style = {{fontSize: 11}}>
-
-                (If your zoo is not showing correctly, you may have purchased NFTs with a different address. Switch to that address then reload the page)
-                </div>
                 <hr />
-                <Tabs tabs = {["Zoo"]} content = {[
-                    <Zoo />
+                <Tabs tabs = {["Herd", "Settings"]} content = {[
+                    <Zoo />,
+                    <div>
+                        settings
+                    </div>
                 ]}/>
                 
             </main> 

@@ -13,17 +13,14 @@ contract AnimalsCollectible is ERC721URIStorage {
     }
     mapping(address => User) users;
 
-    constructor() ERC721("AranyaToken", "ARA") {
+    constructor() ERC721("DigitalHerd", "ZOO") {
         tokenCount = 0;
-    }
-
-    function setUsername(string memory val) public {
-        users[msg.sender].username = val;
     }
 
     function getUser(address addr) public view returns (User memory) {
         return users[addr];
     }
+
 
     function createCollectible(address receiver, string memory tokenURI)
         public
