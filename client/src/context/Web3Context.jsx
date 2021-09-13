@@ -34,16 +34,25 @@ export function Web3ContextProvider(props) {
     const [networkId, setNetworkId] = useState(null);
     const [contract, setContract] = useState(null);
 
+    function autoConnect() {
+        if (localStorage.getItem("wallet") === "coinbase") {
+            connectWalletLink();
+        }else if (localStorage.getItem("wallet") === "metamask") {
+            connectMetamask();
+        }
+    }
     function  connectWalletLink() {
         const walletLink = new WalletLink({
             appName: "DigitalHerd",
             darMode: true,
         });
+        localStorage.setItem("wallet", "coinbase")
         ethereum = walletLink.makeWeb3Provider("http://localhost:8545", 5777);
         connect();
     }
 
     function connectMetamask() {
+        localStorage.setItem("wallet", "metamask")
         ethereum = window.ethereum;
         if (ethereum && ethereum.isMetaMask)
 
@@ -60,6 +69,7 @@ export function Web3ContextProvider(props) {
                     if (res.eth === null) {
                         setError({message: "Could not load Ethereum wallet. Make sure you have an Ethereum wallet installed then try again. Download MetaMask at https://metamask.io"})
                         localStorage.removeItem("address");
+                        localStorage.removeItem("wallet");
                         return;
                     }
                     res.eth.getAccounts().then(accounts => {
@@ -92,6 +102,7 @@ export function Web3ContextProvider(props) {
                     setLoading(false);
                     setError(err);
                     localStorage.removeItem("address");
+                    localStorage.removeItem("wallet");
                 })
         })
     }
@@ -101,7 +112,7 @@ export function Web3ContextProvider(props) {
         }
     }, [web3])
     return (
-        <Web3Context.Provider value = {{connect, connectMetamask, connectWalletLink, account, contract, web3, address, loading, error, networkId}}>
+        <Web3Context.Provider value = {{connect, autoConnect, connectMetamask, connectWalletLink, account, contract, web3, address, loading, error, networkId}}>
             {props.children}
         </Web3Context.Provider>
     )

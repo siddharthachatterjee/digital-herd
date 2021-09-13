@@ -5,10 +5,12 @@ import { Web3Context } from "../context/Web3Context";
 import "../styles/explore.css";
 
 export default function Explore() {
-    const {contract, address} = useContext(Web3Context);
+    const {contract, address, autoConnect} = useContext(Web3Context);
     const [tokenCount, setTokenCount] = useState(0);
 
-    
+    useEffect(() => {
+        autoConnect();
+    }, [])
     useEffect(() => {
         if (contract) {
             contract.methods.tokenCount().call({from: address})

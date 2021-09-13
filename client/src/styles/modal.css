@@ -2,15 +2,15 @@
     width: 100vw;
     height: 100vh;
     position: fixed;
+    top:0;
     z-index: 10;
-    background: var(--theme-contrasting);
-    opacity: 0.9;
+    background: var(--theme-gray-opaque);
 }
 
 .modal {
     width: 75vw;
     height: 50vh;
-    background: var(--theme-background);
+    background: var(--theme-complementary);
     position: fixed;
     top: 25vh;
     left: 12.5vw;

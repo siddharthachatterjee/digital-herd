@@ -11,9 +11,12 @@ import { AuthContext } from './context/AuthContext';
 import firebase from "./firebase";
 import Navbar from './components/Navbar';
 import Explore from './routes/Explore';
+import { Web3Context } from './context/Web3Context';
+import SignIn from './components/SignIn';
 
 function App() {
   const user = useContext(AuthContext);
+  const {address} = useContext(Web3Context);
   return firebase && (
     <div>
       <Switch>
@@ -25,8 +28,14 @@ function App() {
           <SignUp />
         </Route>
         <Route path = "/explore">
+         
+          {localStorage.getItem("address")?
+          <>
           <Navbar />
+          <SignIn />
           <Explore />
+          </>:
+          <Redirect to = "/sign-up" />}
         </Route>
       </Switch>
     </div>
