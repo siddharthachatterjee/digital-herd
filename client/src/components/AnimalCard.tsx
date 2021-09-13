@@ -6,19 +6,33 @@ import "../styles/animal-card.css";
 
 export default function AnimalCard(props: {id: number}) {
     const {contract, address} = useContext(Web3Context);
-    const [animal, setAnimal] = useState<any>(null);
+    const [animal, setAnimal] = useState<any>({});
     useEffect(() => {   
         if (contract) {
             contract.methods.tokenURI(props.id).call({from: address})
-                .then((uri: string) => {
+                .then((uri: any) => {
+                    console.log(uri);
                     setAnimal(JSON.parse(uri));
                 });
         }   
     }, [contract])
-    return animal && (
+    return(
+        
         <div className = "animal-card">
-            <div className = "animal-card-img" style = {{background: `url(${animal.image})`}}>
+            <strong>
+                {animal.name}
+            </strong>
+            <hr />
+            <div className = "animal-card-img" style = {{backgroundImage: `url(${animal.image})`}}>
                 
+            </div>
+            <div className = "basic-info">
+                <div>
+                    Species: {animal.species}
+                </div>
+                <div>
+                    Price: 0 ETH
+                </div>
             </div>
         </div>
     )

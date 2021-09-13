@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import { Web3Context } from "../context/Web3Context";
 
 export default function Zoo() {
     const {account, contract, address} = useContext(Web3Context);
     const [zoo, setZoo] = useState({});
+    const history = useHistory();
     useEffect(() => {
        // console.log(JSON.parse('{"name":"Tom the Tiger","image":"http://localhost:3000/tiger.jpeg"}'));
         if (account && contract) {
@@ -33,7 +35,7 @@ export default function Zoo() {
             <>
             You have no NFTs. 
             <br />
-            <button className = "call-to-action primary" onClick = {() => window.location.pathname = "/explore"}>
+            <button className = "call-to-action primary" onClick = {() => history.push("/explore")}>
                 Explore Marketplace
             </button>
             </>}

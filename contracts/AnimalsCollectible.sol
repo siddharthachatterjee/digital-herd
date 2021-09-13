@@ -22,10 +22,11 @@ contract AnimalsCollectible is ERC721URIStorage {
     }
 
 
-    function createCollectible(address receiver, string memory tokenURI)
+    function createCollectible(string memory tokenURI)
         public
         returns (uint256)
     {
+        address receiver = address(this);
         uint256 newItemId = tokenCount;
         _mint(receiver, newItemId);
         users[receiver].tokens.push(newItemId);
@@ -33,6 +34,13 @@ contract AnimalsCollectible is ERC721URIStorage {
         tokenCount++;
         return newItemId;
     }
+
+    //  function createCollectible(string memory tokenURI)
+    //     public
+    //     returns (uint256)
+    // {
+    //    return createCollectible(address(this), tokenURI);
+    // }
 
     function purchaseToken(uint256 _tokenId) public payable {
         require(_tokenId < tokenCount);

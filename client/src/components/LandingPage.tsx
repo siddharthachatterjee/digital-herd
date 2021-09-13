@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useHistory } from "react-router";
 import homePageContent from "../content/homePageContent";
 //import {useHistory} from "react-router-dom";
 import { Web3Context } from "../context/Web3Context";
@@ -8,6 +9,7 @@ import Modal from "./Modal";
 
 export default function LandingPage() {
     const {connect, loading, error} = useContext(Web3Context);
+    const history = useHistory();
     return (
         <div id = "landing-page">
             <div className = "content">
@@ -22,7 +24,7 @@ export default function LandingPage() {
                         </p>
                         <br />
                         <div className = "buttons">
-                            <button className = "call-to-action primary" onClick = {() => window.location.pathname = "/sign-up"}>
+                            <button className = "call-to-action primary" onClick = {() => history.push("/sign-up")}>
                                 Get Started
                             </button>
 

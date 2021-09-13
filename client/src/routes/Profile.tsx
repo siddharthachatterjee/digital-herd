@@ -8,6 +8,7 @@ import { AuthContext } from "../context/AuthContext";
 import Tabs from "../components/Tabs";
 import Zoo from "../components/Zoo";
 
+
 export default function Profile() {
     const {address, account, connect, web3, networkId, contract} = useContext(Web3Context);
     const user = useContext(AuthContext);
@@ -24,9 +25,9 @@ export default function Profile() {
             console.log(address);
           
             //    // setAccount(account_);
-           //  contract.methods.tokenURI(0).call({from: address}).then((res: any) => console.log(res))
+            // contract.methods.tokenURI(0).call({from: address}).then((res: any) => console.log(JSON.parse(res)));
          //   })()
-        contract.methods.createCollectible(address, '{"name":"Tom the Tiger","image":"http://localhost:3000/tiger.jpeg"}').send({from: address})
+      //  contract.methods.createCollectible('{"name":"Elephant #0","image":"http://localhost:3000/nfts/elephant.jpg","species":"Pygmy Elephant"}').send({from: address});
         }
     }, [contract])
   
