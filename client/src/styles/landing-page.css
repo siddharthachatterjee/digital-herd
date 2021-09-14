@@ -72,6 +72,8 @@
         width: max-content;
         text-align: center;
         max-width: 100%;
+        position: relative;
+        width: 100%;
     }
 
     #panda img {

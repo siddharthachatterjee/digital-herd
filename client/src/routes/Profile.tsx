@@ -27,7 +27,7 @@ export default function Profile() {
             //    // setAccount(account_);
             // contract.methods.tokenURI(0).call({from: address}).then((res: any) => console.log(JSON.parse(res)));
          //   })()
-      //  contract.methods.createCollectible('{"name":"Elephant #0","image":"http://localhost:3000/nfts/elephant.jpg","species":"Pygmy Elephant"}').send({from: address});
+      // contract.methods.createCollectible('{"name":"Elephant #0","image":"/nfts/elephant.jpg","species":"Pygmy Elephant"}').send({from: address});
         }
     }, [contract])
   

@@ -2,6 +2,7 @@ import React, { useContext }  from "react";
 import { Web3Context } from "../context/Web3Context";
 import Modal from "./Modal";
 
+
 export default function SignIn() {
     const {connectMetamask, connectWalletLink, loading, error, address} = useContext(Web3Context);
     return !address && (

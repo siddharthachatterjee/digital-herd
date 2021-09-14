@@ -4,7 +4,7 @@
     position: fixed;
     top:0;
     z-index: 10;
-    background: var(--theme-gray-opaque);
+    background: rgba(1, 5, 22, 0.9);
 }
 
 .modal {
