@@ -27,7 +27,8 @@ export default function Profile() {
             //    // setAccount(account_);
             // contract.methods.tokenURI(0).call({from: address}).then((res: any) => console.log(JSON.parse(res)));
          //   })()
-      // contract.methods.createCollectible('{"name":"Elephant #0","image":"/nfts/elephant.jpg","species":"Pygmy Elephant"}').send({from: address});
+     //   contract.methods.approve("0x8767810706336e2471444e260dA71D5cB60e09aC", 0).send({from: address});
+  //    contract.methods.createCollectible("0xf076c5Dc80e448865190156c5e0C9A361DeF6dD3", '{"name":"Elephant #0","image":"/nfts/elephant.jpg","species":"Pygmy Elephant", "artist": "Siddham Chatterjee"}').send({from: address});
         }
     }, [contract])
   

@@ -47,7 +47,7 @@ export function Web3ContextProvider(props) {
             darMode: true,
         });
         localStorage.setItem("wallet", "coinbase")
-        ethereum = walletLink.makeWeb3Provider("http://localhost:8545", 5777);
+        ethereum = walletLink.makeWeb3Provider(`https://ropsten.infura.io/v3/${process.env.REACT_APP_INFURA_API_KEY}`, 3);
         connect();
     }
 

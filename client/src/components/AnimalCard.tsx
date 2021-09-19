@@ -7,12 +7,22 @@ import "../styles/animal-card.css";
 export default function AnimalCard(props: {id: number}) {
     const {contract, address} = useContext(Web3Context);
     const [animal, setAnimal] = useState<any>({});
+    const [owner, setOwner] = useState("");
+
+    function buy() {
+        contract.methods.safeTransferFrom("0xf076c5Dc80e448865190156c5e0C9A361DeF6dD3", address, props.id).send({from: address});
+    }
     useEffect(() => {   
         if (contract) {
             contract.methods.tokenURI(props.id).call({from: address})
                 .then((uri: any) => {
                     console.log(uri);
                     setAnimal(JSON.parse(uri));
+                    contract.methods.ownerOf(props.id).call({from: address})
+                        .then((res:string) => {
+                            console.log(res);
+                            setOwner(res);
+                        })
                 });
         }   
     }, [contract])
@@ -30,8 +40,17 @@ export default function AnimalCard(props: {id: number}) {
                 <div>
                     Species: {animal.species}
                 </div>
-                <div>
+                <div style = {{display: "flex", justifyContent: "space-between"}}>
+                    <div>
+
                     Price: 0 ETH
+                    </div>
+                    {(true) &&
+                    <div>
+                        <button onClick = {buy}>
+                            Buy
+                        </button>
+                    </div>}
                 </div>
             </div>
         </div>

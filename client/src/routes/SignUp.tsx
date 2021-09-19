@@ -6,6 +6,7 @@ import {getAuth, onAuthStateChanged, createUserWithEmailAndPassword,updateProfil
 import {getDatabase, ref,set} from "firebase/database";
 
 import "../styles/sign-up.css";
+import { useHistory, useLocation } from "react-router";
 
 
 export default function SignUp() {
@@ -17,6 +18,10 @@ export default function SignUp() {
     const [password, setPassword] = useState("");
     const stepTitles = ["Connect Wallet", "Enter Details", "Done!"];
     const [curStep, setCurStep] = useState(0);
+
+    const location = useLocation();
+    const history = useHistory();
+
     useEffect(() => {
         if (address && curStep === 0) {
             setCurStep(prev => prev + 1);
@@ -124,7 +129,10 @@ export default function SignUp() {
             <p>
                 Thank you for signing up. Now build your zoo!
             </p>
-            <button className = "call-to-action primary" onClick = {() => window.location.pathname = "/"}>
+            <button className = "call-to-action primary" onClick = {() => {
+                history.push(location.search.split("=")[1] || "/");
+                //window.location.search = "";
+            }}>
                 Continue 
             </button>
         </div>

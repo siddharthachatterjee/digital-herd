@@ -35,7 +35,7 @@ function App() {
           <SignIn />
           <Explore />
           </>:
-          <Redirect to = "/sign-up" />}
+          <Redirect to = "/sign-up?redirect=/explore" />}
         </Route>
       </Switch>
     </div>
