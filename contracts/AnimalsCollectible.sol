@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
-contract AnimalsCollectible is ERC721URIStorage {
+contract AnimalsCollectible is ERC721URIStorage, Ownable {
     uint256 public tokenCount = 0;
 
     struct User {
@@ -27,11 +27,12 @@ contract AnimalsCollectible is ERC721URIStorage {
     }
 
 
-    function createCollectible(address receiver, string memory tokenURI)
+    function createCollectible(string memory tokenURI)
         public
+        onlyOwner
         returns (uint256)
     {
-      //  address receiver = 
+       address receiver = address(this);
         uint256 newItemId = tokenCount;
         _mint(receiver, newItemId);
         users[receiver].tokens.push(newItemId);
@@ -59,8 +60,17 @@ contract AnimalsCollectible is ERC721URIStorage {
         //require(_tokenId < tokenCount);
        // require(msg.value >= 0);
        address owner = ownerOf(_tokenId);
-       approve(owner, _tokenId);
+      // approve(owner, _tokenId);
       //  setApprovalForAll(msg.sender, true);
-        safeTransferFrom(owner, msg.sender, _tokenId);
+        this.safeTransferFrom(owner, msg.sender, _tokenId);
+        users[msg.sender].tokens.push(_tokenId);
+        uint idx = 0;
+        for (uint i = 0; i < users[owner].tokens.length; i++) {
+            if (users[owner].tokens[i] == _tokenId) {
+                idx = i;
+                break;
+            }
+        }
+        users[owner].tokens[idx] = users[owner].tokens[users[owner].tokens.length - 1];
     }
 }

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import InputBox from "../components/InputBox";
 import { Web3Context } from "../context/Web3Context";
 
-import {getAuth, onAuthStateChanged, createUserWithEmailAndPassword,updateProfile,sendEmailVerification,} from "firebase/auth";
+//import {getAuth, onAuthStateChanged, createUserWithEmailAndPassword,updateProfile,sendEmailVerification,} from "firebase/auth";
 import {getDatabase, ref,set} from "firebase/database";
 
 import "../styles/sign-up.css";
@@ -10,12 +10,10 @@ import { useHistory, useLocation } from "react-router";
 
 
 export default function SignUp() {
-    const {connect, address, loading, error, contract, connectWalletLink, connectMetamask} = useContext(Web3Context);
-    const [firebaseError, setFirebaseError] = useState<any>("");
-    const [firebaseLoading, setFirebaseLoading] = useState(false);
+    const {address, loading, error, connectWalletLink, connectMetamask} = useContext(Web3Context);
+ 
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
     const stepTitles = ["Connect Wallet", "Enter Details", "Done!"];
     const [curStep, setCurStep] = useState(0);
 
@@ -119,10 +117,7 @@ export default function SignUp() {
             <button className = "call-to-action primary" onClick = {signUp}>
                 Continue
             </button>
-            {firebaseLoading&& "Authenticating..."}
-            {firebaseError && <div style = {{color: "red"}}>
-                ERROR: {firebaseError.message!.substr(9)}
-            </div>}
+            
         </div>,
         <div>
             <h3> Welcome! </h3>
@@ -143,7 +138,7 @@ export default function SignUp() {
                 <div className = "step-titles">
                     {stepTitles.map((title, i) => (
                         <div className = {`step-title ${curStep === i? "current" : ""}`} key = {i}>
-                            <div className = "number" style = {{background: i == curStep? "var(--theme-contrasting)" : (i >= curStep? "initial" : "green"), color: i == curStep? "var(--theme-background)" : "var(--theme-contrasting)"}}> 
+                            <div className = "number" style = {{background: i === curStep? "var(--theme-contrasting)" : (i >= curStep? "initial" : "green"), color: i === curStep? "var(--theme-background)" : "var(--theme-contrasting)"}}> 
                             {(i >= curStep) ? <i className={`ri-number-${i+1}`}></i> : 
                             <i style = {{fontSize: 20, color: "var(--theme-contrasting)"}} className="ri-check-fill"></i>} 
                             </div>

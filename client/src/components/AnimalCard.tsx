@@ -10,7 +10,7 @@ export default function AnimalCard(props: {id: number}) {
     const [owner, setOwner] = useState("");
 
     function buy() {
-        contract.methods.safeTransferFrom("0xf076c5Dc80e448865190156c5e0C9A361DeF6dD3", address, props.id).send({from: address});
+        contract.methods.purchaseToken(props.id).send({from: address});
     }
     useEffect(() => {   
         if (contract) {
@@ -45,7 +45,7 @@ export default function AnimalCard(props: {id: number}) {
 
                     Price: 0 ETH
                     </div>
-                    {(true) &&
+                    {(address !== owner) &&
                     <div>
                         <button onClick = {buy}>
                             Buy

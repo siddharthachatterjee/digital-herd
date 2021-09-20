@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import LandingPage from "../components/LandingPage";
 import Section from "../components/Section";
 import homePageContent from "../content/homePageContent";
@@ -6,7 +6,7 @@ import { Web3Context } from "../context/Web3Context";
 
 
 export default function Home(): JSX.Element {
-    const {connect, error, loading} = useContext(Web3Context);
+    const {error, loading} = useContext(Web3Context);
     const backgrounds = ["var(--theme-complementary)", "var(--theme-background)"]
     // useEffect(() => {
     //     if (localStorage.getItem("address") !== null) {

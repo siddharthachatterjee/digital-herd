@@ -1,6 +1,5 @@
 import React from "react";
 
-type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 interface InputBoxProps extends React.InputHTMLAttributes<HTMLInputElement> {
     state: string;
     updateState: any;
