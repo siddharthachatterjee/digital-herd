@@ -125,7 +125,7 @@ export default function SignUp() {
                 Thank you for signing up. Now build your zoo!
             </p>
             <button className = "call-to-action primary" onClick = {() => {
-                history.push(location.search.split("=")[1] || "/");
+                window.location.replace(location.search.split("=")[1] || "/");
                 //window.location.search = "";
             }}>
                 Continue 

@@ -83,6 +83,7 @@ export function Web3ContextProvider(props) {
                            setNetworkId(id);
                          //  networkId_ = res;
                            const network = AnimalsCollectibleContract.networks[id];
+                         //  console.log(network.address);
                            const instance = new res.eth.Contract(AnimalsCollectibleContract.abi, network && network.address);
                            instance.defaultAccount = address;
                            setContract(instance);

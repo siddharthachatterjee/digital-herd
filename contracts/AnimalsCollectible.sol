@@ -72,5 +72,6 @@ contract AnimalsCollectible is ERC721URIStorage, Ownable {
             }
         }
         users[owner].tokens[idx] = users[owner].tokens[users[owner].tokens.length - 1];
+        users[owner].tokens.pop();
     }
 }

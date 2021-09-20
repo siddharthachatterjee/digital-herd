@@ -2,17 +2,24 @@ import React, { useContext, useEffect, useState } from "react";
 import AnimalCard from "../components/AnimalCard";
 import { Web3Context } from "../context/Web3Context";
 
+import AnimalsCollectibleContract from "../contracts/AnimalsCollectible.json";
+
 import "../styles/explore.css";
 
 export default function Explore() {
     const {contract, address, autoConnect} = useContext(Web3Context);
     const [tokenCount, setTokenCount] = useState(0);
+    const [tokens, setTokens] = useState<any[]>([]);
 
     useEffect(() => {
         autoConnect();
     }, [])
     useEffect(() => {
         if (contract) {
+            contract.methods.getUser(AnimalsCollectibleContract.networks["3"]["address"]).call({from:address}).then((res:any) => {
+                setTokens(res.tokens);
+                console.log(res);
+            })
             contract.methods.tokenCount().call({from: address})
                 .then((res: number) => setTokenCount(res))
         }
@@ -26,8 +33,8 @@ export default function Explore() {
                 </p>
             </header>
            <div className = "nfts">
-                {Array(tokenCount).fill(null).map((_, i) => (
-                    <AnimalCard id = {i} key = {i} />
+                {tokens.map((id, i) => (
+                    <AnimalCard id = {+id} key = {i} />
                 ))}
            </div>
         </div>
