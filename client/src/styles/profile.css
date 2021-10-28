@@ -3,16 +3,22 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+
 }
 #profile main {
     width: 75vw;
-    height: 75vh;
+    height: 85vh;
     padding: 50px;
     position: relative;
-    background-color: var(--theme-complementary);
+    background-color: rgb(240, 247, 241);
+    background-color: #efefef;
     border-radius: 50px;
     text-align: left;
 
+}
+
+#profile main h2 {
+    text-align: center;
 }
 
 #profile .tabs .bar {

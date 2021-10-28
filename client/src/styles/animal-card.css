@@ -2,21 +2,24 @@
     width: 300px;
     height: 300px;
     margin: 20px;
-    background-color: var(--theme-complementary);
+    border: 1px solid var(--theme-complementary);
     z-index: 0;
-    color:white;
+    color:black;
     padding: 1em;
     position: relative;
     border-radius: 10px;
+    box-shadow: 0px 0px 10px rgb(136, 136, 136);
     overflow: hidden;
 }
 
 .animal-card-img {
-    height: 70%;
+    height: 50%;
     width: 100%;
     background-size:contain;
     background-repeat: no-repeat;
     background-position: center;
+    display: grid;
+    justify-content: center;
     z-index: 1;
     
 }

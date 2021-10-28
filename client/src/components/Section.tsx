@@ -8,6 +8,7 @@ interface SectionProps {
     children: JSX.Element[];
     placeImageRight?: boolean;
     background?: string;
+    color: string;
 }
 
 
@@ -24,7 +25,7 @@ export default function Section(props: SectionProps) {
         </div>
     ]
     return (
-        <div className = "section" style = {{background: props.background || "white"}}>
+        <div className = "section" style = {{background: props.background || "white", color: props.color || "black"}}>
             {props.placeImageRight? sectionContent.reverse() : sectionContent}
         </div>
     )

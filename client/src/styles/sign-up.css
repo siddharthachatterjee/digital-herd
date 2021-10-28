@@ -9,10 +9,13 @@
     min-height: 200px;
     padding: 50px;
     position: relative;
-    background-color: var(--theme-complementary);
     border-radius: 50px;
     text-align: left;
+    background-color: #efefef;
+    color: var(--theme-complementary);
+    border: 2px solid var(--theme-complementary);
 }
+
 
 #sign-up main .step-titles {
     position: absolute;
@@ -24,8 +27,10 @@
 }
 
 #sign-up main .step-title {
-    text-align: center;
     background-color: var(--theme-complementary);
+    background-color: #efefef;
+    color: var(--theme-green);
+    text-align: center;
     padding: 5px;
     width: 125px;
     border-radius: 5px;
@@ -35,17 +40,19 @@
 
 #sign-up main .step-title.current {
     text-align: center;
-   border-bottom: 2px solid var(--theme-contrasting);
+   border-bottom: 2px solid var(--theme-complementary);
    box-shadow: 2px 2px 2px solid gray;
 }
 #sign-up main .step-title .number {
-    border: 1px solid var(--theme-contrasting);
+    border: 1px solid var(--theme-complementary-contrast);
     width: max-content;
     border-radius: 50%;
     width: 20px;
     height: 20px;
     margin: auto;
     margin-bottom: 5px;
+    background: var(--theme-green);
+    color: white;
 }
 
 #sign-up main .step-content {

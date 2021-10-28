@@ -20,6 +20,7 @@ function App() {
   return firebase && (
     <div>
       <Switch>
+
         <Route exact path = "/">
           <Navbar />
           {localStorage.getItem("address")? <Profile /> : <Home />}

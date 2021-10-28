@@ -1,0 +1,1 @@
+export const ETH = 1e18;

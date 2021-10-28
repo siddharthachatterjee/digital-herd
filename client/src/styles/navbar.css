@@ -1,12 +1,13 @@
 #navbar {
-    background: var(--theme-complementary);
+    background: var(--theme-background);
+
     padding: 1em;
-    color: var(--theme-contrasting);
+    color: var(--theme-green);
 }
 
 #navbar #logo {
     font-size: 20px;
-    border-right: 1px solid var(--theme-contrasting);
+    border-right: 1px solid var(--theme-complementary-contrast);
     width: max-content;
     padding-right: 10px;
     cursor: pointer;

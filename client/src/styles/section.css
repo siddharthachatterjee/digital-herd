@@ -1,7 +1,6 @@
 .section {
     background-color: var(--theme-complementary);
     padding: 2em;
-    color: var(--theme-contrasting);
     display: flex;
 }
 

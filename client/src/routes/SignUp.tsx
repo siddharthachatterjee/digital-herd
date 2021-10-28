@@ -85,13 +85,13 @@ export default function SignUp() {
                     )}
                     <br />
 
-                    <button disabled = {loading} onClick = {() => connectWalletLink()} className = "call-to-action secondary">
+                    <button disabled = {loading} onClick = {() => connectWalletLink()} className = "call-to-action primary">
                         Connect to Coinbase Wallet
-                        <img src = "/walletlink.jpg" width = {20} style = {{margin: "0 10px"}} /> 
+                        {/* <img className = "hidden" src = "/walletlink.jpg" width = {20} style = {{margin: "0 10px"}} />  */}
                     </button>
                     <button disabled = {loading} onClick = {() => connectMetamask()} className = "call-to-action secondary"> 
                         Connect to MetaMask 
-                        <img src = "/metamask.svg" style = {{margin: "0 10px"}} /> 
+                        {/* <img src = "/metamask.svg" style = {{margin: "0 10px"}} />  */}
                     </button>
                 </div>
             ) : (
@@ -114,7 +114,7 @@ export default function SignUp() {
             Password:
             <InputBox className = "dark" state = {password} updateState = {setPassword} type = "password" />
             <br /> */}
-            <button className = "call-to-action primary" onClick = {signUp}>
+            <button className = "call-to-action primary" disabled = {username.length === 0} onClick = {signUp}>
                 Continue
             </button>
             
@@ -137,10 +137,10 @@ export default function SignUp() {
             <main>
                 <div className = "step-titles">
                     {stepTitles.map((title, i) => (
-                        <div className = {`step-title ${curStep === i? "current" : ""}`} key = {i}>
-                            <div className = "number" style = {{background: i === curStep? "var(--theme-contrasting)" : (i >= curStep? "initial" : "green"), color: i === curStep? "var(--theme-background)" : "var(--theme-contrasting)"}}> 
+                        <div className = {`step-title ${curStep === i? "current" : i < curStep? "completed" :  ""}`} key = {i}>
+                            <div className = "number"> 
                             {(i >= curStep) ? <i className={`ri-number-${i+1}`}></i> : 
-                            <i style = {{fontSize: 20, color: "var(--theme-contrasting)"}} className="ri-check-fill"></i>} 
+                            <i style = {{fontSize: 20, color: "var(--theme-complementary-contrast)"}} className="ri-check-fill"></i>} 
                             </div>
                             <div className = "title">{title} </div>
                         </div>

@@ -12,7 +12,7 @@ export default function Tabs(props: TabsProps) {
     const {bar: TabBar} = props; 
 
     function switchTab(i: number) {
-        const start = (i < curTab)? 50 : (i > curTab)? -50 : 0;
+        const start = (i > curTab)? 50 : (i < curTab)? -50 : 0;
         [...Array.from(document.querySelectorAll(".tabs .content"))].forEach((elem) => {
             elem.animate([
                 { transform:`translateX(${start}px)`, opacity: 0},
@@ -37,6 +37,7 @@ export default function Tabs(props: TabsProps) {
             <div className = "content">
                 {props.content[curTab]}
             </div>
+           
         </div>
     );
 }

@@ -13,7 +13,9 @@ code {
 }
 
 :root {
-  --theme-green: rgb(11, 136, 11);
+  --theme-green2: rgb(11, 136, 11);
+  --theme-green2-translucent: rgba(11, 136, 11, 0.4);
+  --theme-green: rgb(62, 192, 95);
 
   --theme-background:rgba(1,5,22,1);
   --theme-background-gradient: radial-gradient(circle, rgba(1,5,22,1) 50%, rgba(35,30,76,1) 100%);
@@ -22,9 +24,12 @@ code {
   --theme-contrasting: whitesmoke;
 
   --color2: rgb(12, 12, 139);
-  /* --theme-background: white;
-  --theme-complementary: blue;
-  --theme-contrasting: whitesmoke; */
+  --theme-background: whitesmoke;
+  --theme-complementary: rgb(16, 44, 16);
+  /* --theme-complementary: rgb(62, 192, 95); */
+  --theme-complementary2: rgb(11, 136, 11);
+  --theme-contrasting: black;
+  --theme-complementary-contrast: whitesmoke;
 }
 
 .call-to-action {
@@ -32,42 +37,49 @@ code {
   outline: none;
   padding: 10px 20px;
   border-radius: 5px;
-  font-size: 18px;
+  font-size: 21px;
   transition: all 1s;
   cursor: pointer;
   margin: 10px;
+  border-radius: 20px;
 }
 
+.call-to-action .hidden {
+  display: none;
+}
 .call-to-action.primary {
   background-color: var(--theme-green);
   color: white;
 }
 
 .call-to-action.secondary {
-  background: none;
-  color: white;
+  background: lightgray;
+  color: black;
   border: 2px solid white;
 }
-
+/* 
 .call-to-action.secondary:hover {
   background: white;
   color: black;
   border: 2px solid white;
-}
+} */
 
 
 .call-to-action:hover {
-  opacity: 0.8;
+  border-radius: 5px;
 }
 
+.call-to-action:hover .hidden {
+  display: inline-block;
+}
 .call-to-action:disabled {
   cursor: not-allowed;
   opacity: 0.6
 }
 
 .input-box.dark {
-  background: var(--theme-background);
-  color: white;
+  border: 1px solid var(--theme-green);
+  color: black;
 }
 .input-box {
  
