@@ -18,7 +18,7 @@
     background-size:contain;
     background-repeat: no-repeat;
     background-position: center;
-    display: grid;
+    display: inline-grid;
     justify-content: center;
     z-index: 1;
     

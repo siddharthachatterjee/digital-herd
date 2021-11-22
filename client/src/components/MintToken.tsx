@@ -20,23 +20,25 @@ export default function MintToken() {
            if (address) {
                  setImage(canvasRef.current.toDataURL());
                // console.log(canvasRef.current!.toDataURL()!);
-            //    ipfs.add(canvasRef.current.toDataURL())
-            //     .then(({cid}) => {
-            //         contract.methods.tokenCount().call({from: address})
-            //             .then((res: number) => {
-            //                 const object = `{"name":"#${res}","image":"https://ipfs.io/ipfs/${cid}","species":"${animal.image}"}`;
-            //                 console.log(object)
-            //                 contract.methods.createCollectible(object).send({from: address});
-            //             })
-            //     })
+               ipfs.add(canvasRef.current.toDataURL())
+                .then(({cid}: {cid:string}) => {
+                    contract.methods.tokenCount().call({from: address})
+                        .then((res: number) => {
+                            const object = `{"name":"Animal #${res}","image":"${cid}","species":"${animal.species}"}`;
+                            console.log(object)
+                            contract.methods.createCollectible(object).send({from: address});
+                        })
+                })
             }
            // contract.methods.createCollectible('{"name":"Rhino #0","image":canvasRef.current.toDataURL(),"species":animal.image}').send({from: address});
         }
     }
-    return contract && (
+    return contract && ipfs &&  (
         <>
-        <img src = {image} />
-        <AnimalImage onDrawn = {onDrawn} canvasRef = {canvasRef} image = {animal.image} background = {backdrop}  />
+        <div style = {{display: "none"}}>
+            <img src = {image} />
+            <AnimalImage onDrawn = {onDrawn} canvasRef = {canvasRef} image = {animal.image} background = {backdrop}  />
+        </div>
         </>
     );
 }

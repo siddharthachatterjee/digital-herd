@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { IPFSContext } from "../context/IPFSContext";
 import { Web3Context } from "../context/Web3Context";
 import { ETH } from "../core/vars";
 
@@ -10,6 +11,9 @@ export default function AnimalCard(props: {id: number}) {
     const {contract, address} = useContext(Web3Context);
     const [animal, setAnimal] = useState<any>({});
     const [owner, setOwner] = useState("");
+    const [imgData, setImgData] = useState("");
+    const {ipfs} = useContext(IPFSContext);
+
     const canvasRef = useRef(null);
 
     function buy() {
@@ -28,11 +32,36 @@ export default function AnimalCard(props: {id: number}) {
                         })
                 });
         }   
-    }, [contract])
+    }, [contract]);
+
+    useEffect(() => {
+        if (ipfs && animal && animal.image) {
+            (async() => {
+                const res = await fetch("https://ipfs.io/ipfs/" + animal.image);
+                const text = await res.text();
+                console.log(text);
+            //     console.log(animal.image)
+
+            //     const stream = (ipfs.cat(animal.image));
+            //    // console.log(stream);
+            //     let str = ''
+            //     for await (const chunk of stream) {
+                   
+            //             str += chunk.toString();
+            //         //}
+            //       //  setImgData(prev => prev + chunk.toString());
+            //     }
+            //     console.log("str: " + str);
+            //     setImgData(str);
+            })();
+        }
+    }, [animal])
     return(
         
         <div className = "animal-card">
-            <div className = "animal-card-img" style = {{backgroundImage: `url(${animal.image})`}}>
+            <div className = "animal-card-img" >
+                {/* {imgData} */}
+                <img src = {imgData} />
                 {/* <AnimalImage canvasRef = {canvasRef} image = {"/nfts/elephant.png"} /> */}
             </div>
             <div className = "basic-info">

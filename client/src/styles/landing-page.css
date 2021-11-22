@@ -1,6 +1,6 @@
 #landing-page, .background-container {
     height: 100vh;
-    overflow: hidden;
+    /* overflow: hidden; */
     margin: 0;
     width: 100%;
     position: relative;
