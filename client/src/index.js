@@ -7,6 +7,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Web3ContextProvider } from './context/Web3Context';
 import {AuthContextProvider} from "./context/AuthContext";
+import { IPFSContextProvider } from './context/IPFSContext';
 
 //import firebase from "./firebase";
 
@@ -15,7 +16,9 @@ ReactDOM.render(
     <Router>
       <Web3ContextProvider>
         <AuthContextProvider>
-          <App />
+          <IPFSContextProvider>
+            <App />
+          </IPFSContextProvider>
         </AuthContextProvider>
       </Web3ContextProvider>
     </Router>
