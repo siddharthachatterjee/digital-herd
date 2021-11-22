@@ -1,11 +1,13 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
-import ipfs from "../context/IPFSContext";
+import { IPFSContext } from "../context/IPFSContext";
+//import ipfs from "../context/IPFSContext";
 import { Web3Context } from "../context/Web3Context";
 import { art, backdrops } from "../core/vars";
 import AnimalImage from "./AnimalImage";
 
 export default function MintToken() {
     const {address, connect, web3, networkId, contract} = useContext(Web3Context);
+    const {ipfs} = useContext(IPFSContext);
 
     const canvasRef = useRef<any>(null);
     const animal = art[Math.floor(Math.random() * art.length)] 
@@ -22,7 +24,7 @@ export default function MintToken() {
             //     .then(({cid}) => {
             //         contract.methods.tokenCount().call({from: address})
             //             .then((res: number) => {
-            //                 const object = `{"name":"#${res}","image":"${cid}","species":"${animal.image}"}`;
+            //                 const object = `{"name":"#${res}","image":"https://ipfs.io/ipfs/${cid}","species":"${animal.image}"}`;
             //                 console.log(object)
             //                 contract.methods.createCollectible(object).send({from: address});
             //             })

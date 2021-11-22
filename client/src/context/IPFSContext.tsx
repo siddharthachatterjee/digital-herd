@@ -1,13 +1,13 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 import * as IPFS from "ipfs-core";
 
 
-export const IPFSContext = React.createContext(null);
+export const IPFSContext = React.createContext<any>(null);
 
 
-export function IPFSContextProvider(props) {
-    const [ipfs, setIPFS] = useState(null);
+export function IPFSContextProvider(props: {children: any}) {
+    const [ipfs, setIPFS] = useState<any>(null);
     useEffect(() => {
         IPFS.create().then(node => setIPFS(node));
     }, []);
