@@ -3,11 +3,12 @@ import AnimalCard from "../components/AnimalCard";
 import { Web3Context } from "../context/Web3Context";
 
 import AnimalsCollectibleContract from "../contracts/AnimalsCollectible.json";
+import { Web3ContextValues } from "../core/vars";
 
 import "../styles/explore.css";
 
 export default function Explore() {
-    const {contract, address, autoConnect} = useContext(Web3Context);
+    const {contract, address, autoConnect, networkId}: Web3ContextValues = useContext(Web3Context);
     const [tokenCount, setTokenCount] = useState(0);
     const [tokens, setTokens] = useState<any[]>([]);
 
@@ -16,7 +17,7 @@ export default function Explore() {
     }, [])
     useEffect(() => {
         if (contract) {
-            contract.methods.getUser(AnimalsCollectibleContract.networks["3"]["address"]).call({from:address}).then((res:any) => {
+            contract.methods.getUser(AnimalsCollectibleContract.networks[networkId]!.address).call({from:address}).then((res:any) => {
                 setTokens(res.tokens);
                 console.log(res);
             })

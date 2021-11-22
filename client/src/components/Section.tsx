@@ -18,7 +18,7 @@ export default function Section(props: SectionProps) {
             <img src = {props.image} />
         </div>,
         <div className = "text">
-            <h2 className = "title"> {props.title} </h2>
+            <h1 className = "title"> {props.title} </h1>
             <div className = "content">
                 {props.children}
             </div>

@@ -4,6 +4,9 @@
     display: flex;
 }
 
+.section h2 {
+    font-size: 30px;
+}
 .section .image img {
     max-width: 50vw;
     max-height: 75vh;

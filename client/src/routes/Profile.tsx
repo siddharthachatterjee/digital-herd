@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { Web3Context } from "../context/Web3Context";
 import "../styles/profile.css";
 
@@ -6,6 +6,8 @@ import "../styles/profile.css";
 import { AuthContext } from "../context/AuthContext";
 import Tabs from "../components/Tabs";
 import Zoo from "../components/Zoo";
+import AnimalImage from "../components/AnimalImage";
+import MintToken from "../components/MintToken";
 
 
 export default function Profile() {
@@ -33,9 +35,13 @@ export default function Profile() {
   
     return (
         <div id = "profile" className = "background-container">
+            <div>
+                
+            </div>
            <> 
             {address? 
             <>
+            <MintToken />
            <main>
                 <h2>
                     <i className="ri-user-3-fill"></i>

@@ -9,7 +9,7 @@ import { Web3Context } from "../context/Web3Context";
 export default function Home(): JSX.Element {
     const {error, loading} = useContext(Web3Context);
     const history = useHistory();
-    const backgrounds = ["var(--theme-green)", "var(--theme-background)"];
+    const backgrounds = ["black", "var(--theme-background)"];
     const colors = ["var(--theme-complementary-contrast)", "var(--theme-contrast)"]
     // useEffect(() => {
     //     if (localStorage.getItem("address") !== null) {

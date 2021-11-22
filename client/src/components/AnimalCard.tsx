@@ -32,8 +32,8 @@ export default function AnimalCard(props: {id: number}) {
     return(
         
         <div className = "animal-card">
-            <div className = "animal-card-img" /*style = {{backgroundImage: `url(${animal.image})`}}*/>
-                <AnimalImage canvasRef = {canvasRef} image = {"/nfts/elephant.png"} />
+            <div className = "animal-card-img" style = {{backgroundImage: `url(${animal.image})`}}>
+                {/* <AnimalImage canvasRef = {canvasRef} image = {"/nfts/elephant.png"} /> */}
             </div>
             <div className = "basic-info">
                 <div style = {{textAlign: "center", fontWeight: "bold"}}>

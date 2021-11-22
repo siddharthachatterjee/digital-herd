@@ -95,3 +95,12 @@ code {
   from {right:-70px}
   to {right: 0}
 }
+
+@keyframes unblur {
+  from {
+    filter: blur(20px);
+  }
+  to {
+    filter: blur(0);
+  }
+}
