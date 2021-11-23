@@ -24,10 +24,10 @@ export default function AnimalImage(props: AnimalImageProps) {
             image.onload = () => {
                 ctx.drawImage(image, 0, 0, 200, 200); 
              //   if ("onDrawn" in props) 
-                setTimeout(() => {
+               // setTimeout(() => {
 
-                    props!.onDrawn();
-                }, 500)
+                props!.onDrawn();
+                //}, 500)
             }
         }
     }
