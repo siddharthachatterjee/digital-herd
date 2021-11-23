@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { Web3Context } from "../context/Web3Context";
+import AnimalCard from "./AnimalCard";
 
 export default function Zoo() {
     const {account, contract, address} = useContext(Web3Context);
@@ -26,10 +27,10 @@ export default function Zoo() {
     return (
         <div>
             <br />
+          
             {Object.values(zoo).length? Object.values(zoo).map((item: any, i) => (
                 <div key = {i}>
-                    
-                    {item.name}
+                    <AnimalCard id = {account.tokens[i]} />
                 </div>
             )) : 
             <>

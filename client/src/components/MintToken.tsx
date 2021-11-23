@@ -28,7 +28,7 @@ export default function MintToken(props: {animal: any, backdrop: string, i?: num
                 .then(({cid}: {cid:string}) => {
                     contract.methods.tokenCount().call({from: address})
                         .then((res: number) => {
-                            const object = `{"name":"#${(res + (props.i || 0)).toString()}","image":"https://ipfs.io/ipfs/${cid}","species":"${animal.species}"}`;
+                            const object = `{"name":"${animal.species},${backdrop}","image":"https://ipfs.io/ipfs/${cid}","species":"${animal.species}"}`;
                             console.log(object)
                             contract.methods.createCollectible(object).send({from: address});
                         })
@@ -39,8 +39,8 @@ export default function MintToken(props: {animal: any, backdrop: string, i?: num
     }
     return contract && ipfs && (
         <>
-        <div style = {{display: "none"}}>
-            <img src = {image} />
+        <div style = {{display: "normal"/**"block" */}}>
+            {/* <img src = {image} /> */}
             {<AnimalImage onDrawn = {onDrawn} canvasRef = {canvasRef} image = {animal.image} background = {backdrop}  />} 
         </div>
         </>

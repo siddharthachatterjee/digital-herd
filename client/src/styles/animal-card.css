@@ -11,6 +11,7 @@
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgb(136, 136, 136);
     overflow: hidden;
+    background-color: white;
 }
 
 .animal-card-img {
