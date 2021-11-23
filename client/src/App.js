@@ -13,17 +13,19 @@ import Navbar from './components/Navbar';
 import Explore from './routes/Explore';
 import { Web3Context } from './context/Web3Context';
 import SignIn from './components/SignIn';
+import Mint from './routes/Mint';
 
 function App() {
   const user = useContext(AuthContext);
   const {address} = useContext(Web3Context);
+  const addr = localStorage.getItem("address");
   return firebase && (
     <div>
       <Switch>
 
         <Route exact path = "/">
           <Navbar />
-          {localStorage.getItem("address")? <Profile /> : <Home />}
+          {addr? <Profile /> : <Home />}
         </Route>
         <Route path = "/sign-up">
           <SignUp />
@@ -38,6 +40,10 @@ function App() {
           </>:
           <Redirect to = "/sign-up?redirect=/explore" />}
         </Route>
+        {addr &&
+        <Route path = "/mint">
+          <Mint />
+        </Route>}
       </Switch>
     </div>
   );

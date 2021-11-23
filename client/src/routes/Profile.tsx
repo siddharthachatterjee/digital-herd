@@ -42,11 +42,7 @@ export default function Profile() {
            <> 
             {address? 
             <>
-            {art.map((animal, i) => (
-                backdrops.map((bd, j) => (
-                    <MintToken animal = {animal} backdrop = {bd} key = {i + '' + j} />
-                ))
-            ))}
+            
            <main>
                 <h2>
                     <i className="ri-user-3-fill"></i>

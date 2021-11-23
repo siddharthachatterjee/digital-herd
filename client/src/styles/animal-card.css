@@ -7,6 +7,7 @@
     color:black;
     padding: 1em;
     position: relative;
+    display: inline-block;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgb(136, 136, 136);
     overflow: hidden;

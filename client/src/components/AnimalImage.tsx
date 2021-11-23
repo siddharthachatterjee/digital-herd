@@ -19,13 +19,13 @@ export default function AnimalImage(props: AnimalImageProps) {
             //  image.height = 1500;
             // image.width = "100%";
             image.src = props.image;
+            ctx.fillStyle = props.background || "lightgreen";
+            ctx.fillRect(0, 0, 200, 200);
             image.onload = () => {
                 ctx.drawImage(image, 0, 0, 200, 200); 
              //   if ("onDrawn" in props) 
                 props!.onDrawn();
             }
-            ctx.fillStyle = props.background || "lightgreen";
-            ctx.fillRect(0, 0, 200, 200);
         }
     }
     

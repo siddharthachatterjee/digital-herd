@@ -37,7 +37,7 @@ export default function AnimalCard(props: {id: number}) {
     useEffect(() => {
         if (ipfs && animal && animal.image) {
             (async() => {
-                const res = await fetch("https://ipfs.io/ipfs/" + animal.image, {
+                const res = await fetch(animal.image, {
                     headers: {
                         'Content-Type': 'text/plain'
                     }
@@ -59,7 +59,7 @@ export default function AnimalCard(props: {id: number}) {
             //     setImgData(str);
             })();
         }
-    }, [animal])
+    }, [animal, ipfs])
     return(
         
         <div className = "animal-card">
