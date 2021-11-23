@@ -8,6 +8,7 @@ import Tabs from "../components/Tabs";
 import Zoo from "../components/Zoo";
 import AnimalImage from "../components/AnimalImage";
 import MintToken from "../components/MintToken";
+import { art, backdrops } from "../core/vars";
 
 
 export default function Profile() {
@@ -41,7 +42,11 @@ export default function Profile() {
            <> 
             {address? 
             <>
-            <MintToken />
+            {art.map((animal, i) => (
+                backdrops.map((bd, j) => (
+                    <MintToken animal = {animal} backdrop = {bd} key = {i + '' + j} />
+                ))
+            ))}
            <main>
                 <h2>
                     <i className="ri-user-3-fill"></i>

@@ -7,7 +7,8 @@ export const art = [
 export const backdrops = [
     "lightgreen",
     "lightblue",
-
+    "lightcoral",
+    "lightyellow"
 ]
 
 export interface Web3ContextValues {
