@@ -10,12 +10,12 @@ import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: "jungletokens.firebaseapp.com",
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
   projectId: "jungletokens",
   storageBucket: "jungletokens.appspot.com",
-  messagingSenderId: "518952436112",
-  appId: "1:518952436112:web:949fbab23162f38a7fb315",
-  measurementId: "G-Z0M1YYCX3Y"
+  messagingSenderId: process.env.REACT_APP_MESSAGE_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
 // Initialize Firebase

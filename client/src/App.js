@@ -40,10 +40,10 @@ function App() {
           </>:
           <Redirect to = "/sign-up?redirect=/explore" />}
         </Route>
-        {addr &&
+        
         <Route path = "/mint">
-          <Mint />
-        </Route>}
+          {addr && <Mint />}
+        </Route>
       </Switch>
     </div>
   );
