@@ -9,7 +9,7 @@ import { art, backdrops } from "../core/vars";
 
 
 export default function Mint() {
-    const {address, connect} = useContext(Web3Context);
+    const {address, connect, contract} = useContext(Web3Context);
     const {ipfs} = useContext(IPFSContext);
     const [tokens, setTokens] = useState<any[]>([]);
 
@@ -25,9 +25,13 @@ export default function Mint() {
         })();
     }
 
+    function mintAll() {
+        contract.methods.createCollectibles(tokens).send({from: address})
+    }
 
 
-    return address === "0x8767810706336e2471444e260dA71D5cB60e09aC" && ipfs && (
+
+    return address  && ipfs && (
         <>
         <h1> Mint these tokens: </h1>
         {art.map((animal, i) => (
@@ -36,9 +40,10 @@ export default function Mint() {
             ))
         ))} 
         <br />
-        {/* <h2> Data: </h2>
-        {tokens} */}
-        <button> Mint All </button>
+        <h2> Data: </h2>
+        {tokens}
+        <br />
+        <button onClick = {mintAll}> Mint All </button>
         </>
     );
 }

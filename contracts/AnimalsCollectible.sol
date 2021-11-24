@@ -41,7 +41,7 @@ contract AnimalsCollectible is ERC721URIStorage, Ownable {
         return newItemId;
     }
 
-    public createCollectibles(string memory[] uris) {
+    function  createCollectibles(string[] memory uris) public onlyOwner {
         for (uint i = 0; i < uris.length; i++) 
             createCollectible(uris[i]);
     }
