@@ -1,15 +1,24 @@
 export const ETH = 1e18;
 
 export const art = [
-    {"image":"/nfts/rhino.png","species":"Javan Rhino"}
+    {"image":"/nfts/rhino.png","species":"Javan Rhino"},
+   //{"image": "/nfts/elephant.png", "species": "Pygmy Elephant"}
 ]
 
-export const backdrops = [
-    "lightgreen",
-    "lightblue",
-    "lightcoral",
-    "lightyellow"
-]
+export const backdrops: {[K: string]: string[]} = {
+    "Javan Rhino": [
+        "lightgreen",
+        "lightblue",
+        "lightcoral",
+        "lightyellow"
+    ],
+    "Pygmy Elephant": [
+        "lightgreen",
+        "lightblue",
+        "lightcoral",
+        "lightyellow"
+    ]
+}
 
 export interface Web3ContextValues {
     connect: () => Promise<any>;
@@ -22,5 +31,5 @@ export interface Web3ContextValues {
     address: string; 
     loading: boolean; 
     error: string;
-    networkId: 3;
+    networkId: number;
 }

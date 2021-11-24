@@ -11,13 +11,14 @@ export default function Explore() {
     const {contract, address, autoConnect, networkId}: Web3ContextValues = useContext(Web3Context);
     const [tokenCount, setTokenCount] = useState(0);
     const [tokens, setTokens] = useState<any[]>([]);
+    const contractNetwork: {[K: number]: any} = {...AnimalsCollectibleContract.networks};
 
     useEffect(() => {
         autoConnect();
     }, [])
     useEffect(() => {
         if (contract) {
-            contract.methods.getUser(AnimalsCollectibleContract.networks[networkId]!.address).call({from:address}).then((res:any) => {
+            contract.methods.getUser(contractNetwork[networkId]!.address).call({from:address}).then((res:any) => {
                 setTokens(res.tokens);
                 console.log(res);
             })

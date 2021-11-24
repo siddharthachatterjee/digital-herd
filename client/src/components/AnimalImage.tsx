@@ -3,11 +3,11 @@ import React, { useEffect, useRef } from "react";
 interface AnimalImageProps {
     image: string;
     background?: string;
-    canvasRef: React.MutableRefObject<any>;
-    onDrawn: () => void;
+    canvasRef?: React.MutableRefObject<any>;
+    onDrawn: (canvasRef: any) => void;
 }
 export default function AnimalImage(props: AnimalImageProps) {
-    const {canvasRef} = props;
+    const canvasRef = useRef<any>(null);
 
     function draw() {
         const canvas: any = canvasRef.current;
@@ -26,14 +26,15 @@ export default function AnimalImage(props: AnimalImageProps) {
              //   if ("onDrawn" in props) 
                // setTimeout(() => {
 
-                props!.onDrawn();
+                props!.onDrawn(canvasRef);
                 //}, 500)
             }
         }
     }
     
     useEffect(() => {
-        draw();
+        if (canvasRef && canvasRef.current)
+            draw();
     },[canvasRef.current])
     return (
         <canvas height = {200} className = "animal-image" ref = {canvasRef} width = {200}  />

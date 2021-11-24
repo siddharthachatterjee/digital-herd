@@ -1,18 +1,21 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { IPFSContext } from "../context/IPFSContext";
 import { Web3Context } from "../context/Web3Context";
-import { ETH } from "../core/vars";
+
+import { ETH, Web3ContextValues } from "../core/vars";
 
 
 import "../styles/animal-card.css";
 import AnimalImage from "./AnimalImage";
+import AnimalsCollectibleContract from "../contracts/AnimalsCollectible.json";
 
 export default function AnimalCard(props: {id: number}) {
-    const {contract, address} = useContext(Web3Context);
+    const {contract, address, networkId}: Web3ContextValues = useContext(Web3Context);
     const [animal, setAnimal] = useState<any>({});
     const [owner, setOwner] = useState("");
     const [imgData, setImgData] = useState("");
     const {ipfs} = useContext(IPFSContext);
+    const contractNetwork: {[K: number]: any} = {...AnimalsCollectibleContract.networks};
 
     const canvasRef = useRef(null);
 
@@ -70,7 +73,7 @@ export default function AnimalCard(props: {id: number}) {
             </div>
             <div className = "basic-info">
                 <div style = {{textAlign: "center", fontWeight: "bold"}}>
-                    {animal.name}
+                    #{props.id}
                 </div>
                 <hr />
                 <div>
@@ -82,6 +85,10 @@ export default function AnimalCard(props: {id: number}) {
                         <div>
                             <i className="ri-price-tag-3-line"></i> {animal.price || 0.01}<span className="iconify" data-icon="logos:ethereum"></span>
                         </div>
+                        <div>
+                            <a href = {`https://ropsten.etherscan.io/token/${contractNetwork[networkId]!.address!.toLowerCase()}?a=${props.id}`}> View on EtherScan </a>
+                        </div>
+                        <br />
                         <button onClick = {buy} className = "call-to-action primary" style = {{width: "100%", display: "block", margin: 0}}>
                             Buy 
                         </button>

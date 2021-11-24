@@ -24,7 +24,7 @@ export default function MintToken(props: {animal: any, backdrop: string, i?: num
                  //console.log("");
                // console.log(canvasRef.current!.toDataURL()!);
                setMinted(true);
-               ipfs.add(canvasRef.current.toDataURL())
+            ipfs.add(canvasRef.current.toDataURL())
                 .then(({cid}: {cid:string}) => {
                     contract.methods.tokenCount().call({from: address})
                         .then((res: number) => {
@@ -33,8 +33,6 @@ export default function MintToken(props: {animal: any, backdrop: string, i?: num
                             contract.methods.createCollectible(object).send({from: address});
                         })
                 })
-           // }
-           // contract.methods.createCollectible('{"name":"Rhino #0","image":canvasRef.current.toDataURL(),"species":animal.image}').send({from: address});
         }
     }
     return contract && ipfs && (
