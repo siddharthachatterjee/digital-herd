@@ -66,8 +66,8 @@ contract AnimalsCollectible is ERC721URIStorage, Ownable {
     // }
 
    function purchaseToken(uint256 _tokenId) public payable {
-        require(_tokenId < tokenCount);
-        require(msg.value >= price[_tokenId]);
+        require(_tokenId < tokenCount, "Token does not exist");
+        require(msg.value >= price[_tokenId], "Insufficient funds");
        address itemOwner = ownerOf(_tokenId);
       // approve(owner, _tokenId);
       //  setApprovalForAll(msg.sender, true);
@@ -82,6 +82,6 @@ contract AnimalsCollectible is ERC721URIStorage, Ownable {
         }
         users[itemOwner].tokens[idx] = users[itemOwner].tokens[users[itemOwner].tokens.length - 1];
         users[itemOwner].tokens.pop();
-        payable(itemOwner).transfer(msg.value);
+        payable(owner()).transfer(msg.value);
     }
 }

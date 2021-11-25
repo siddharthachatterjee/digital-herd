@@ -17,7 +17,7 @@ export default function AnimalCard(props: {id: number}) {
     const {ipfs} = useContext(IPFSContext);
     const contractNetwork: {[K: number]: any} = {...AnimalsCollectibleContract.networks};
 
-    const canvasRef = useRef(null);
+    //const canvasRef = useRef(null);
 
     function buy() {
         contract.methods.purchaseToken(props.id).send({from: address, value: animal.price ||  ETH * 0.01});
@@ -73,11 +73,14 @@ export default function AnimalCard(props: {id: number}) {
             </div>
             <div className = "basic-info">
                 <div style = {{textAlign: "center", fontWeight: "bold"}}>
-                    #{props.id}
+                    Animal #{props.id}
                 </div>
                 <hr />
                 <div>
                     Species: {animal.species}
+                </div>
+                <div>
+                    <a href = {`https://ropsten.etherscan.io/token/${contractNetwork[networkId]!.address!.toLowerCase()}?a=${props.id}`}> View on Etherscan </a>
                 </div>
                 <div>
                     {(address !== owner) &&
@@ -85,11 +88,9 @@ export default function AnimalCard(props: {id: number}) {
                         <div>
                             <i className="ri-price-tag-3-line"></i> {animal.price || 0.01}<span className="iconify" data-icon="logos:ethereum"></span>
                         </div>
-                        <div>
-                            <a href = {`https://ropsten.etherscan.io/token/${contractNetwork[networkId]!.address!.toLowerCase()}?a=${props.id}`}> View on EtherScan </a>
-                        </div>
+                     
                         <br />
-                        <button onClick = {buy} className = "call-to-action primary" style = {{width: "100%", display: "block", margin: 0}}>
+                        <button title = "Purchase Token" onClick = {buy} className = "call-to-action primary" style = {{width: "100%", display: "block", margin: 0}}>
                             Buy 
                         </button>
                     </div>}
