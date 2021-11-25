@@ -14,6 +14,8 @@ contract AnimalsCollectible is ERC721URIStorage, Ownable {
         uint256[] tokens;
     }
     mapping(address => User) users;
+    mapping (uint => uint) price;
+   // mapping(uint => bool) cidExists;
  //   mapping(uint256 => string) _tokenURIs;
 
 
@@ -37,7 +39,9 @@ contract AnimalsCollectible is ERC721URIStorage, Ownable {
         _mint(receiver, newItemId);
         users[receiver].tokens.push(newItemId);
         _setTokenURI(newItemId, tokenURI);
+        price[newItemId] = 1e18 * 0.05;
         tokenCount++;
+      //  cidExists[]
         return newItemId;
     }
 
@@ -64,19 +68,20 @@ contract AnimalsCollectible is ERC721URIStorage, Ownable {
    function purchaseToken(uint256 _tokenId) public payable {
         //require(_tokenId < tokenCount);
        // require(msg.value >= 0);
-       address owner = ownerOf(_tokenId);
+       address itemOwner = ownerOf(_tokenId);
       // approve(owner, _tokenId);
       //  setApprovalForAll(msg.sender, true);
-        this.safeTransferFrom(owner, msg.sender, _tokenId);
+        this.safeTransferFrom(itemOwner, msg.sender, _tokenId);
         users[msg.sender].tokens.push(_tokenId);
         uint idx = 0;
-        for (uint i = 0; i < users[owner].tokens.length; i++) {
-            if (users[owner].tokens[i] == _tokenId) {
+        for (uint i = 0; i < users[itemOwner].tokens.length; i++) {
+            if (users[itemOwner].tokens[i] == _tokenId) {
                 idx = i;
                 break;
             }
         }
-        users[owner].tokens[idx] = users[owner].tokens[users[owner].tokens.length - 1];
-        users[owner].tokens.pop();
+        users[itemOwner].tokens[idx] = users[itemOwner].tokens[users[itemOwner].tokens.length - 1];
+        users[itemOwner].tokens.pop();
+        payable(itemOwner).transfer(msg.value);
     }
 }
