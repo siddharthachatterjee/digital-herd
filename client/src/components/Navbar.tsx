@@ -12,7 +12,7 @@ export default function Navbar() {
             </div>
             <div id = "links">
                 <div onClick = {() => history.push("/explore")}>
-                    Explore
+                    Marketplace 
                 </div>
             </div>
         </nav>

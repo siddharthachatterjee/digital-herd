@@ -29,10 +29,10 @@ export default function Explore() {
     return (
         <div id = "explore" className = "background-container">
             <header>
-                <h1> Explore High Quality NFTs </h1>
-                <p>
+                <h1> Marketplace </h1>
+                {/* <p>
                     The rarer the species, the more expensive. Stay tuned for when new NFTs will be minted.
-                </p>
+                </p> */}
             </header>
            <div className = "nfts">
                 {tokens.map((id, i) => (

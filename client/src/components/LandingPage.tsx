@@ -27,7 +27,9 @@ export default function LandingPage() {
                             <button className = "call-to-action primary" onClick = {() => history.push("/sign-up")}>
                                 Get Started
                             </button>
-
+                            <button className = "call-to-action secondary" onClick = {() => history.push("/explore")}>
+                                Explore Marketplace
+                            </button>
                         </div>
                         {error && !loading &&  (
                             <div style = {{color: "red"}}>

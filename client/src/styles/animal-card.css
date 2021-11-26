@@ -11,7 +11,9 @@
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgb(136, 136, 136);
     overflow: hidden;
-    background-color: white;
+    transition: all 0.5s;
+    /* background-color: black;
+    color: white; */
 }
 
 .animal-card-img {
@@ -23,8 +25,30 @@
     display: inline-grid;
     justify-content: center;
     z-index: 1;
+    cursor: pointer;
     
 }
+
+.animal-card:hover {
+    box-shadow: 0px 0px 20px rgb(136, 136, 136);
+    /* background: var(--theme-green);
+    background: black;
+    color: white; */
+    cursor: pointer;
+}
+
+/* .animal-card:hover .call-to-action {
+    background: black;
+}  */
+/* .animal-card .info {
+    height: 0;
+    animation: all 1s;
+}
+
+.animal-card:hover .info {
+    height: auto;
+    cursor: pointer;
+} */
 
 /* 
 .animal-card .basic-info {

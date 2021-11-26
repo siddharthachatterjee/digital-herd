@@ -8,6 +8,7 @@ import { ETH, Web3ContextValues } from "../core/vars";
 import "../styles/animal-card.css";
 import AnimalImage from "./AnimalImage";
 import AnimalsCollectibleContract from "../contracts/AnimalsCollectible.json";
+import { useHistory } from "react-router";
 
 export default function AnimalCard(props: {id: number}) {
     const {contract, address, networkId}: Web3ContextValues = useContext(Web3Context);
@@ -15,12 +16,16 @@ export default function AnimalCard(props: {id: number}) {
     const [owner, setOwner] = useState("");
     const [imgData, setImgData] = useState("");
     const {ipfs} = useContext(IPFSContext);
+    const history = useHistory();
     const contractNetwork: {[K: number]: any} = {...AnimalsCollectibleContract.networks};
 
     //const canvasRef = useRef(null);
 
     function buy() {
-        contract.methods.purchaseToken(props.id).send({from: address, value: animal.price ||  ETH * 0.01});
+        if (address)
+            contract.methods.purchaseToken(props.id).send({from: address, value: animal.price ||  ETH * 0.01});
+        else 
+            history.push("/sign-up?redirect=/explore")
     }
     useEffect(() => {   
         if (contract) {
@@ -65,7 +70,7 @@ export default function AnimalCard(props: {id: number}) {
     }, [animal, ipfs])
     return(
         
-        <div className = "animal-card">
+        <div className = "animal-card" onClick = {buy}>
             <div className = "animal-card-img" >
                 {/* {imgData} */}
                 <img src = {imgData} />
@@ -84,7 +89,7 @@ export default function AnimalCard(props: {id: number}) {
                 </div>
                 <div>
                     {(address !== owner) &&
-                    <div>
+                    <div className = "info">
                         <div>
                             <i className="ri-price-tag-3-line"></i> {animal.price || 0.01}<span className="iconify" data-icon="logos:ethereum"></span>
                         </div>

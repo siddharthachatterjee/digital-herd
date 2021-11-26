@@ -32,7 +32,7 @@ function App() {
         </Route>
         <Route path = "/explore">
          
-          {localStorage.getItem("address")?
+          {(localStorage.getItem("address"))?
           <>
           <Navbar />
           <SignIn />

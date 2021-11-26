@@ -12,6 +12,7 @@ export default function Mint() {
     const {address, connect, contract} = useContext(Web3Context);
     const {ipfs} = useContext(IPFSContext);
     const [tokens, setTokens] = useState<any[]>([]);
+    const [checkedAnimal, setCheckedAnimal] = useState<{[K:number]: boolean}>({});
 
     useEffect(() => {   
         connect();

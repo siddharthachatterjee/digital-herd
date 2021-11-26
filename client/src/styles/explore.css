@@ -1,10 +1,14 @@
 #explore header {
 
     background-color: #EFEFEF;
+    /* background-color: black;
+    color: white; */
+    /* display: none; */
     margin: 0;
     padding: 2em 1em;
-    margin-bottom: 1em;
+    /* margin-bottom: 1em; */
     text-align: center;
+
     border-bottom: 2px solid var(--theme-complementary);
 }
 #explore header h1 {
@@ -12,4 +16,11 @@
     margin: 0;
     
     color: var(--theme-green2);
+}
+
+#explore .nfts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* background-color: #1c1c1c; */
 }
