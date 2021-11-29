@@ -5,9 +5,11 @@ interface AnimalImageProps {
     background?: string;
     canvasRef?: React.MutableRefObject<any>;
     onDrawn: (canvasRef: any) => void;
+    size?: number;
 }
 export default function AnimalImage(props: AnimalImageProps) {
     const canvasRef = useRef<any>(null);
+    const size = props.size || 300;
 
     function draw() {
         const canvas: any = canvasRef.current;
@@ -20,9 +22,9 @@ export default function AnimalImage(props: AnimalImageProps) {
             // image.width = "100%";
             image.src = props.image;
             ctx.fillStyle = props.background || "lightgreen";
-            ctx.fillRect(0, 0, 200, 200);
+            ctx.fillRect(0, 0, size, size);
             image.onload = () => {
-                ctx.drawImage(image, 0, 0, 200, 200); 
+                ctx.drawImage(image, 0, 0, size, size); 
              //   if ("onDrawn" in props) 
                // setTimeout(() => {
 
@@ -37,6 +39,6 @@ export default function AnimalImage(props: AnimalImageProps) {
             draw();
     },[canvasRef.current])
     return (
-        <canvas height = {200} className = "animal-image" ref = {canvasRef} width = {200}  />
+        <canvas height = {size} width = {size} className = "animal-image" ref = {canvasRef}   />
     );
 }

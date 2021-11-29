@@ -74,7 +74,7 @@ export default function AnimalCard(props: {id: number}) {
         <div className = "animal-card" onClick = {buy}>
             <div className = "animal-card-img" >
                 {/* {imgData} */}
-                <img src = {animal.image} />
+                <img src = {animal.image}  />
                 {/* <AnimalImage canvasRef = {canvasRef} image = {"/nfts/elephant.png"} /> */}
             </div>
             <div className = "basic-info">

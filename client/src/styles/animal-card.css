@@ -1,11 +1,11 @@
 .animal-card {
-    width: 300px;
+    width: 250px;
     /* height: 300px; */
     margin: 20px;
-    border: 1px solid var(--theme-complementary);
+    /* border: 1px solid var(--theme-complementary); */
     z-index: 0;
     color:black;
-    padding: 1em;
+    padding: 0;
     position: relative;
     display: inline-block;
     border-radius: 10px;
@@ -29,12 +29,26 @@
     
 }
 
+.animal-card-img img {
+    width: 250px;
+}
+
 .animal-card:hover {
     box-shadow: 0px 0px 20px rgb(136, 136, 136);
     /* background: var(--theme-green);
     background: black;
     color: white; */
+    /* border: 1px solid gray; */
     cursor: pointer;
+    width: 250px;
+}
+
+.animal-card:hover .animal-card-img img {
+    width: 250px;
+}
+
+.animal-card .basic-info {
+    padding: 1em;
 }
 
 /* .animal-card:hover .call-to-action {
