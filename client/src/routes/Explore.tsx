@@ -3,7 +3,7 @@ import AnimalCard from "../components/AnimalCard";
 import { Web3Context } from "../context/Web3Context";
 
 import AnimalsCollectibleContract from "../contracts/AnimalsCollectible.json";
-import { Web3ContextValues } from "../core/vars";
+import { Web3ContextValues } from "../core";
 
 import "../styles/explore.css";
 

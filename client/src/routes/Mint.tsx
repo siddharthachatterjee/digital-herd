@@ -4,7 +4,7 @@ import AnimalImage from "../components/AnimalImage";
 
 import { Web3Context } from "../context/Web3Context";
 import {IPFSContext} from "../context/IPFSContext";
-import { art, backdrops } from "../core/vars";
+import { art, backdrops, getBuffer } from "../core";
 
 
 
@@ -16,24 +16,36 @@ export default function Mint() {
 
     useEffect(() => {   
         connect();
+       // console.log(new File(["foo"], "foo.txt", {type: "text/plain"}))
     }, []);
 
     function onDrawn(canvasRef: any, animal: any, backdrop: string) {
+        const buffer = getBuffer(canvasRef.current.toDataURL());
+       // console.log(ipfs.add);
+       // if (ipfs.files.add)
+        //ipfs.add({path: "a.png", content: buffer})
+        //.then((err: any, files: any[]) => {
+           // console.log(files[0].hash)
+       // })
         (async () => {
-            const {cid} = await ipfs.add(canvasRef.current.toDataURL()); 
-            const obj = JSON.stringify({name:`${animal.species},${backdrop}`,image:`https://ipfs.io/ipfs/${cid}`,species:animal.species});
+            const {cid} = await ipfs.add({path: "/tmp/image.png", content: buffer}/*canvasRef.current.toDataURL()*/); 
+            const hash = cid._baseCache.get('z');
+            //const {cid}
+            const obj = JSON.stringify({name:`${animal.species},${backdrop}`,image:`https://ipfs.io/ipfs/${hash}/image.png`,species:animal.species});
             setTokens(prev => [...new Set([...prev, obj])])
         })();
     }
 
     function mintAll() {
         contract.methods.createCollectibles(tokens).send({from: address})
+        
     }
 
 
 
     return address  && ipfs && (
         <>
+        
         <h1> Mint these tokens: </h1>
         {art.map((animal, i) => (
             backdrops[animal.species].map((bd, j) => (

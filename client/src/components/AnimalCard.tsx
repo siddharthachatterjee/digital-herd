@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { IPFSContext } from "../context/IPFSContext";
 import { Web3Context } from "../context/Web3Context";
 
-import { ETH, Web3ContextValues } from "../core/vars";
+import { ETH, Web3ContextValues } from "../core";
 
 
 import "../styles/animal-card.css";
@@ -45,14 +45,15 @@ export default function AnimalCard(props: {id: number}) {
     useEffect(() => {
         if (ipfs && animal && animal.image) {
             (async() => {
-                const res = await fetch(animal.image, {
-                    headers: {
-                        'Content-Type': 'text/plain'
-                    }
-                });
-                const text = await res.text();
-                setImgData(text);
-            //     console.log(animal.image)
+            //     const res = await fetch(animal.image, {
+            //         headers: {
+            //             'Content-Type': 'text/plain'
+            //         }
+            //     });
+            //     const text = await res.text();
+            //   //  console.log(text);
+            //     setImgData(text);
+            //   console.log(animal.image)
 
             //     const stream = (ipfs.cat(animal.image));
             //    // console.log(stream);
@@ -73,7 +74,7 @@ export default function AnimalCard(props: {id: number}) {
         <div className = "animal-card" onClick = {buy}>
             <div className = "animal-card-img" >
                 {/* {imgData} */}
-                <img src = {imgData} />
+                <img src = {animal.image} />
                 {/* <AnimalImage canvasRef = {canvasRef} image = {"/nfts/elephant.png"} /> */}
             </div>
             <div className = "basic-info">

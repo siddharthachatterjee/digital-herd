@@ -8,7 +8,7 @@ import Tabs from "../components/Tabs";
 import Zoo from "../components/Zoo";
 import AnimalImage from "../components/AnimalImage";
 import MintToken from "../components/MintToken";
-import { art, backdrops } from "../core/vars";
+import { art, backdrops } from "../core";
 
 
 export default function Profile() {
