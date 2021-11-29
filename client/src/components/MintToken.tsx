@@ -2,7 +2,8 @@ import React, {useContext, useEffect, useRef, useState} from "react";
 import { IPFSContext } from "../context/IPFSContext";
 //import ipfs from "../context/IPFSContext";
 import { Web3Context } from "../context/Web3Context";
-import { art, backdrops, getBuffer } from "../core";
+
+import { art, backdrops } from "../core";
 import AnimalImage from "./AnimalImage";
 
 export default function MintToken(props: {animal: any, backdrop: string, i?: number}) {
@@ -33,16 +34,7 @@ export default function MintToken(props: {animal: any, backdrop: string, i?: num
             //                 contract.methods.createCollectible(object).send({from: address});
             //             })
             //     })
-            const buffer = getBuffer(canvasRef.current.toDataURL());
-            const files = [
-                {
-                    type: "image/png",
-                    content: buffer
-                }
-            ];
-            ipfs.files.add(files).then((err: any, files: any[]) => {
-                console.log(files[0].hash)
-            })
+           
         }
     }
     return contract && ipfs && (

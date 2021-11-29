@@ -4,7 +4,7 @@ import AnimalImage from "../components/AnimalImage";
 
 import { Web3Context } from "../context/Web3Context";
 import {IPFSContext} from "../context/IPFSContext";
-import { art, backdrops, getBuffer } from "../core";
+import { art, backdrops } from "../core";
 
 
 
@@ -20,13 +20,8 @@ export default function Mint() {
     }, []);
 
     function onDrawn(canvasRef: any, animal: any, backdrop: string) {
-        const buffer = getBuffer(canvasRef.current.toDataURL());
-       // console.log(ipfs.add);
-       // if (ipfs.files.add)
-        //ipfs.add({path: "a.png", content: buffer})
-        //.then((err: any, files: any[]) => {
-           // console.log(files[0].hash)
-       // })
+        const buffer = Buffer.from(canvasRef.current.toDataURL().split(",")[1], "base64");
+
         (async () => {
             const {cid} = await ipfs.add({path: "/tmp/image.png", content: buffer}/*canvasRef.current.toDataURL()*/); 
             const hash = cid._baseCache.get('z');
