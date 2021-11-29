@@ -32,5 +32,6 @@ export interface Web3ContextValues {
     loading: boolean; 
     error: string;
     networkId: number;
+    contractAddress: string;
 }
 

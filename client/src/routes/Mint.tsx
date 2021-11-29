@@ -25,7 +25,6 @@ export default function Mint() {
         (async () => {
             const {cid} = await ipfs.add({path: "/tmp/image.png", content: buffer}/*canvasRef.current.toDataURL()*/); 
             const hash = cid.toString();
-            console.log(hash);
             const obj = JSON.stringify({name:`${animal.species},${backdrop}`,image:`https://ipfs.io/ipfs/${hash}/image.png`,species:animal.species});
             setTokens(prev => [...new Set([...prev, obj])])
         })();

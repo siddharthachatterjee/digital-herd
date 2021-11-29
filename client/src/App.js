@@ -21,21 +21,23 @@ function App() {
   const addr = localStorage.getItem("address");
   return firebase && (
     <div>
+     
       <Switch>
 
         <Route exact path = "/">
           <Navbar />
-          {addr? <Profile /> : <Home />}
+          
+          {(addr && addr !== "undefined")? <Profile /> : <Home />}
         </Route>
         <Route path = "/sign-up">
           <SignUp />
         </Route>
         <Route path = "/explore">
          
-          {(localStorage.getItem("address"))?
+          {(localStorage.getItem("address") || true)?
           <>
           <Navbar />
-          <SignIn />
+          {/* <SignIn /> */}
           <Explore />
           </>:
           <Redirect to = "/sign-up?redirect=/explore" />}

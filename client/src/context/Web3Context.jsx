@@ -17,7 +17,10 @@ function initWeb3(ethereum = window.ethereum) {
             res(web3);
         } 
         else {
-            rej({message: "Could not load Ethereum wallet. Make sure you have an Ethereum wallet installed then try again. Download MetaMask at https://metamask.io"});
+            const provider = new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/" + process.env.REACT_APP_INFURA_API_KEY);
+
+            res(new Web3(provider));
+           // rej({message: "Could not load Ethereum wallet. Make sure you have an Ethereum wallet installed then try again. Download MetaMask at https://metamask.io"});
         }
     })
 }
@@ -33,6 +36,7 @@ export function Web3ContextProvider(props) {
     const [error, setError] = useState("");
     const [networkId, setNetworkId] = useState(null);
     const [contract, setContract] = useState(null);
+    const [contractAddress, setContractAddress] = useState("");
 
     function autoConnect() {
         if (localStorage.getItem("wallet") === "coinbase") {
@@ -40,6 +44,7 @@ export function Web3ContextProvider(props) {
         }else if (localStorage.getItem("wallet") === "metamask") {
             connectMetamask();
         }
+        else connect();
     }
     function  connectWalletLink() {
         const walletLink = new WalletLink({
@@ -65,6 +70,7 @@ export function Web3ContextProvider(props) {
             setLoading(true);
             initWeb3(ethereum)
                 .then(res => {
+                    console.log(res);
                     setLoading(false);
                     if (res.eth === null) {
                         setError({message: "Could not load Ethereum wallet. Make sure you have an Ethereum wallet installed then try again. Download MetaMask at https://metamask.io"})
@@ -83,14 +89,16 @@ export function Web3ContextProvider(props) {
                            setNetworkId(id);
                          //  networkId_ = res;
                            const network = AnimalsCollectibleContract.networks[id];
+                           setContractAddress(network.address);
                          //  console.log(network.address);
                            const instance = new res.eth.Contract(AnimalsCollectibleContract.abi, network && network.address);
                            instance.defaultAccount = address;
                            setContract(instance);
                            (async() => {
-   
+                                if (accounts[0]) {
                                const account_ = await instance.methods.getUser(accounts[0]).call({from: accounts[0]});
                                setAccount(account_);
+                                }
                            })();
                        })
                     })
@@ -113,7 +121,7 @@ export function Web3ContextProvider(props) {
         }
     }, [web3])
     return (
-        <Web3Context.Provider value = {{connect, autoConnect, connectMetamask, connectWalletLink, account, contract, web3, address, loading, error, networkId}}>
+        <Web3Context.Provider value = {{connect, autoConnect, connectMetamask, connectWalletLink, account, contract, web3, address, loading, error, networkId, contractAddress}}>
             {props.children}
         </Web3Context.Provider>
     )

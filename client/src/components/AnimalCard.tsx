@@ -7,17 +7,16 @@ import { ETH, Web3ContextValues } from "../core";
 
 import "../styles/animal-card.css";
 import AnimalImage from "./AnimalImage";
-import AnimalsCollectibleContract from "../contracts/AnimalsCollectible.json";
+
 import { useHistory } from "react-router";
 
 export default function AnimalCard(props: {id: number}) {
-    const {contract, address, networkId}: Web3ContextValues = useContext(Web3Context);
+    const {contract, address, networkId, contractAddress}: Web3ContextValues = useContext(Web3Context);
     const [animal, setAnimal] = useState<any>({});
     const [owner, setOwner] = useState("");
     const [imgData, setImgData] = useState("");
     const {ipfs} = useContext(IPFSContext);
     const history = useHistory();
-    const contractNetwork: {[K: number]: any} = {...AnimalsCollectibleContract.networks};
 
     //const canvasRef = useRef(null);
 
@@ -71,8 +70,11 @@ export default function AnimalCard(props: {id: number}) {
     }, [animal, ipfs])
     return(
         
-        <div className = "animal-card" onClick = {buy}>
+        <div className = "animal-card">
             <div className = "animal-card-img" >
+                <div style = {{display: "none"}}>
+                {animal.image}
+                </div>
                 {/* {imgData} */}
                 <img src = {animal.image}  />
                 {/* <AnimalImage canvasRef = {canvasRef} image = {"/nfts/elephant.png"} /> */}
@@ -86,7 +88,7 @@ export default function AnimalCard(props: {id: number}) {
                     Species: {animal.species}
                 </div>
                 <div>
-                    <a href = {`https://ropsten.etherscan.io/token/${contractNetwork[networkId]!.address!.toLowerCase()}?a=${props.id}`}> View on Etherscan </a>
+                    <a href = {`https://ropsten.etherscan.io/token/${contractAddress.toLowerCase()}?a=${props.id}`}> View on Etherscan </a>
                 </div>
                 <div>
                     {(address !== owner) &&

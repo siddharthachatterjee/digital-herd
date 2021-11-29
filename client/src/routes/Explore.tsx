@@ -2,23 +2,22 @@ import React, { useContext, useEffect, useState } from "react";
 import AnimalCard from "../components/AnimalCard";
 import { Web3Context } from "../context/Web3Context";
 
-import AnimalsCollectibleContract from "../contracts/AnimalsCollectible.json";
+
 import { Web3ContextValues } from "../core";
 
 import "../styles/explore.css";
 
 export default function Explore() {
-    const {contract, address, autoConnect, networkId}: Web3ContextValues = useContext(Web3Context);
+    const {contract, address, autoConnect, networkId, contractAddress}: Web3ContextValues = useContext(Web3Context);
     const [tokenCount, setTokenCount] = useState(0);
     const [tokens, setTokens] = useState<any[]>([]);
-    const contractNetwork: {[K: number]: any} = {...AnimalsCollectibleContract.networks};
 
     useEffect(() => {
         autoConnect();
     }, [])
     useEffect(() => {
-        if (contract) {
-            contract.methods.getUser(contractNetwork[networkId]!.address).call({from:address}).then((res:any) => {
+        if (contract && contractAddress) {
+            contract.methods.getUser(contractAddress).call({from:address}).then((res:any) => {
                 setTokens(res.tokens);
                 console.log(res);
             })
