@@ -16,6 +16,7 @@ export default function AnimalCard(props: {id: number}) {
     const [owner, setOwner] = useState("");
     const [imgData, setImgData] = useState("");
     const {ipfs} = useContext(IPFSContext);
+    const [loaded, setLoaded] = useState(false);
     const history = useHistory();
 
     //const canvasRef = useRef(null);
@@ -71,15 +72,16 @@ export default function AnimalCard(props: {id: number}) {
     return(
         
         <div className = "animal-card">
+            {loaded}
             <div className = "animal-card-img" >
                 <div style = {{display: "none"}}>
                 {animal.image}
                 </div>
                 {/* {imgData} */}
-                <img src = {animal.image}  />
+                <img onLoad = {() => setLoaded(true)} src = {animal.image}  />
                 {/* <AnimalImage canvasRef = {canvasRef} image = {"/nfts/elephant.png"} /> */}
             </div>
-            <div className = "basic-info">
+            {loaded? <div className = "basic-info">
                 <div style = {{textAlign: "center", fontWeight: "bold"}}>
                     Animal #{props.id}
                 </div>
@@ -103,7 +105,10 @@ export default function AnimalCard(props: {id: number}) {
                         </button>
                     </div>}
                 </div>
-            </div>
+            </div> : 
+            <div>
+                Loading, please wait a few moments.
+            </div>}
         </div>
     )
 }

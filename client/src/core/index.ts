@@ -35,3 +35,4 @@ export interface Web3ContextValues {
     contractAddress: string;
 }
 
+export const network = "ropsten";

@@ -3,6 +3,7 @@ import Web3 from "web3";
 import WalletLink from "walletlink";
 
 import AnimalsCollectibleContract from "../contracts/AnimalsCollectible.json";
+import { network } from "../core";
 
 function initWeb3(ethereum = window.ethereum) {
     return new Promise((res, rej) => {
@@ -17,7 +18,7 @@ function initWeb3(ethereum = window.ethereum) {
             res(web3);
         } 
         else {
-            const provider = new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/" + process.env.REACT_APP_INFURA_API_KEY);
+            const provider = new Web3.providers.HttpProvider(`https://${network}.infura.io/v3/` + process.env.REACT_APP_INFURA_API_KEY);
 
             res(new Web3(provider));
            // rej({message: "Could not load Ethereum wallet. Make sure you have an Ethereum wallet installed then try again. Download MetaMask at https://metamask.io"});
@@ -49,10 +50,10 @@ export function Web3ContextProvider(props) {
     function  connectWalletLink() {
         const walletLink = new WalletLink({
             appName: "DigitalHerd",
-            darMode: true,
+            darkMode: true,
         });
         localStorage.setItem("wallet", "coinbase")
-        ethereum = walletLink.makeWeb3Provider(`https://ropsten.infura.io/v3/${process.env.REACT_APP_INFURA_API_KEY}`, 3);
+        ethereum = walletLink.makeWeb3Provider(`https://${network}.infura.io/v3/${process.env.REACT_APP_INFURA_API_KEY}`, 3);
         connect();
     }
 
