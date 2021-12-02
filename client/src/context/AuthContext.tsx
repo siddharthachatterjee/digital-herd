@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 
+import firebase from "../firebase";
 import {getAuth, onAuthStateChanged, User} from "firebase/auth";
 import {get, child, getDatabase, ref} from "firebase/database";
 import { Web3Context } from "./Web3Context";
@@ -10,7 +11,7 @@ export function AuthContextProvider(props: {children: any}) {
     const [user, setUser] = useState<any>(null);
     const {address} = useContext(Web3Context);
     useEffect(() => {
-        if (address) {
+        if (address && firebase) {
             const dbRef = ref(getDatabase());
             get(child(dbRef, `users/${address}`))
                 .then((snapshot) => {

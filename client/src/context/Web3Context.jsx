@@ -18,9 +18,9 @@ function initWeb3(ethereum = window.ethereum) {
             res(web3);
         } 
         else {
-            const provider = new Web3.providers.HttpProvider(`https://${network}.infura.io/v3/` + process.env.REACT_APP_INFURA_API_KEY);
+           const provider = new Web3.providers.HttpProvider(`https://${network}.infura.io/v3/` + process.env.REACT_APP_INFURA_API_KEY);
 
-            res(new Web3(provider));
+           res(new Web3(provider));
            // rej({message: "Could not load Ethereum wallet. Make sure you have an Ethereum wallet installed then try again. Download MetaMask at https://metamask.io"});
         }
     })
@@ -52,18 +52,18 @@ export function Web3ContextProvider(props) {
             appName: "DigitalHerd",
             darkMode: true,
         });
-        localStorage.setItem("wallet", "coinbase")
+       
         ethereum = walletLink.makeWeb3Provider(`https://${network}.infura.io/v3/${process.env.REACT_APP_INFURA_API_KEY}`, 3);
-        connect();
+        connect().then(() =>  localStorage.setItem("wallet", "coinbase"));
     }
 
     function connectMetamask() {
-        localStorage.setItem("wallet", "metamask")
         ethereum = window.ethereum;
-        if (ethereum && ethereum.isMetaMask)
+        if (ethereum && ethereum.isMetaMask) {
+            localStorage.setItem("wallet", "metamask")
 
         connect();
-        else 
+        } else 
         setError({message: "Could not load Ethereum wallet. Make sure you have an Ethereum wallet installed then try again. Download MetaMask at https://metamask.io"})
     }
     function connect() {

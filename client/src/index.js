@@ -12,17 +12,18 @@ import { IPFSContextProvider } from './context/IPFSContext';
 //import firebase from "./firebase";
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Router>
       <Web3ContextProvider>
-        <AuthContextProvider>
-          <IPFSContextProvider>
+        {/* <AuthContextProvider> */}
+          {/* <IPFSContextProvider> */}
             <App />
-          </IPFSContextProvider>
-        </AuthContextProvider>
+          {/* </IPFSContextProvider> */}
+        {/* </AuthContextProvider> */}
       </Web3ContextProvider>
     </Router>
-  </React.StrictMode>,
+ // </React.StrictMode>,
+ ,
   document.getElementById('root')
 );
 

@@ -15,7 +15,7 @@ export default function AnimalCard(props: {id: number}) {
     const [animal, setAnimal] = useState<any>({});
     const [owner, setOwner] = useState("");
     const [imgData, setImgData] = useState("");
-    const {ipfs} = useContext(IPFSContext);
+   // const {ipfs} = useContext(IPFSContext);
     const [loaded, setLoaded] = useState(false);
     const history = useHistory();
 
@@ -43,8 +43,13 @@ export default function AnimalCard(props: {id: number}) {
     }, [contract]);
 
     useEffect(() => {
-        if (ipfs && animal && animal.image) {
+        if (animal && animal.image) {
             (async() => {
+                // fetch(animal.image)
+                //     .then(res => console.log(res.text()))
+                // ipfs.files.cat("QmS3GTCi2LyYZMWvd61wCAFa5nVsJmdSZzSXb2o9DGUAxd", (err:string, str:string) => {
+                //     console.log(str);
+                // })
             //     const res = await fetch(animal.image, {
             //         headers: {
             //             'Content-Type': 'text/plain'
@@ -68,20 +73,18 @@ export default function AnimalCard(props: {id: number}) {
             //     setImgData(str);
             })();
         }
-    }, [animal, ipfs])
+    }, [animal])
     return(
         
         <div className = "animal-card">
             {loaded}
             <div className = "animal-card-img" >
-                <div style = {{display: "none"}}>
-                {animal.image}
-                </div>
+               
                 {/* {imgData} */}
-                <img onLoad = {() => setLoaded(true)} src = {animal.image}  />
+                <img src = {animal.image}  />
                 {/* <AnimalImage canvasRef = {canvasRef} image = {"/nfts/elephant.png"} /> */}
             </div>
-            {loaded? <div className = "basic-info">
+            {true? <div className = "basic-info">
                 <div style = {{textAlign: "center", fontWeight: "bold"}}>
                     Animal #{props.id}
                 </div>
@@ -96,7 +99,7 @@ export default function AnimalCard(props: {id: number}) {
                     {(address !== owner) &&
                     <div className = "info">
                         <div>
-                            <i className="ri-price-tag-3-line"></i> {animal.price || 0.01}<span className="iconify" data-icon="logos:ethereum"></span>
+                            <i className="ri-price-tag-3-line"></i> {animal.price || 0.01}<span className="iconify" data-icon="logos:ethereum"> ETH </span>
                         </div>
                      
                         <br />
