@@ -32,7 +32,10 @@ export default function AnimalCard(props: {id: number}) {
             contract.methods.tokenURI(props.id).call({from: address})
                 .then((uri: any) => {
                     console.log(uri);
-                    setAnimal(JSON.parse(uri));
+                    fetch(uri)
+                        .then(data => data.json())
+                        .then(json => setAnimal(json))
+                   // setAnimal(JSON.parse(uri));
                     contract.methods.ownerOf(props.id).call({from: address})
                         .then((res:string) => {
                             console.log(res);

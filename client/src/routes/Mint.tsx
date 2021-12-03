@@ -23,10 +23,10 @@ export default function Mint() {
         const buffer = Buffer.from(canvasRef.current.toDataURL().split(",")[1], "base64");
 
         (async () => {
-            const {cid} = await ipfs.add({path: "/tmp/image.png", content: buffer}/*canvasRef.current.toDataURL()*/); 
-            const hash = cid.toString();
-            const obj = JSON.stringify({name:`${animal.species},${backdrop}`,image:`https://ipfs.io/ipfs/${hash}/image.png`,species:animal.species});
-            setTokens(prev => [...new Set([...prev, obj])])
+            const obj = JSON.stringify({name:`${animal.species},${backdrop}`,image: canvasRef.current.toDataURL(),species:animal.species});
+            const {cid} = await ipfs.add({path: "/tmp/item.json", content: obj}/*canvasRef.current.toDataURL()*/); 
+            const hash = "https://ipfs.io/ipfs/" + cid.toString() + "/item.json";
+            setTokens(prev => [...new Set([...prev, hash])])
         })();
     }
 

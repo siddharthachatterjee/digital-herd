@@ -48,14 +48,14 @@ function App() {
             <SignUp />
           </Route>
           <Route path = "/explore">
-            {/* <IPFSContextProvider> */}
+            <IPFSContextProvider>
               {(localStorage.getItem("address") || true)?
               <>
               <Navbar />
               <Explore />
               </>:
               <Redirect to = "/sign-up?redirect=/explore" />}
-            {/* </IPFSContextProvider> */}
+            </IPFSContextProvider>
           </Route>
           
           <Route path = "/mint">
