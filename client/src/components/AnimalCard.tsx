@@ -15,7 +15,7 @@ export default function AnimalCard(props: {id: number}) {
     const [animal, setAnimal] = useState<any>({});
     const [owner, setOwner] = useState("");
     const [imgData, setImgData] = useState("");
-   // const {ipfs} = useContext(IPFSContext);
+    const {ipfs} = useContext(IPFSContext);
     const [loaded, setLoaded] = useState(false);
     const history = useHistory();
 
@@ -28,22 +28,36 @@ export default function AnimalCard(props: {id: number}) {
             history.push("/sign-up?redirect=/explore")
     }
     useEffect(() => {   
-        if (contract) {
-            contract.methods.tokenURI(props.id).call({from: address})
-                .then((uri: any) => {
-                    console.log(uri);
-                    fetch(uri)
-                        .then(data => data.json())
-                        .then(json => setAnimal(json))
-                   // setAnimal(JSON.parse(uri));
-                    contract.methods.ownerOf(props.id).call({from: address})
-                        .then((res:string) => {
-                            console.log(res);
-                            setOwner(res);
-                        })
-                });
+        if (contract && ipfs) {
+            (async () => {
+
+                const uri:string = await contract.methods.tokenURI(props.id).call({from: address})
+                //if (uri && uri.split("https://ipfs.io/ipfs/")[1]) {
+                 //   .then((uri: any) => {
+                      //  console.log(uri.split("https://ipfs.io/ipfs/"));
+                        const chunks: any[] = [];
+                        const stream = ipfs.cat(uri.split("https://ipfs.io/ipfs/")[1]);
+                        for await (const chunk of stream) {
+                            chunks.push(...chunk);
+                        }
+                     //   if (chunks)
+                       const data = (new TextDecoder().decode(new Uint8Array(chunks)));
+                       setAnimal(JSON.parse(data));
+
+                        // fetch(uri)
+                        //     .then(data => data.json())
+                        //     .then(json => setAnimal(json))
+                       // setAnimal(JSON.parse(uri));
+                        contract.methods.ownerOf(props.id).call({from: address})
+                            .then((res:string) => {
+                               // console.log(res);
+                                setOwner(res);
+                            })
+                  //  });
+               // }
+            })()
         }   
-    }, [contract]);
+    }, [contract, ipfs]);
 
     useEffect(() => {
         if (animal && animal.image) {
@@ -75,9 +89,11 @@ export default function AnimalCard(props: {id: number}) {
             //     console.log("str: " + str);
             //     setImgData(str);
             })();
+
+            //uint8ArrayCo
         }
     }, [animal])
-    return(
+    return (
         
         <div className = "animal-card">
             {loaded}

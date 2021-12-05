@@ -16,9 +16,9 @@ ReactDOM.render(
     <Router>
       <Web3ContextProvider>
         {/* <AuthContextProvider> */}
-          {/* <IPFSContextProvider> */}
+          <IPFSContextProvider>
             <App />
-          {/* </IPFSContextProvider> */}
+          </IPFSContextProvider>
         {/* </AuthContextProvider> */}
       </Web3ContextProvider>
     </Router>
