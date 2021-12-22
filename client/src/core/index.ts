@@ -22,15 +22,41 @@ export const animals = [
         accessories:[
             [
                 `/nfts/rhino/horn1.png`,
+                `/nfts/rhino/horn2.png`,
             ],
             [
-                `/nfts/rhino/expression1.png`
+                `/nfts/rhino/expression1.png`,
+                `/nfts/rhino/expression2.png`,
+                `/nfts/rhino/expression3.png`
+            ],
+            [
+               `/nfts/rhino/Grass.png`,
+               `/nfts/rhino/Leaves.png`
             ]
 
         ],
     }
 ]
 
+export function allAccessoryArrays(i: number, j:number = animals[i].accessories.length - 1, perm: string[][] = [[]], arr: string[][]  = []) {
+    if (j < 0) {  
+        return perm;
+    }
+    //console.log(arr);
+    for (let k = 0; k < animals[i].accessories[j].length; k++) {
+        let permutation = allAccessoryArrays(i, j - 1, [[...perm[0], animals[i].accessories[j][k]]], arr)!;
+        if (permutation[0].length === animals[i].accessories.length) {
+            arr.push(...permutation)
+        }
+        //arr.push(...!)
+    }
+    if (j == animals[i].accessories.length - 1)
+        return arr;
+   // console.log(j, perm, arr);
+    return perm;
+}   
+
+//console.log(allAccessoryArrays(0));
 
 
 export const backdrops: {[K: string]: string[]} = {

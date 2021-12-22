@@ -23,7 +23,7 @@ export default function AnimalCard(props: {id: number}) {
 
     function buy() {
         if (address)
-            contract.methods.purchaseToken(props.id).send({from: address, value: animal.price ||  ETH * 0.01});
+            contract.methods.purchaseToken(props.id).send({from: address, value: animal.price ||  ETH * 0.05});
         else 
             history.push("/sign-up?redirect=/explore")
     }
@@ -118,7 +118,7 @@ export default function AnimalCard(props: {id: number}) {
                     {(address !== owner) &&
                     <div className = "info">
                         <div>
-                            <i className="ri-price-tag-3-line"></i> {animal.price || 0.01}<span className="iconify" data-icon="logos:ethereum"> ETH </span>
+                            <i className="ri-price-tag-3-line"></i> {animal.price || 0.05}<span className="iconify" data-icon="logos:ethereum"> ETH </span>
                         </div>
                      
                         <br />

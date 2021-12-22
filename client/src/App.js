@@ -15,7 +15,9 @@ import { Web3Context, Web3ContextProvider } from './context/Web3Context';
 //import SignIn from './components/SignIn';
 import Mint from './routes/Mint';
 import { IPFSContextProvider } from './context/IPFSContext';
+import { allAccessoryArrays } from './core';
 
+console.log(allAccessoryArrays(0))
 function App() {
  // const user = useContext(AuthContext);
  // const {address} = useContext(Web3Context);

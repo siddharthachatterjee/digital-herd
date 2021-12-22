@@ -4,7 +4,7 @@ import AnimalImage from "../components/AnimalImage";
 
 import { Web3Context } from "../context/Web3Context";
 import {IPFSContext} from "../context/IPFSContext";
-import { animals, art, backdrops } from "../core";
+import { allAccessoryArrays, animals, art, backdrops } from "../core";
 
 
 
@@ -31,8 +31,9 @@ export default function Mint() {
     }
 
     function mintAll() {
-        contract.methods.createCollectibles(tokens).send({from: address})
-        
+        for (let i = 0; i < tokens.length/5; i++) {
+        contract.methods.createCollectibles(tokens.slice(i, Math.min(i + 4, tokens.length - 1))).send({from: address})
+        }
     }
 
 
@@ -44,15 +45,17 @@ export default function Mint() {
         {animals.map((animal, i) => (
             animal.backdrops.map((bd, j) => (
                 animal.faces.map((face, k) => (
-                    <AnimalImage accessories = {animal.accessories} onDrawn = {(cnvsRef: any) => {onDrawn(cnvsRef, animal, bd)}}  image = {face} background = {bd}  />
+                    allAccessoryArrays(i).map((accessory, l) => (
+                        <AnimalImage accessories = {accessory} onDrawn = {(cnvsRef: any) => {onDrawn(cnvsRef, animal, bd)}}  image = {face} background = {bd}  />
+                    ))
                 ))
             ))
-        ))} 
+                ))} 
         <br />
         
         <h2> Data: </h2>
         {/* {a && <img src = {"data:image/png;base64," + Buffer.from(a).toString("base64")} />} */}
-        {tokens}
+        {tokens.length}
         <br />
         <button onClick = {mintAll}> Mint All </button>
         </>
