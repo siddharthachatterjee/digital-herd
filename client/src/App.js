@@ -59,10 +59,10 @@ function App() {
           </Route>
           
           <Route path = "/mint">
-            {addr &&
-            <IPFSContextProvider>
+            {
+            
              <Mint />
-            </IPFSContextProvider>}
+           }
           </Route>
         </Switch>
      //</div> </Web3ContextProvider>)}

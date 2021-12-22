@@ -41,7 +41,7 @@ export default function MintToken(props: {animal: any, backdrop: string, i?: num
         <>
         <div style = {{display: "normal"/**"block" */}}>
             {/* <img src = {image} /> */}
-            {<AnimalImage onDrawn = {onDrawn} canvasRef = {canvasRef} image = {animal.image} background = {backdrop}  />} 
+            {/*{<AnimalImage onDrawn = {onDrawn} canvasRef = {canvasRef} image = {animal.image} background = {backdrop}  />}  */}
         </div>
         </>
     );

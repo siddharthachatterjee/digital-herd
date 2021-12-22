@@ -4,7 +4,7 @@ import AnimalImage from "../components/AnimalImage";
 
 import { Web3Context } from "../context/Web3Context";
 import {IPFSContext} from "../context/IPFSContext";
-import { art, backdrops } from "../core";
+import { animals, art, backdrops } from "../core";
 
 
 
@@ -41,9 +41,11 @@ export default function Mint() {
         <>
         
         <h1> Mint these tokens: </h1>
-        {art.map((animal, i) => (
-            backdrops[animal.species].map((bd, j) => (
-                <AnimalImage onDrawn = {(cnvsRef: any) => {onDrawn(cnvsRef, animal, bd)}}  image = {animal.image} background = {bd}  />
+        {animals.map((animal, i) => (
+            animal.backdrops.map((bd, j) => (
+                animal.faces.map((face, k) => (
+                    <AnimalImage accessories = {animal.accessories} onDrawn = {(cnvsRef: any) => {onDrawn(cnvsRef, animal, bd)}}  image = {face} background = {bd}  />
+                ))
             ))
         ))} 
         <br />

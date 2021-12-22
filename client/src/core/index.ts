@@ -1,11 +1,37 @@
 export const ETH = 1e18;
 
+export interface Animal {
+
+}
+
 export const art = [
-    {"image":"/nfts/rhino.png","species":"Javan Rhino"},
+    {"image":"/nfts/rhino/face1.png","species":"Javan Rhino"},
+   // {"image": "/nft/rhino/face1.png", "species": "Javan Rhino"}
    //{"image": "/nfts/elephant.png", "species": "Pygmy Elephant"}
 ]
 
-export const 
+export const animals = [
+    {
+        species: "Javan Rhino",
+        faces: Array(2).fill(null).map((_, i) => (
+            `/nfts/rhino/face${i + 1}.png`
+        )),
+        backdrops: Array(3).fill(null).map((_, i) => (
+            `/nfts/rhino/background${i + 1}.png`
+        )),
+        accessories:[
+            [
+                `/nfts/rhino/horn1.png`,
+            ],
+            [
+                `/nfts/rhino/expression1.png`
+            ]
+
+        ],
+    }
+]
+
+
 
 export const backdrops: {[K: string]: string[]} = {
     "Javan Rhino": [
