@@ -5,6 +5,8 @@ export const art = [
    //{"image": "/nfts/elephant.png", "species": "Pygmy Elephant"}
 ]
 
+export const 
+
 export const backdrops: {[K: string]: string[]} = {
     "Javan Rhino": [
         "lightgreen",

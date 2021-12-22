@@ -24,7 +24,7 @@ export default function Mint() {
       //  setA(buffer.toJSON());
         (async () => {
             const obj = JSON.stringify({name:`${animal.species},${backdrop}`,image:canvasRef.current.toDataURL(),species:animal.species});
-            const {cid} = await ipfs.add(obj); 
+            const {cid} = await ipfs.add(obj, {pin: true}); 
             const url = "https://ipfs.io/ipfs/" + cid.toString();
             setTokens(prev => [...new Set([...prev, url])])
         })();
