@@ -6,7 +6,7 @@ import { Web3Context } from "../context/Web3Context";
 import {IPFSContext} from "../context/IPFSContext";
 import { allAccessoryArrays, animals, art, backdrops } from "../core";
 
-
+//console.log(allAccessoryArrays(0))
 
 export default function Mint() {
     const {address, connect, contract} = useContext(Web3Context);
@@ -31,8 +31,8 @@ export default function Mint() {
     }
 
     function mintAll() {
-        for (let i = 0; i < tokens.length/5; i++) {
-        contract.methods.createCollectibles(tokens.slice(i, Math.min(i + 4, tokens.length - 1))).send({from: address})
+        for (let i = 0; i < tokens.length/10; i++) {
+        contract.methods.createCollectibles(tokens.slice(i * 10, Math.min((i + 1) * 10, tokens.length - 1))).send({from: address})
         }
     }
 

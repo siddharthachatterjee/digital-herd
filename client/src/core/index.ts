@@ -39,6 +39,7 @@ export const animals = [
 ]
 
 export function allAccessoryArrays(i: number, j:number = animals[i].accessories.length - 1, perm: string[][] = [[]], arr: string[][]  = []) {
+    //console.log(perm)
     if (j < 0) {  
         return perm;
     }
