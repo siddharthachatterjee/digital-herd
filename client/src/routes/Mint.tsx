@@ -4,7 +4,7 @@ import AnimalImage from "../components/AnimalImage";
 
 import { Web3Context } from "../context/Web3Context";
 import {IPFSContext} from "../context/IPFSContext";
-import { allAccessoryArrays, animals, art, backdrops } from "../core";
+import { allAccessoryArrays, animals, art, backdrops, shuffleArray } from "../core";
 
 //console.log(allAccessoryArrays(0))
 
@@ -31,8 +31,10 @@ export default function Mint() {
     }
 
     function mintAll() {
-        for (let i = 0; i < tokens.length/10; i++) {
-        contract.methods.createCollectibles(tokens.slice(i * 10, Math.min((i + 1) * 10, tokens.length - 1))).send({from: address})
+        let shuffled = tokens;
+        shuffleArray(shuffled);
+        for (let i = 0; i < shuffled.length/10; i++) {
+        contract.methods.createCollectibles(shuffled.slice(i * 10, Math.min((i + 1) * 10, shuffled.length - 1))).send({from: address})
         }
     }
 

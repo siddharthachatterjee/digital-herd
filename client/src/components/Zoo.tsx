@@ -14,10 +14,10 @@ export default function Zoo() {
            //     console.log(token);
               //  contract.methods.tokenURI(0).call({from: address}).then((res: any) => console.log(res))
                 contract.methods.tokenURI(token).call({from: address}).then((uri:any) => {
-                 //   const json = JSON.parse(uri);
+                  // const json = JSON.parse(uri);
                     setZoo(prevZoo => ({
                         ...prevZoo,
-                        [token]: JSON.parse(uri)
+                        [token]: uri
                     }))
                     
                 })

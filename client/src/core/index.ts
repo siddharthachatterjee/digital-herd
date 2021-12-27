@@ -22,7 +22,7 @@ export const animals = [
         accessories:[
             [
                 `/nfts/rhino/horn1.png`,
-                `/nfts/rhino/horn2.png`,
+               `/nfts/rhino/horn2.png`,
             ],
             [
                 `/nfts/rhino/expression1.png`,
@@ -32,7 +32,11 @@ export const animals = [
             [
                `/nfts/rhino/Grass.png`,
                `/nfts/rhino/Leaves.png`
-            ]
+            ],
+            // [
+            //     `/nfts/rhino/Sunglasses_1.png`,
+            //     ""
+            // ]
 
         ],
     }
@@ -57,6 +61,12 @@ export function allAccessoryArrays(i: number, j:number = animals[i].accessories.
     return perm;
 }   
 
+export function shuffleArray(array: any[]) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
 //console.log(allAccessoryArrays(0));
 
 

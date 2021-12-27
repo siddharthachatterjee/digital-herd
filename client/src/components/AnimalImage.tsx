@@ -49,7 +49,8 @@ export default function AnimalImage(props: AnimalImageProps) {
 
     useEffect(() => { 
         if (imagesLoaded == 0 && imageLayers.length) {
-            imageLayers.forEach(img => {
+            imageLayers.forEach((img: HTMLImageElement) => {
+                if (img.complete && img.naturalHeight)
                 canvasRef.current.getContext("2d").drawImage(img, 0, 0, size, size);
             })
             props.onDrawn(canvasRef);
