@@ -20,7 +20,7 @@ contract AnimalsCollectible is ERC721URIStorage, Ownable {
 
 
 
-    constructor() ERC721("DigitalHerd", "ZOO")  {
+    constructor() ERC721("DigitalHerdAnimal", "DHA")  {
         tokenCount = 0;
     }
 

@@ -34,7 +34,7 @@ export default function Mint() {
         let shuffled = tokens;
         shuffleArray(shuffled);
         for (let i = 0; i < shuffled.length/10; i++) {
-        contract.methods.createCollectibles(shuffled.slice(i * 10, Math.min((i + 1) * 10, shuffled.length - 1))).send({from: address})
+        contract.methods.createCollectibles(shuffled.slice(i * 10, Math.min((i + 1) * 10, shuffled.length))).send({from: address})
         }
     }
 
