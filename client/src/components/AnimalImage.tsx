@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useRef, useState } from "react";
+import { animals } from "../core";
 
 interface AnimalImageProps {
     image: string;
@@ -7,12 +8,13 @@ interface AnimalImageProps {
     onDrawn: (canvasRef: any) => void;
     size?: number;
     accessories: string[];
+    i: number;
 }
 export default function AnimalImage(props: AnimalImageProps) {
     const canvasRef = useRef<any>(null);
     const [imageLayers, setImageLayers] = useState<any[]>([]);
     const [imagesLoaded, setImagesLoaded] = useState(0);
-    const size = props.size || 300;
+    const size = props.size || 200;
 
     function draw() {
         const canvas: any = canvasRef.current;
@@ -22,23 +24,23 @@ export default function AnimalImage(props: AnimalImageProps) {
             const backdropImg = new Image();
 
             const images = [props.background, props.image, ...props.accessories]
-            const imageLayers = [backdropImg, face, ...Array(props.accessories.length).fill(null).map(() => new Image())];
+            const imageLayers: any[] = images.map((src) => animals[props.i].images[src!])// [backdropImg, face, ...Array(props.accessories.length).fill(null).map(() => new Image())];
             setImageLayers(imageLayers);
             setImagesLoaded(imageLayers.length);
             // image.width = 100;
             const ctx = canvas.getContext("2d");
             //  image.height = 1500;
             // image.width = "100%";
-            face.src = props.image;
-            backdropImg.src = props.background ||  "/nfts/rhino/background1.png";
-         //   ctx.fillStyle = props.background || "lightgreen";
-           // ctx.fillRect(0, 0, size, size);
-           imageLayers.forEach((img, i) => {
-               img.src = images[i]!;
-               img.onload = () => {
-                    setImagesLoaded(prev => Math.max(prev - 1, 0));
-               }
-           })
+        //     face.src = props.image;
+        //     backdropImg.src = props.background ||  "/nfts/rhino/background1.png";
+        //  //   ctx.fillStyle = props.background || "lightgreen";
+        //    // ctx.fillRect(0, 0, size, size);
+        //    imageLayers.forEach((img, i) => {
+        //        //img.src = images[i]!;
+        //        img.onload = () => {
+        //             setImagesLoaded(prev => Math.max(prev - 1, 0));
+        //        }
+        //    })
         }
     }
     
@@ -48,10 +50,12 @@ export default function AnimalImage(props: AnimalImageProps) {
     },[canvasRef.current])
 
     useEffect(() => { 
-        if (imagesLoaded == 0 && imageLayers.length) {
+        let ctx = canvasRef.current.getContext("2d");
+        if (imageLayers.length) {
             imageLayers.forEach((img: HTMLImageElement) => {
-                if (img.complete && img.naturalHeight)
-                canvasRef.current.getContext("2d").drawImage(img, 0, 0, size, size);
+               if (img.complete && img.naturalHeight)
+                ctx.drawImage(img, 0, 0, size, size);
+               // else return;
             })
             props.onDrawn(canvasRef);
         }

@@ -1,7 +1,13 @@
 export const ETH = 1e18;
 
 export interface Animal {
-
+    species: string;
+    faces: string[];
+    backdrops: string[];
+    accessories: string[][];
+    images: {
+        [K: string]: HTMLImageElement;
+    }
 }
 
 export const art = [
@@ -10,7 +16,8 @@ export const art = [
    //{"image": "/nfts/elephant.png", "species": "Pygmy Elephant"}
 ]
 
-export const animals = [
+
+export const animals: Animal[]  = [
     {
         species: "Javan Rhino",
         faces: Array(2).fill(null).map((_, i) => (
@@ -27,20 +34,47 @@ export const animals = [
             [
                 `/nfts/rhino/expression1.png`,
                 `/nfts/rhino/expression2.png`,
-                `/nfts/rhino/expression3.png`
+                `/nfts/rhino/expression3.png`,
+                
             ],
             [
                `/nfts/rhino/Grass.png`,
                `/nfts/rhino/Leaves.png`
             ],
-            // [
-            //     `/nfts/rhino/Sunglasses_1.png`,
-            //     ""
-            // ]
-
         ],
+        images: {
+            
+        },
     }
-]
+];
+
+(() => {
+
+    for (let i = 0; i < animals.length; i++) {
+        for (let j = 0; j < animals[i].faces.length; j++) {
+            
+        
+            let src = animals[i].faces[j];
+            animals[i].images[src] = new Image();
+            animals[i].images[src].src = src;
+        }
+        for (let j = 0; j < animals[i].backdrops.length; j++) {
+            
+        
+            let src = animals[i].backdrops[j];
+            animals[i].images[src] = new Image();
+            animals[i].images[src].src = src;
+        }
+        for (let j = 0; j < animals[i].accessories.length; j++) {
+    
+            for  (let k = 0; k < animals[i].accessories[j].length; k++) {
+                let src = animals[i].accessories[j][k];
+                animals[i].images[src] = new Image();
+                animals[i].images[src].src = src;
+            }
+        }
+    }
+})()
 
 export function allAccessoryArrays(i: number, j:number = animals[i].accessories.length - 1, perm: string[][] = [[]], arr: string[][]  = []) {
     //console.log(perm)

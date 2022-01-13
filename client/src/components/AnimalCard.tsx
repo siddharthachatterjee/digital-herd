@@ -37,6 +37,7 @@ export default function AnimalCard(props: {id: number}) {
                       //  console.log(uri.split("https://ipfs.io/ipfs/"));
                         const chunks: any[] = [];
                         const stream = ipfs.cat(uri.split("https://ipfs.io/ipfs/")[1]);
+
                         for await (const chunk of stream) {
                             chunks.push(...chunk);
                         }
@@ -97,6 +98,7 @@ export default function AnimalCard(props: {id: number}) {
         
         <div className = "animal-card">
             {loaded}
+            {}
             <div className = "animal-card-img" >
                
                 {/* {imgData} */}
@@ -113,6 +115,9 @@ export default function AnimalCard(props: {id: number}) {
                 </div>
                 <div>
                     <a href = {`https://ropsten.etherscan.io/token/${contractAddress.toLowerCase()}?a=${props.id}`}> View on Etherscan </a>
+                </div>
+                <div>
+                    By {animal.artist}
                 </div>
                 <div>
                     {(address !== owner) &&
