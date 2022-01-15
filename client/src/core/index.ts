@@ -49,11 +49,9 @@ export const animals: Animal[]  = [
 ];
 
 (() => {
-
     for (let i = 0; i < animals.length; i++) {
         for (let j = 0; j < animals[i].faces.length; j++) {
-            
-        
+    
             let src = animals[i].faces[j];
             animals[i].images[src] = new Image();
             animals[i].images[src].src = src;
