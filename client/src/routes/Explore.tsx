@@ -12,15 +12,23 @@ export default function Explore() {
     const [tokenCount, setTokenCount] = useState(0);
     const [tokens, setTokens] = useState<any[]>([]);
     const [show, setShow] = useState<number>(50);
-    const [load, setLoad] = useState(false);
+    const [counter, setCounter] = useState(0);
     
 
+    function load() {
+        return counter >= 10;
+    }
     useEffect(() => {
         
         autoConnect();
-        setTimeout(() => {
-            setLoad(true);
-        }, 1000)
+        let cnt = 0;
+        let countdown = setInterval(() => {
+            setCounter(prev => prev + 1);
+            cnt++;
+            if (cnt === 10) {
+                clearInterval(countdown);
+            }
+        }, 100)
     }, [])
     useEffect(() => {
         if (contract && contractAddress) {
@@ -40,8 +48,17 @@ export default function Explore() {
                     The rarer the species, the more expensive. Stay tuned for when new NFTs will be minted.
                 </p> */}
             </header>
-            {!load && Loading...}
-           <div className = "nfts" style = {{display: load? "block" : "none"}}>
+            {!load() &&
+            <div className= "loading">
+                <div>
+                    <h2> Loading... </h2>
+                    <br />
+                    <div className="loading-bar"> 
+                        <div className="progress" style = {{width: (counter + 1) * 50}}/> 
+                    </div>
+                </div>
+            </div>}
+           <div className = "nfts" style = {{display: load()? "flex" : "none"}}>
                 {tokens.slice(0, Math.min(show, tokens.length)).map((id, i) => (
                     <AnimalCard id = {+id} key = {i} />
                 ))}

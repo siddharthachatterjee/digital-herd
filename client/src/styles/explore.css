@@ -24,3 +24,32 @@
     justify-content: center;
     /* background-color: #1c1c1c; */
 }
+
+.loading {
+    display: grid;
+    position: fixed;
+    left: 10vw;
+    top: 5vw;
+    width: 80%;
+    margin: auto;
+    justify-content: center;
+    height: 200px;
+    border-radius: 1em;
+    background: white;
+    overflow: hidden;
+
+}
+.loading h2 {
+    text-align: center;
+}
+.loading .loading-bar {
+    height: 10px;
+    width: 500px;
+    border: 1px solid;
+    
+}
+
+.loading .progress {
+    background-color: var(--theme-green);
+    height: 10px;
+}
