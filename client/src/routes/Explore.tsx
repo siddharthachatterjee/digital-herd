@@ -11,9 +11,16 @@ export default function Explore() {
     const {contract, address, autoConnect, networkId, contractAddress}: Web3ContextValues = useContext(Web3Context);
     const [tokenCount, setTokenCount] = useState(0);
     const [tokens, setTokens] = useState<any[]>([]);
+    const [show, setShow] = useState<number>(50);
+    const [load, setLoad] = useState(false);
+    
 
     useEffect(() => {
+        
         autoConnect();
+        setTimeout(() => {
+            setLoad(true);
+        }, 1000)
     }, [])
     useEffect(() => {
         if (contract && contractAddress) {
@@ -33,11 +40,15 @@ export default function Explore() {
                     The rarer the species, the more expensive. Stay tuned for when new NFTs will be minted.
                 </p> */}
             </header>
-           <div className = "nfts">
-                {tokens.map((id, i) => (
+            {!load && Loading...}
+           <div className = "nfts" style = {{display: load? "block" : "none"}}>
+                {tokens.slice(0, Math.min(show, tokens.length)).map((id, i) => (
                     <AnimalCard id = {+id} key = {i} />
                 ))}
            </div>
+           {show < tokens.length && <div style = {{display: "flex", width: "100%", justifyContent: "center"}}>
+                <button className= "call-to-action primary" onClick = {() => setShow(prev => prev + 50)}> Load More </button>
+           </div>}
         </div>
     )
 }
