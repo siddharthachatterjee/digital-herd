@@ -10,7 +10,12 @@ import AnimalImage from "./AnimalImage";
 
 import { useHistory } from "react-router";
 
-export default function AnimalCard(props: {id: number}) {
+interface AnimalCardProps {
+    id: number;
+    onLoad?: () => void;
+}
+
+export default function AnimalCard(props: AnimalCardProps) {
     const {contract, address, networkId, contractAddress}: Web3ContextValues = useContext(Web3Context);
     const [animal, setAnimal] = useState<any>({});
     const [owner, setOwner] = useState("");
@@ -30,70 +35,41 @@ export default function AnimalCard(props: {id: number}) {
     useEffect(() => {   
         if (contract && ipfs) {
             (async () => {
+                if (localStorage.getItem(`nft-${props.id}`)) {
+                    setAnimal(JSON.parse(localStorage.getItem(`nft-${props.id}`)!))
+                } else {
 
-                const uri:string = await contract.methods.tokenURI(props.id).call({from: address})
-                //if (uri && uri.split("https://ipfs.io/ipfs/")[1]) {
-                 //   .then((uri: any) => {
-                      //  console.log(uri.split("https://ipfs.io/ipfs/"));
-                        const chunks: any[] = [];
-                        const stream = ipfs.cat(uri.split("https://ipfs.io/ipfs/")[1]);
-
-                        for await (const chunk of stream) {
-                            chunks.push(...chunk);
-                        }
-                     //   if (chunks)
-                       const data = (new TextDecoder().decode(new Uint8Array(chunks)));
-                       setAnimal(JSON.parse(data));
-
-                        // fetch(uri)
-                        //     .then(data => data.json())
-                        //     .then(json => setAnimal(json))
-                       // setAnimal(JSON.parse(uri));
-                        contract.methods.ownerOf(props.id).call({from: address})
-                            .then((res:string) => {
-                               // console.log(res);
-                                setOwner(res);
-                            })
+                    const uri:string = await contract.methods.tokenURI(props.id).call({from: address})
+                    //if (uri && uri.split("https://ipfs.io/ipfs/")[1]) {
+                     //   .then((uri: any) => {
+                          //  console.log(uri.split("https://ipfs.io/ipfs/"));
+                            const chunks: any[] = [];
+                            const stream = ipfs.cat(uri.split("https://ipfs.io/ipfs/")[1]);
+    
+                            for await (const chunk of stream) {
+                                chunks.push(...chunk);
+                            }
+                         //   if (chunks)
+                           const data = (new TextDecoder().decode(new Uint8Array(chunks)));
+                           localStorage.setItem(`nft-${props.id}`, data);
+                           setAnimal(JSON.parse(data));
+    
+                            // fetch(uri)
+                            //     .then(data => data.json())
+                            //     .then(json => setAnimal(json))
+                           // setAnimal(JSON.parse(uri));
+                            contract.methods.ownerOf(props.id).call({from: address})
+                                .then((res:string) => {
+                                   // console.log(res);
+                                    setOwner(res);
+                                })
+                }
                   //  });
                // }
             })()
         }   
     }, [contract, ipfs]);
 
-    useEffect(() => {
-        if (animal && animal.image) {
-            (async() => {
-                // fetch(animal.image)
-                //     .then(res => console.log(res.text()))
-                // ipfs.files.cat("QmS3GTCi2LyYZMWvd61wCAFa5nVsJmdSZzSXb2o9DGUAxd", (err:string, str:string) => {
-                //     console.log(str);
-                // })
-            //     const res = await fetch(animal.image, {
-            //         headers: {
-            //             'Content-Type': 'text/plain'
-            //         }
-            //     });
-            //     const text = await res.text();
-            //   //  console.log(text);
-            //     setImgData(text);
-            //   console.log(animal.image)
-
-            //     const stream = (ipfs.cat(animal.image));
-            //    // console.log(stream);
-            //     let str = ''
-            //     for await (const chunk of stream) {
-                   
-            //             str += chunk.toString();
-            //         //}
-            //       //  setImgData(prev => prev + chunk.toString());
-            //     }
-            //     console.log("str: " + str);
-            //     setImgData(str);
-            })();
-
-            //uint8ArrayCo
-        }
-    }, [animal])
     return (
         
         <div className = "animal-card">
@@ -102,7 +78,7 @@ export default function AnimalCard(props: {id: number}) {
             <div className = "animal-card-img" >
                
                 {/* {imgData} */}
-                <img src = {animal.image}  />
+                <img src = {animal.image} onLoad = {props.onLoad}  />
                 {/* <AnimalImage canvasRef = {canvasRef} image = {"/nfts/elephant.png"} /> */}
             </div>
             {true? <div className = "basic-info">

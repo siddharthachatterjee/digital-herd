@@ -1,4 +1,6 @@
 export const ETH = 1e18;
+export const NFTS_TO_LOAD = 25;
+export const NFT_DISPLAY = 50;
 
 export interface Animal {
     species: string;
