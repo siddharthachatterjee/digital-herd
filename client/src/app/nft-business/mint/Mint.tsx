@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import MintToken from "./MintToken";
-import AnimalImage from "./AnimalImage";
+import AnimalImage from "../display/AnimalImage";
 
 import { Web3Context } from "../../../context/Web3Context";
 import {IPFSContext} from "../../../context/IPFSContext";

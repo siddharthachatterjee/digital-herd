@@ -4,7 +4,7 @@ import homePageContent from "../../core/homePageContent";
 //import {useHistory} from "react-router-dom";
 import { Web3Context } from "../../context/Web3Context";
 
-import "../styles/landing-page.css";
+import "./landing-page.css";
 import Modal from "../../components/Modal";
 
 export default function LandingPage() {

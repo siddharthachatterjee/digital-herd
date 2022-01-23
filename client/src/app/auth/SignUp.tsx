@@ -5,7 +5,7 @@ import { Web3Context } from "../../context/Web3Context";
 //import {getAuth, onAuthStateChanged, createUserWithEmailAndPassword,updateProfile,sendEmailVerification,} from "firebase/auth";
 import {getDatabase, ref,set} from "firebase/database";
 
-import "../styles/sign-up.css";
+import "./sign-up.css";
 import { useHistory, useLocation } from "react-router";
 
 

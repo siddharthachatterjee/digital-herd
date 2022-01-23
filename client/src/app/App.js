@@ -1,7 +1,7 @@
 import './App.css';
 import { Switch } from 'react-router-dom';
 import { Route, Redirect } from 'react-router-dom';
-import Home from './app/Home';
+import Home from './home/Home';
 import SignUp from './auth/SignUp';
 import Profile from './profile/Profile';
 import { useContext, useEffect, useState} from 'react';
@@ -17,7 +17,7 @@ import Mint from './nft-business/mint/Mint';
 import { IPFSContextProvider } from '../context/IPFSContext';
 import { allAccessoryArrays } from '../core';
 
-console.log(allAccessoryArrays(0))
+
 function App() {
  // const user = useContext(AuthContext);
  // const {address} = useContext(Web3Context);

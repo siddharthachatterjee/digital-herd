@@ -1,6 +1,6 @@
 import React from "react";
 
-import "../styles/section.css";
+import "./section.css";
 
 interface SectionProps {
     title: string;

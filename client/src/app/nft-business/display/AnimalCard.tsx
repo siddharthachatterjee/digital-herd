@@ -5,8 +5,8 @@ import { Web3Context } from "../../../context/Web3Context";
 import { ETH, Web3ContextValues } from "../../../core";
 
 
-import "../styles/animal-card.css";
-import AnimalImage from "../mint/AnimalImage";
+import "./animal-card.css";
+import AnimalImage from "./AnimalImage";
 
 import { useHistory } from "react-router";
 

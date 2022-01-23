@@ -4,7 +4,7 @@ import { IPFSContext } from "../../../context/IPFSContext";
 import { Web3Context } from "../../../context/Web3Context";
 
 import { art, backdrops } from "../../../core";
-import AnimalImage from "./AnimalImage";
+import AnimalImage from "../display/AnimalImage";
 
 export default function MintToken(props: {animal: any, backdrop: string, i?: number}) {
     const {address, connect, web3, networkId, contract} = useContext(Web3Context);

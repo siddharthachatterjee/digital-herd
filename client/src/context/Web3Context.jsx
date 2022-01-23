@@ -78,7 +78,6 @@ export function Web3ContextProvider(props) {
             setLoading(true);
             initWeb3(ethereum)
                 .then((res) => {
-                    console.log(res);
                     setLoading(false);
                     if (res.eth === null) {
                         setError({

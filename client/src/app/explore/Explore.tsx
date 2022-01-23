@@ -5,7 +5,7 @@ import { Web3Context } from "../../context/Web3Context";
 
 import { Web3ContextValues } from "../../core";
 
-import "../styles/explore.css";
+import "./explore.css";
 
 export default function Explore() {
     const {contract, address, autoConnect, networkId, contractAddress}: Web3ContextValues = useContext(Web3Context);
@@ -35,7 +35,6 @@ export default function Explore() {
         if (contract && contractAddress) {
             contract.methods.getUser(contractAddress).call({from:address}).then((res:any) => {
                 setTokens(res.tokens);
-                console.log(res);
             })
             contract.methods.tokenCount().call({from: address})
                 .then((res: number) => setTokenCount(res))
