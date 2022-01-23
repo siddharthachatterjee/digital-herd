@@ -12,7 +12,7 @@ export default function Explore() {
     const [tokenCount, setTokenCount] = useState(0);
     const [tokens, setTokens] = useState<any[]>([]);
     const [show, setShow] = useState<number>(NFT_DISPLAY);
-   // const [counter, setCounter] = useState(0);
+    const [counter, setCounter] = useState(0);
     const [loaded, setLoaded] = useState(0);
     const loadTime = 5
     
@@ -23,14 +23,9 @@ export default function Explore() {
     useEffect(() => {
         
         autoConnect();
-        // let cnt = 0;
-        // let countdown = setInterval(() => {
-        //     setCounter(prev => prev + 1);
-        //     cnt++;
-        //     if (cnt === 10) {
-        //         clearInterval(countdown);
-        //     }
-        // }, 100)
+        setTimeout(() => {
+            setCounter(prev => prev + 1);
+        }, 250)
     }, [])
     useEffect(() => {
         if (contract && contractAddress) {
@@ -42,7 +37,7 @@ export default function Explore() {
         }
     }, [contract])
     return (
-        <div id = "explore" className = "background-container">
+        <div id = "explore" className = "background-container" style = {{display: counter? "block" : "none" }}>
             <header>
                 <h1> Marketplace </h1>
                 {/* <p>
@@ -52,11 +47,14 @@ export default function Explore() {
             {!load() &&
             <div className= "loading">
                 <div>
-                    <h2> Loading...({Math.floor(100 * loaded/NFTS_TO_LOAD)}%) </h2>
+                    <h2> Loading...({Math.floor(Math.max(100 * loaded/NFTS_TO_LOAD, 0))}%) </h2>
                     <br />
                     <div className="loading-bar" style = {{width: 500}}> 
                         <div className="progress" style = {{width: (loaded) * (500/NFTS_TO_LOAD)}}/> 
                     </div>
+                    {/* <h2>
+                    If this page is not loading, try checking to see if you are securely connected(https) or try switching browsers
+                    </h2> */}
                 </div>
             </div>}
            <div className = "nfts" style = {{display: load()? "flex" : "none"}}>

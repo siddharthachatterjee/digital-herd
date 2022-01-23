@@ -51,7 +51,8 @@ export default function AnimalCard(props: AnimalCardProps) {
                             }
                          //   if (chunks)
                            const data = (new TextDecoder().decode(new Uint8Array(chunks)));
-                           localStorage.setItem(`nft-${props.id}`, data);
+                          // localStorage.setItem(`nft-${props.id}`, data);
+                    
                            setAnimal(JSON.parse(data));
     
                             // fetch(uri)
@@ -70,6 +71,7 @@ export default function AnimalCard(props: AnimalCardProps) {
         }   
     }, [contract, ipfs]);
 
+
     return (
         
         <div className = "animal-card">
@@ -78,7 +80,7 @@ export default function AnimalCard(props: AnimalCardProps) {
             <div className = "animal-card-img" >
                
                 {/* {imgData} */}
-                <img src = {animal.image} onLoad = {props.onLoad}  />
+                <img src = {animal.image} onLoad = {props.onLoad} />
                 {/* <AnimalImage canvasRef = {canvasRef} image = {"/nfts/elephant.png"} /> */}
             </div>
             {true? <div className = "basic-info">
