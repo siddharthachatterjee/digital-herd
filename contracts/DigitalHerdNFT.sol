@@ -55,7 +55,7 @@ contract DigitalHerdNFT is ERC721URIStorage, Ownable {
         for (uint256 i = 0; i < uris.length; i++) createCollectible(uris[i]);
     }
 
-    function dropCollection() public onlyOwner {
+    function dropCollection() public {
         state = CollectionState.Dropped;
     }
 

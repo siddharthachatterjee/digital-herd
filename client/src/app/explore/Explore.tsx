@@ -19,7 +19,7 @@ export default function Explore() {
     
 
     function load() {
-        return loaded >= (NFTS_TO_LOAD) || loaded >= tokens.length;
+        return loaded >= (NFTS_TO_LOAD) || (loaded >= tokens.length);
     }
     useEffect(() => {
         
@@ -35,16 +35,20 @@ export default function Explore() {
             })
             contract.methods.tokenCount().call({from: address})
                 .then((res: number) => setTokenCount(res));
-            contract.methods.state().call({from: address}).then((res: any) => {
-                console.log(res);
-                setDropped(res);
-            })
+            
+            // let date = new Date();
+            // if (date.getFullYear() == +process.env.REACT_APP_DROP_YEAR!) {
+            //    setDropped(1);
+            // }   
         }
     }, [contract])
     return (
-        <div id = "explore" className = "background-container" style = {{display: counter? "block" : "none" }}>
+        <div id = "explore" className = "background-container">
             <header>
                 <h1> Marketplace </h1>
+                {dropped == 0 && 
+                    (<h2> Full collection drops March 3rd, 2022. </h2>)
+                }
                 {/* <p>
                     The rarer the species, the more expensive. Stay tuned for when new NFTs will be minted.
                 </p> */}
@@ -67,7 +71,7 @@ export default function Explore() {
                     <AnimalCard dropped = {dropped} onLoad = {() => setLoaded(prev => prev + 1)} id = {+id} key = {i} />
                 ))}
            </div>
-           {show < tokens.length && <div style = {{display: "flex", width: "100%", justifyContent: "center"}}>
+           {show < tokens.length && load() && <div style = {{display: "flex", width: "100%", justifyContent: "center"}}>
                 <button className= "call-to-action primary" onClick = {() => setShow(prev => prev + NFT_DISPLAY)}> Load More </button>
            </div>}
         </div>
