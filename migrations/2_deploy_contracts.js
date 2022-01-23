@@ -1,5 +1,5 @@
-const AnimalsCollectible = artifacts.require("AnimalsCollectible");
+const DigitalHerdNFT = artifacts.require("DigitalHerdNFT");
 
 module.exports = function (deployer) {
-    deployer.deploy(AnimalsCollectible);
+    deployer.deploy(DigitalHerdNFT);
 };
