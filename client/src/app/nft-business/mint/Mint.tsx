@@ -13,7 +13,7 @@ export default function Mint() {
     const {ipfs} = useContext(IPFSContext);
     const [tokens, setTokens] = useState<any[]>([]);
     const [checkedAnimal, setCheckedAnimal] = useState<{[K:number]: boolean}>({});
-    const [number, setNumber] = useState(1000);
+    const [number, setNumber] = useState("1000");
   //  const [a, setA] = useState<any>(null);
     useEffect(() => {   
         connect();
@@ -24,7 +24,7 @@ export default function Mint() {
         const buffer = Buffer.from(canvasRef.current.toDataURL().split(",")[1], "base64");
       //  setA(buffer.toJSON());
         (async () => {
-            const obj = JSON.stringify({name:`${animal.species},${backdrop}`,artist: "Alyse Gemson", image:canvasRef.current.toDataURL(),species:animal.species});
+            const obj = JSON.stringify({name:`${animal.species},${backdrop}`,artist:"Alyse Gemson", image:canvasRef.current.toDataURL(),species:animal.species});
             const {cid} = await ipfs.add(obj, {pin: true}); 
             const url = "https://ipfs.io/ipfs/" + cid.toString();
             setTokens(prev => [...new Set([...prev, url])])
@@ -34,7 +34,7 @@ export default function Mint() {
     function mintAll() {
         let shuffled = tokens;
         shuffleArray(shuffled);
-        let len = Math.min(shuffled.length, number);
+        let len = Math.min(shuffled.length, +number);
         for (let i = 0; i < len/10; i++) {
         contract.methods.createCollectibles(shuffled.slice(i * 10, Math.min((i + 1) * 10, len))).send({from: address})
         }
@@ -52,6 +52,9 @@ export default function Mint() {
                 {animal.species}
             </div>
         ))}
+        <br/>
+        Number: 
+        <input type = "number" value = {number} onChange = {e => setNumber(e.target.value)} />
         {animals.map((animal: Animal, i: number) => checkedAnimal[i] && (
             animal.backdrops.map((bd: any, j) =>  {
                 let accessories = allAccessoryArrays(i);

@@ -17,7 +17,7 @@ contract DigitalHerdNFT is ERC721URIStorage, Ownable {
         string username;
         uint256[] tokens;
     }
-    CollectionState state;
+    CollectionState public state;
     mapping(address => User) users;
     mapping(uint256 => uint256) price;
 

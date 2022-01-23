@@ -13,6 +13,7 @@ import { useHistory } from "react-router";
 interface AnimalCardProps {
     id: number;
     onLoad?: () => void;
+    dropped?: number;
 }
 
 export default function AnimalCard(props: AnimalCardProps) {
@@ -35,9 +36,9 @@ export default function AnimalCard(props: AnimalCardProps) {
     useEffect(() => {   
         if (contract && ipfs) {
             (async () => {
-                if (localStorage.getItem(`nft-${props.id}`)) {
-                    setAnimal(JSON.parse(localStorage.getItem(`nft-${props.id}`)!))
-                } else {
+                // if (localStorage.getItem(`nft-${props.id}`)) {
+                //     setAnimal(JSON.parse(localStorage.getItem(`nft-${props.id}`)!))
+                // } else {
 
                     const uri:string = await contract.methods.tokenURI(props.id).call({from: address})
                     //if (uri && uri.split("https://ipfs.io/ipfs/")[1]) {
@@ -64,7 +65,7 @@ export default function AnimalCard(props: AnimalCardProps) {
                                    // console.log(res);
                                     setOwner(res);
                                 })
-                }
+                //}
                   //  });
                // }
             })()
@@ -95,7 +96,7 @@ export default function AnimalCard(props: AnimalCardProps) {
                     <a href = {`https://ropsten.etherscan.io/token/${contractAddress.toLowerCase()}?a=${props.id}`}> View on Etherscan </a>
                 </div>
                 <div>
-                    By {animal.artist}
+                    Art by {animal.artist}
                 </div>
                 <div>
                     {(address !== owner) &&
@@ -105,9 +106,9 @@ export default function AnimalCard(props: AnimalCardProps) {
                         </div>
                      
                         <br />
-                        <button title = "Purchase Token" onClick = {buy} className = "call-to-action primary" style = {{width: "100%", display: "block", margin: 0}}>
+                        {(props.dropped == null || props.dropped! ==  1)? <button title = "Purchase Token" onClick = {buy} className = "call-to-action primary" style = {{width: "100%", display: "block", margin: 0}}>
                             Buy 
-                        </button>
+                        </button> : "Wait until full collection is dropped to buy"}
                     </div>}
                 </div>
             </div> : 
