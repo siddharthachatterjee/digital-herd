@@ -9,19 +9,24 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 contract AnimalsCollectible is ERC721URIStorage, Ownable {
     uint256 public tokenCount = 0;
 
+    enum CollectionState{YetToDrop, Dropped}
     struct User {
         string username;
         uint256[] tokens;
     }
+    CollectionState state;
     mapping(address => User) users;
     mapping (uint => uint) price;
-   // mapping(uint => bool) cidExists;
- //   mapping(uint256 => string) _tokenURIs;
 
+    modifier ifDropped {
+        require(state == CollectionState.Dropped);
+        _;
+    }
 
 
     constructor() ERC721("DigitalHerdAnimal", "DHA")  {
         tokenCount = 0;
+        state = CollectionState.YetToDrop;
     }
 
     function getUser(address addr) public view returns (User memory) {
@@ -50,22 +55,11 @@ contract AnimalsCollectible is ERC721URIStorage, Ownable {
             createCollectible(uris[i]);
     }
 
-    // function getURI(uint256 id) public view returns (string memory) {
-    //     return _tokenURIs[id];
-    // }
+    function dropCollection() public onlyOwner {
+        state = CollectionState.Dropped;
+    }
 
-    // function onERC721Received(address, address, uint256, bytes memory) public virtual override returns (bytes4) {
-    //      return this.sel;
-    //  }
-
-    //  function createCollectible(string memory tokenURI)
-    //     public
-    //     returns (uint256)
-    // {
-    //    return createCollectible(address(this), tokenURI);
-    // }
-
-   function purchaseToken(uint256 _tokenId) public payable {
+   function purchaseToken(uint256 _tokenId) public payable ifDropped {
         require(_tokenId < tokenCount, "Token does not exist");
         require(msg.value >= price[_tokenId], "Insufficient funds");
        address itemOwner = ownerOf(_tokenId);

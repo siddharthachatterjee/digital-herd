@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useRef, useState } from "react";
-import { animals } from "../core";
+import { animals } from "../../../core";
 
 interface AnimalImageProps {
     image: string;

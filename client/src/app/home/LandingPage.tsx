@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router";
-import homePageContent from "../content/homePageContent";
+import homePageContent from "../../core/homePageContent";
 //import {useHistory} from "react-router-dom";
-import { Web3Context } from "../context/Web3Context";
+import { Web3Context } from "../../context/Web3Context";
 
 import "../styles/landing-page.css";
-import Modal from "./Modal";
+import Modal from "../../components/Modal";
 
 export default function LandingPage() {
     const {connect, loading, error} = useContext(Web3Context);

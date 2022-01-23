@@ -1,6 +1,6 @@
 import React, { useContext }  from "react";
-import { Web3Context } from "../context/Web3Context";
-import Modal from "./Modal";
+import { Web3Context } from "../../context/Web3Context";
+import Modal from "../../components/Modal";
 
 
 export default function SignIn() {

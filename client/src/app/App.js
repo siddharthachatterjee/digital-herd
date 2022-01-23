@@ -1,21 +1,21 @@
 import './App.css';
 import { Switch } from 'react-router-dom';
 import { Route, Redirect } from 'react-router-dom';
-import Home from './routes/Home';
-import SignUp from './routes/SignUp';
-import Profile from './routes/Profile';
+import Home from './app/Home';
+import SignUp from './auth/SignUp';
+import Profile from './profile/Profile';
 import { useContext, useEffect, useState} from 'react';
-import { AuthContext, AuthContextProvider } from './context/AuthContext';
+import { AuthContext, AuthContextProvider } from '../context/AuthContext';
 
 
 //import firebase from "./firebase";
-import Navbar from './components/Navbar';
-import Explore from './routes/Explore';
-import { Web3Context, Web3ContextProvider } from './context/Web3Context';
+import Navbar from '../components/Navbar';
+import Explore from './explore/Explore';
+import { Web3Context, Web3ContextProvider } from '../context/Web3Context';
 //import SignIn from './components/SignIn';
-import Mint from './routes/Mint';
-import { IPFSContextProvider } from './context/IPFSContext';
-import { allAccessoryArrays } from './core';
+import Mint from './nft-business/mint/Mint';
+import { IPFSContextProvider } from '../context/IPFSContext';
+import { allAccessoryArrays } from '../core';
 
 console.log(allAccessoryArrays(0))
 function App() {

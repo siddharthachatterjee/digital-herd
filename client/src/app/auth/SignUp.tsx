@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import InputBox from "../components/InputBox";
-import { Web3Context } from "../context/Web3Context";
+import InputBox from "../../components/InputBox";
+import { Web3Context } from "../../context/Web3Context";
 
 //import {getAuth, onAuthStateChanged, createUserWithEmailAndPassword,updateProfile,sendEmailVerification,} from "firebase/auth";
 import {getDatabase, ref,set} from "firebase/database";

@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import AnimalCard from "../components/AnimalCard";
-import { Web3Context } from "../context/Web3Context";
+import AnimalCard from "../nft-business/display/AnimalCard";
+import { Web3Context } from "../../context/Web3Context";
 
 
-import { Web3ContextValues } from "../core";
+import { Web3ContextValues } from "../../core";
 
 import "../styles/explore.css";
 
@@ -13,10 +13,11 @@ export default function Explore() {
     const [tokens, setTokens] = useState<any[]>([]);
     const [show, setShow] = useState<number>(50);
     const [counter, setCounter] = useState(0);
+    const loadTime = 5
     
 
     function load() {
-        return counter >= 10;
+        return counter >= loadTime;
     }
     useEffect(() => {
         

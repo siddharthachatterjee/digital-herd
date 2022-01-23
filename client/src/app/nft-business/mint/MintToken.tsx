@@ -1,9 +1,9 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
-import { IPFSContext } from "../context/IPFSContext";
+import { IPFSContext } from "../../../context/IPFSContext";
 //import ipfs from "../context/IPFSContext";
-import { Web3Context } from "../context/Web3Context";
+import { Web3Context } from "../../../context/Web3Context";
 
-import { art, backdrops } from "../core";
+import { art, backdrops } from "../../../core";
 import AnimalImage from "./AnimalImage";
 
 export default function MintToken(props: {animal: any, backdrop: string, i?: number}) {

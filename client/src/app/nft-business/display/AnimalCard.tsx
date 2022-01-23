@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { IPFSContext } from "../context/IPFSContext";
-import { Web3Context } from "../context/Web3Context";
+import { IPFSContext } from "../../../context/IPFSContext";
+import { Web3Context } from "../../../context/Web3Context";
 
-import { ETH, Web3ContextValues } from "../core";
+import { ETH, Web3ContextValues } from "../../../core";
 
 
 import "../styles/animal-card.css";
-import AnimalImage from "./AnimalImage";
+import AnimalImage from "../mint/AnimalImage";
 
 import { useHistory } from "react-router";
 

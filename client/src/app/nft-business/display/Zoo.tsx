@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { Web3Context } from "../context/Web3Context";
+import { Web3Context } from "../../../context/Web3Context";
 import AnimalCard from "./AnimalCard";
 
 export default function Zoo() {

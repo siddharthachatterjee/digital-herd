@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
-import MintToken from "../components/MintToken";
-import AnimalImage from "../components/AnimalImage";
+import MintToken from "./MintToken";
+import AnimalImage from "./AnimalImage";
 
-import { Web3Context } from "../context/Web3Context";
-import {IPFSContext} from "../context/IPFSContext";
-import { allAccessoryArrays, Animal, animals, art, backdrops, shuffleArray } from "../core";
+import { Web3Context } from "../../../context/Web3Context";
+import {IPFSContext} from "../../../context/IPFSContext";
+import { allAccessoryArrays, Animal, animals, art, backdrops, shuffleArray } from "../../../core";
 
 //console.log(allAccessoryArrays(0))
 

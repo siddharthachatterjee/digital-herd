@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import firebase from "../firebase";
+import firebase from "../firebase/firebase";
 import {getAuth, onAuthStateChanged, User} from "firebase/auth";
 import {get, child, getDatabase, ref} from "firebase/database";
 import { Web3Context } from "./Web3Context";

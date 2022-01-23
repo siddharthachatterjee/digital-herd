@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import LandingPage from "../components/LandingPage";
-import Section from "../components/Section";
-import homePageContent from "../content/homePageContent";
-import { Web3Context } from "../context/Web3Context";
+import LandingPage from "./LandingPage";
+import Section from "./Section";
+import homePageContent from "../../core/homePageContent";
+import { Web3Context } from "../../context/Web3Context";
 
 
 export default function Home(): JSX.Element {

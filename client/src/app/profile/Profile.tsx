@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useRef } from "react";
-import { Web3Context } from "../context/Web3Context";
+import { Web3Context } from "../../context/Web3Context";
 import "../styles/profile.css";
 
 
-import { AuthContext } from "../context/AuthContext";
-import Tabs from "../components/Tabs";
-import Zoo from "../components/Zoo";
-import AnimalImage from "../components/AnimalImage";
-import MintToken from "../components/MintToken";
-import { art, backdrops } from "../core";
+import { AuthContext } from "../../context/AuthContext";
+import Tabs from "../../components/Tabs";
+import Zoo from "../nft-business/display/Zoo";
+import AnimalImage from "../nft-business/mint/AnimalImage";
+import MintToken from "../nft-business/mint/MintToken";
+import { art, backdrops } from "../../core";
 
 
 export default function Profile() {
