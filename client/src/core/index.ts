@@ -41,8 +41,19 @@ export const animals: Animal[]  = [
             ],
             [
                `/nfts/rhino/Grass.png`,
-               `/nfts/rhino/Leaves.png`
+               `/nfts/rhino/Leaves.png`,
+              // `/nfts/rhino/River.png`
+              
             ],
+            [
+                `nfts/rhino/Sunglasses_1.png`,
+                `nft/shino/Sunglasses_2.png`,
+            ],
+            [
+                `nfts/rhino/Beanie.png`,
+                `nfts/rhino/Fedora.png`,
+                ""
+            ]
         ],
         images: {
             
