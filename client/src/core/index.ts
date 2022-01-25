@@ -1,6 +1,6 @@
 export const ETH = 1e18;
 export const NFTS_TO_LOAD = 50;
-export const NFT_DISPLAY = 50;
+export const NFT_DISPLAY = 100;
 
 export interface Animal {
     species: string;
@@ -47,7 +47,8 @@ export const animals: Animal[]  = [
             ],
             [
                 `nfts/rhino/Sunglasses_1.png`,
-                `nft/shino/Sunglasses_2.png`,
+                `nfts/rhino/Sunglasses_2.png`,
+                "",
             ],
             [
                 `nfts/rhino/Beanie.png`,
@@ -61,31 +62,7 @@ export const animals: Animal[]  = [
     }
 ];
 
-(() => {
-    for (let i = 0; i < animals.length; i++) {
-        for (let j = 0; j < animals[i].faces.length; j++) {
-    
-            let src = animals[i].faces[j];
-            animals[i].images[src] = new Image();
-            animals[i].images[src].src = src;
-        }
-        for (let j = 0; j < animals[i].backdrops.length; j++) {
-            
-        
-            let src = animals[i].backdrops[j];
-            animals[i].images[src] = new Image();
-            animals[i].images[src].src = src;
-        }
-        for (let j = 0; j < animals[i].accessories.length; j++) {
-    
-            for  (let k = 0; k < animals[i].accessories[j].length; k++) {
-                let src = animals[i].accessories[j][k];
-                animals[i].images[src] = new Image();
-                animals[i].images[src].src = src;
-            }
-        }
-    }
-})()
+
 
 export function allAccessoryArrays(i: number, j:number = animals[i].accessories.length - 1, perm: string[][] = [[]], arr: string[][]  = []) {
     //console.log(perm)
@@ -108,7 +85,7 @@ export function allAccessoryArrays(i: number, j:number = animals[i].accessories.
 
 export function shuffleArray(array: any[]) {
     for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
+        const j = Math.floor(Math.random() * (array.length));
         [array[i], array[j]] = [array[j], array[i]];
     }
 }

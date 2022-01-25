@@ -17,6 +17,31 @@ export default function Mint() {
   //  const [a, setA] = useState<any>(null);
     useEffect(() => {   
         connect();
+        (() => {
+            for (let i = 0; i < animals.length; i++) {
+                for (let j = 0; j < animals[i].faces.length; j++) {
+            
+                    let src = animals[i].faces[j];
+                    animals[i].images[src] = new Image();
+                    animals[i].images[src].src = src;
+                }
+                for (let j = 0; j < animals[i].backdrops.length; j++) {
+                    
+                
+                    let src = animals[i].backdrops[j];
+                    animals[i].images[src] = new Image();
+                    animals[i].images[src].src = src;
+                }
+                for (let j = 0; j < animals[i].accessories.length; j++) {
+            
+                    for  (let k = 0; k < animals[i].accessories[j].length; k++) {
+                        let src = animals[i].accessories[j][k];
+                        animals[i].images[src] = new Image();
+                        animals[i].images[src].src = src;
+                    }
+                }
+            }
+        })()
        // console.log(new File(["foo"], "foo.txt", {type: "text/plain"}))
     }, []);
 
@@ -35,8 +60,9 @@ export default function Mint() {
         let shuffled = tokens;
         shuffleArray(shuffled);
         let len = Math.min(shuffled.length, +number);
-        for (let i = 0; i < len/10; i++) {
-        contract.methods.createCollectibles(shuffled.slice(i * 10, Math.min((i + 1) * 10, len))).send({from: address})
+        let perTxn = 50;
+        for (let i = 0; i < len/perTxn; i++) {
+        contract.methods.createCollectibles(shuffled.slice(i * perTxn, Math.min((i + 1) * perTxn, len))).send({from: address})
         }
     }
 
