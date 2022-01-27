@@ -56,10 +56,10 @@ export default function Explore() {
             {!load() &&
             <div className= "loading">
                 <div>
-                    <h2> Loading...({Math.floor(Math.max(100 * loaded/NFTS_TO_LOAD, 0))}%) </h2>
+                    <h2> Downloading NFTs...({Math.floor(Math.max(100 * loaded/Math.min(NFTS_TO_LOAD, tokens.length), 0))}%) </h2>
                     <br />
                     <div className="loading-bar" style = {{width: 350}}> 
-                        <div className="progress" style = {{width: (loaded) * (350/NFTS_TO_LOAD)}}/> 
+                        <div className="progress" style = {{width: (loaded) * (350/Math.min(NFTS_TO_LOAD, tokens.length))}}/> 
                     </div>
                     {/* <h2>
                     If this page is not loading, try checking to see if you are securely connected(https) or try switching browsers

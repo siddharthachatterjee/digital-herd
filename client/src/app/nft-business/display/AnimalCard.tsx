@@ -45,16 +45,20 @@ export default function AnimalCard(props: AnimalCardProps) {
                      //   .then((uri: any) => {
                           //  console.log(uri.split("https://ipfs.io/ipfs/"));
                             const chunks: any[] = [];
-                            const stream = ipfs.cat(uri.split("https://ipfs.io/ipfs/")[1]);
+                            const stream = ipfs.cat(JSON.parse(uri).image.split("https://ipfs.io/ipfs/")[1]);
+                           // setAnimal(JSON.parse(uri));
     
                             for await (const chunk of stream) {
                                 chunks.push(...chunk);
                             }
                          //   if (chunks)
-                           const data = (new TextDecoder().decode(new Uint8Array(chunks)));
+                           const data = "data:image/png;base64," + Buffer.from(chunks).toString("base64");
                           // localStorage.setItem(`nft-${props.id}`, data);
                     
-                           setAnimal(JSON.parse(data));
+                           setAnimal(() => ({
+                               ...JSON.parse(uri),
+                               image: data
+                           }));
     
                             // fetch(uri)
                             //     .then(data => data.json())

@@ -4,7 +4,7 @@ import AnimalImage from "../display/AnimalImage";
 
 import { Web3Context } from "../../../context/Web3Context";
 import {IPFSContext} from "../../../context/IPFSContext";
-import { allAccessoryArrays, Animal, animals, art, backdrops, shuffleArray } from "../../../core";
+import { allAccessoryArrays, Animal, animals, art, backdrops, ETH, shuffleArray } from "../../../core";
 
 //console.log(allAccessoryArrays(0))
 
@@ -14,7 +14,7 @@ export default function Mint() {
     const [tokens, setTokens] = useState<any[]>([]);
     const [checkedAnimal, setCheckedAnimal] = useState<{[K:number]: boolean}>({});
     const [number, setNumber] = useState("1000");
-  //  const [a, setA] = useState<any>(null);
+    const [a, setA] = useState<any>(null);
     useEffect(() => {   
         connect();
         (() => {
@@ -49,10 +49,24 @@ export default function Mint() {
         const buffer = Buffer.from(canvasRef.current.toDataURL().split(",")[1], "base64");
       //  setA(buffer.toJSON());
         (async () => {
-            const obj = JSON.stringify({name:`${animal.species},${backdrop}`,artist:"Alyse Gemson", image:canvasRef.current.toDataURL(),species:animal.species});
-            const {cid} = await ipfs.add(obj, {pin: true}); 
+            const result = await ipfs.add({path: "/tmp/", content: buffer}, {pin: true}); 
+            // if (tokens.length == 0)
+            //     console.log(result);
+            //  console.log(result);
+           const {cid} = result;
             const url = "https://ipfs.io/ipfs/" + cid.toString();
-            setTokens(prev => [...new Set([...prev, url])])
+            const chunks:any = [];
+            ///console.log(hash);
+            const stream = ipfs.cat(cid.toString());
+                            //console.log(uri);
+    
+                            for await (const chunk of stream) {
+                                chunks.push(...chunk);
+                            }
+            //setA("data:image/png;base64," + Buffer.from(chunks).toString("base64"));
+        //    console.log(JSON.stringify(chunks) == JSON.stringify(buffer));
+            const obj = JSON.stringify({name:`${animal.species},${backdrop}`,artist:"Alyse Gamson", image:url,species:animal.species});
+            setTokens(prev => [...new Set([...prev, obj])])
         })();
     }
 
@@ -60,7 +74,7 @@ export default function Mint() {
         let shuffled = tokens;
         shuffleArray(shuffled);
         let len = Math.min(shuffled.length, +number);
-        let perTxn = 50;
+        let perTxn = 20;
         for (let i = 0; i < len/perTxn; i++) {
         contract.methods.createCollectibles(shuffled.slice(i * perTxn, Math.min((i + 1) * perTxn, len))).send({from: address})
         }
@@ -78,6 +92,8 @@ export default function Mint() {
                 {animal.species}
             </div>
         ))}
+        {tokens.length && a && <img src = {a}  />}
+        {a}
         <br/>
         Number: 
         <input type = "number" value = {number} onChange = {e => setNumber(e.target.value)} />

@@ -45,7 +45,7 @@ contract DigitalHerdNFT is ERC721URIStorage, Ownable {
         _mint(receiver, newItemId);
         users[receiver].tokens.push(newItemId);
         _setTokenURI(newItemId, tokenURI);
-        price[newItemId] = 1e18 * 0.01;
+      //  price[newItemId] = price_;
         tokenCount++;
         //  cidExists[]
         return newItemId;
