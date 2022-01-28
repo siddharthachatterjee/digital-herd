@@ -33,32 +33,47 @@ export default function AnimalCard(props: AnimalCardProps) {
         else 
             history.push("/sign-up?redirect=/explore")
     }
+
+    async function getIPFSImage(uri: string) {
+        const chunks: any[] = [];
+        const stream = ipfs.cat(JSON.parse(uri).image.split("https://ipfs.io/ipfs/")[1]);
+        // setAnimal(JSON.parse(uri));
+
+        for await (const chunk of stream) {
+            chunks.push(...chunk);
+        }
+        //   if (chunks)
+        const data = "data:image/png;base64," + Buffer.from(chunks).toString("base64");
+        setAnimal((prev: any) => ({
+            ...prev,
+            image: data
+        }));
+    }
     useEffect(() => {   
         if (contract && ipfs) {
             (async () => {
                 // if (localStorage.getItem(`nft-${props.id}`)) {
-                //     setAnimal(JSON.parse(localStorage.getItem(`nft-${props.id}`)!))
+                //     setAnimal({
+                //         ...JSON.parse(localStorage.getItem(`nft-${props.id}`)!),
+                      
+                //     })
+
+                //     getIPFSImage(localStorage.getItem(`nft-${props.id}`)!);
+                   
                 // } else {
 
                     const uri:string = await contract.methods.tokenURI(props.id).call({from: address})
                     //if (uri && uri.split("https://ipfs.io/ipfs/")[1]) {
                      //   .then((uri: any) => {
-                          //  console.log(uri.split("https://ipfs.io/ipfs/"));
-                            const chunks: any[] = [];
-                            const stream = ipfs.cat(JSON.parse(uri).image.split("https://ipfs.io/ipfs/")[1]);
-                           // setAnimal(JSON.parse(uri));
-    
-                            for await (const chunk of stream) {
-                                chunks.push(...chunk);
-                            }
-                         //   if (chunks)
-                           const data = "data:image/png;base64," + Buffer.from(chunks).toString("base64");
+                          //console.log(uri);
+                            
                           // localStorage.setItem(`nft-${props.id}`, data);
                     
                            setAnimal(() => ({
                                ...JSON.parse(uri),
-                               image: data
+                               
                            }));
+                           getIPFSImage(uri);
     
                             // fetch(uri)
                             //     .then(data => data.json())
@@ -69,9 +84,10 @@ export default function AnimalCard(props: AnimalCardProps) {
                                    // console.log(res);
                                     setOwner(res);
                                 })
+                         //   localStorage.setItem(`nft-${props.id}`, uri);
                 //}
                   //  });
-               // }
+              // }
             })()
         }   
     }, [contract, ipfs]);

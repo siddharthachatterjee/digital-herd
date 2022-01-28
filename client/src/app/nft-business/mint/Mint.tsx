@@ -103,7 +103,10 @@ export default function Mint() {
                 return (
                     animal.faces.map((face, k) => (
                         accessories.map((accessory, l) => (
-                            <AnimalImage i = {i} accessories = {accessory} onDrawn = {(cnvsRef: any) => {onDrawn(cnvsRef, animal, bd)}}  image = {face} background = {bd}  />
+                            <div style = {{display: "inline-block"}}>
+
+                                <AnimalImage i = {i} accessories = {accessory} onDrawn = {(cnvsRef: any) => {onDrawn(cnvsRef, animal, bd)}}  image = {face} background = {bd}  />
+                            </div>
                         ))
                     ))
                 )

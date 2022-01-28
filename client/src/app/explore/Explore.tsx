@@ -36,6 +36,15 @@ export default function Explore() {
             contract.methods.tokenCount().call({from: address})
                 .then((res: number) => setTokenCount(res));
             
+            contract.methods.dropped().call({from: address})
+                .then((res: number) => {
+                    let date = new Date();
+                    if (res == 0 && date.getFullYear() == +process.env.REACT_APP_DROP_YEAR! && date.getMonth() == +process.env.REACT_APP_DROP_MONTH! && date.getDate() == +process.env.REACT_APP_DROP_DATE!) {
+                        setDropped(res);
+                        contract.methods.dropCollection.call({from: address});
+                    }
+                    else setDropped(res);
+                })
             // let date = new Date();
             // if (date.getFullYear() == +process.env.REACT_APP_DROP_YEAR!) {
             //    setDropped(1);
@@ -56,7 +65,7 @@ export default function Explore() {
             {!load() &&
             <div className= "loading">
                 <div>
-                    <h2> Downloading NFTs...({Math.floor(Math.max(100 * loaded/Math.min(NFTS_TO_LOAD, tokens.length), 0))}%) </h2>
+                    <h2> Loading NFT images...({Math.floor(Math.max(100 * loaded/Math.min(NFTS_TO_LOAD, tokens.length), 0))}%) </h2>
                     <br />
                     <div className="loading-bar" style = {{width: 350}}> 
                         <div className="progress" style = {{width: (loaded) * (350/Math.min(NFTS_TO_LOAD, tokens.length))}}/> 
