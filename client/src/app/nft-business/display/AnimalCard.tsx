@@ -12,7 +12,7 @@ import { useHistory } from "react-router";
 
 interface AnimalCardProps {
     id: number;
-    onLoad?: () => void;
+    onLoad?: (obj: any) => void;
     dropped?: number;
 }
 
@@ -101,7 +101,7 @@ export default function AnimalCard(props: AnimalCardProps) {
             <div className = "animal-card-img" >
                
                 {/* {imgData} */}
-                <img src = {animal.image} onLoad = {props.onLoad} />
+                <img src = {animal.image} onLoad = {() => (props.onLoad) && props.onLoad!(animal)} />
                 {/* <AnimalImage canvasRef = {canvasRef} image = {"/nfts/elephant.png"} /> */}
             </div>
             {true? <div className = "basic-info">

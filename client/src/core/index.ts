@@ -1,5 +1,5 @@
 export const ETH = 1e18;
-export const NFTS_TO_LOAD = 50;
+export const NFTS_TO_LOAD = 100;
 export const NFT_DISPLAY = 100;
 
 export interface Animal {
@@ -20,6 +20,47 @@ export const art = [
 
 
 export const animals: Animal[]  = [
+    {
+        species: "Bengal Tiger",
+        backdrops: Array(3).fill(null).map((_, i) => (
+            `/nfts/rhino/background${i + 1}.png`
+        )),
+        faces: [
+            `/nfts/tiger/Tiger_White.png`,
+            `/nfts/tiger/Tiger_Sienna.png`,
+            `/nfts/tiger/Tiger_Gold.png`,
+        ],
+        accessories: [
+           [
+            `/nfts/tiger/Mouth_Closed.png`,
+            `/nfts/tiger/Mouth_Roar.png`
+           ],
+           [
+               `/nfts/tiger/Sunglasses_Black.png`,
+               `nfts/tiger/Sunglasses_Gold.png`,
+               `/nfts/tiger/Sunglasses_Aviator_Blue.png`,
+               `/nfts/tiger/Sunglasses_Aviator_Purple.png`,
+               `/nfts/tiger/Sunglasses_Aviator_Gold.png`,
+               `/nfts/tiger/Sunglasses_Aviator_Black.png`,
+               "/blank.png",
+           ],
+           [
+               `nfts/tiger/Habitat_Grass.png`,
+               `nfts/tiger/Habitat_Leaves.png`,
+               `/nfts/tiger/Habitat_Water.png`,
+               "/blank.png",
+           ],
+           [
+               `/nfts/tiger/Shirt_Green.png`,
+               `nfts/tiger/Shirt_Red.png`,
+               `/nfts/tiger/Shirt_Purple.png`,
+               `/nfts/tiger/Shirt_Pink_Camo.png`,
+               `/nfts/tiger/Shirt_Purple_Camo.png`,
+           ]
+        ],
+
+        images: {},
+    },
     {
         species: "Javan Rhino",
         faces: Array(2).fill(null).map((_, i) => (
@@ -52,7 +93,7 @@ export const animals: Animal[]  = [
             ],
             [
                 `nfts/rhino/Beanie.png`,
-                `nfts/rhino/Fedora.png`,
+               // `nfts/rhino/Fedora.png`,
                 ""
             ]
         ],
