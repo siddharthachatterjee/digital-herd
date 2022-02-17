@@ -3,7 +3,7 @@ import AnimalCard from "../nft-business/display/AnimalCard";
 import { Web3Context } from "../../context/Web3Context";
 
 
-import { Animal, animals, NFTS_TO_LOAD, NFT_DISPLAY, shuffleArray, Web3ContextValues } from "../../core";
+import { Animal, animalNames, animals, getShuffled, NFTS_TO_LOAD, NFT_DISPLAY, shuffleArray, Web3ContextValues } from "../../core";
 
 import "./explore.css";
 
@@ -17,11 +17,16 @@ export default function Explore() {
     const [dropped, setDropped] = useState(0);
     const loadTime = 5
     const [checkedAnimal, setCheckedAnimal] = useState<{[K:number]: boolean}>({});
-    const [objects, setObjects] = useState<any[]>([]);
+    const [objects, setObjects] = useState<any>([]);
     const [cards, setCards] = useState<any[]>([]);
 
     function load() {
-        return loaded >= (NFTS_TO_LOAD) || (loaded >= tokens.length);
+        return loaded >= (NFTS_TO_LOAD);
+    }
+    function filterCards() {
+        return Object.keys(cards).filter((id) => (
+        checkedAnimal[animalNames.indexOf(objects[id]?.species)]
+         ))
     }
     useEffect(() => {
         
@@ -29,6 +34,7 @@ export default function Explore() {
         setTimeout(() => {
             setCounter(prev => prev + 1);
         }, 250)
+        animalNames.forEach((_, i) => setCheckedAnimal(prev => ({...prev, [i]: true})))
     }, [])
     useEffect(() => {
         if (contract && contractAddress) {
@@ -37,17 +43,8 @@ export default function Explore() {
                // shuffleArray(tokens);
                // console.log(tok)
                 setTokens((res.tokens));
-                console.log(res.tokens);
-             //   let cardAnimals = {};
-                setCards(res.tokens.map((id, i) => (
-                    <AnimalCard 
-                        dropped = {dropped} 
-                        onLoad = {(obj) => {
-                            setLoaded(prev => prev + 1);
-                            setObjects(prev => ({...prev, id: obj}))
-                        }} 
-                        id = {+id} key = {i} />
-                )));
+            //    console.log(res.tokens);
+               
 
                 // (async() => {
 
@@ -59,7 +56,7 @@ export default function Explore() {
                 //         //
                 //     })
                 // })()
-                console.log(res.tokens);
+              //  console.log(res.tokens);
             })
             contract.methods.tokenCount().call({from: address})
                 .then((res: number) => setTokenCount(res));
@@ -80,6 +77,22 @@ export default function Explore() {
         }
     }, [contract])
     useEffect(() => {
+        if (tokens && tokens.length) {
+            let cardAnimals: any = {};
+            (tokens).forEach((id, i) => {
+                cardAnimals[id + ""] = (
+                    <AnimalCard 
+                        dropped = {dropped} 
+                        onLoad = {(obj) => {
+                            setLoaded(prev => prev + 1);
+                            setObjects((prev: any) => ({...prev, [id]: obj}))
+                        }} 
+                        id = {+id} key = {i} />
+                )
+            });
+         // console.log(getShuffled((cardAnimals)));
+            setCards({...cardAnimals});
+        }
         // if (tokens && tokens.length) {
         //     let newTokens = [...tokens.slice(0, Math.min(tokens.length, show))];
         //     shuffleArray(newTokens);
@@ -96,8 +109,8 @@ export default function Explore() {
                 {/* <p>
                     The rarer the species, the more expensive. Stay tuned for when new NFTs will be minted.
                 </p> */}
-            </header>o
-            {!load() &&
+            </header>
+            {(!load() && tokens.length) &&
             <div className= "loading">
                 <div>
                     <h2> Loading NFT images...({Math.floor(Math.max(100 * loaded/Math.min(show, tokens.length), 0))}%) </h2>
@@ -110,22 +123,36 @@ export default function Explore() {
                     </h2> */}
                 </div>
             </div>}
-            {animals.map((animal: Animal, i: number) => (
-            <div key = {i}>
-                <input type = "checkbox" onChange = {e => { setCheckedAnimal(prev => ({...prev, [i]: e.target.checked})) }} />
-                {animal.species}
+            {tokens.length === 0? "No tokens have been minted":
+            <>
+                {animals.map((animal: Animal, i: number) => (
+                    <div key = {i}>
+                        <input checked = {checkedAnimal[i]} type = "checkbox" onChange = {e => { setCheckedAnimal(prev => ({...prev, [i]: e.target.checked})) }} />
+                        {animal.species}
+                    </div>
+                ))}
+            </>}
+            <div style = {{display: "grid"}}>
+                <div style = {{display: "none"}}>
+                    {Object.values(cards).slice(0, show + NFT_DISPLAY)}
+                </div> 
+        
+                <div className = "nfts" style = {{display: true? "flex" : "none"}}>
+                    
+                    
+                    {(Object.keys(cards)).map((id) => (
+                    <div style = {{display: checkedAnimal[animalNames.indexOf(objects[id]?.species)]? "block" : "none"}}> 
+                    {cards[+id]}
+                    </div>)).slice(0, Math.min(show, tokens.length))}
+                    
+                        {/* {tokens.slice(0, Math.min(show, tokens.length)).map((id, i) => (
+                        
+                        ))} */}
+                </div>
+                {show < filterCards().length && load() && <div style = {{display: "flex", width: "100%", justifyContent: "center"}}>
+                        <button className= "call-to-action primary" onClick = {() => setShow(prev => prev + NFT_DISPLAY)}> Load More </button>
+                </div>}
             </div>
-        ))}
-           <div className = "nfts" style = {{display: load()? "flex" : "none"}}>
-               {cards.slice(0, Math.min(show, tokens.length))}
-             
-                {/* {tokens.slice(0, Math.min(show, tokens.length)).map((id, i) => (
-                   
-                ))} */}
-           </div>
-           {show < tokens.length && load() && <div style = {{display: "flex", width: "100%", justifyContent: "center"}}>
-                <button className= "call-to-action primary" onClick = {() => setShow(prev => prev + NFT_DISPLAY)}> Load More </button>
-           </div>}
         </div>
     )
 }

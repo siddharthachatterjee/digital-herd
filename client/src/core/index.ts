@@ -3,7 +3,7 @@ export const NFTS_TO_LOAD = 100;
 export const NFT_DISPLAY = 100;
 
 export interface Animal {
-    species: string;
+    species: animalSpeciesType;
     faces: string[];
     backdrops: string[];
     accessories: string[][];
@@ -18,7 +18,8 @@ export const art = [
    //{"image": "/nfts/elephant.png", "species": "Pygmy Elephant"}
 ]
 
-
+export type animalSpeciesType = "Bengal Tiger" | "Javan Rhino";
+export const animalNames: animalSpeciesType[] = ["Bengal Tiger", "Javan Rhino"]
 export const animals: Animal[]  = [
     {
         species: "Bengal Tiger",
@@ -129,6 +130,12 @@ export function shuffleArray(array: any[]) {
         const j = Math.floor(Math.random() * (array.length));
         [array[i], array[j]] = [array[j], array[i]];
     }
+}
+
+export function getShuffled(array: any[]) {
+    let arrCpy = [...array];
+    shuffleArray(arrCpy);
+    return arrCpy;
 }
 //console.log(allAccessoryArrays(0));
 
