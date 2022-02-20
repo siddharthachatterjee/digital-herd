@@ -43,7 +43,7 @@ export const animals: Animal[]  = [
                `/nfts/tiger/Sunglasses_Aviator_Purple.png`,
                `/nfts/tiger/Sunglasses_Aviator_Gold.png`,
                `/nfts/tiger/Sunglasses_Aviator_Black.png`,
-               "/blank.png",
+         //      "/blank.png",
            ],
            [
                `nfts/tiger/Habitat_Grass.png`,
@@ -106,16 +106,18 @@ export const animals: Animal[]  = [
 
 
 
-export function allAccessoryArrays(i: number, j:number = animals[i].accessories.length - 1, perm: string[][] = [[]], arr: string[][]  = []) {
+export function allAccessoryArrays(i: number, include: boolean[][][], j:number = animals[i].accessories.length - 1,  perm: string[][] = [[]], arr: string[][]  = []) {
     //console.log(perm)
     if (j < 0) {  
         return perm;
     }
     //console.log(arr);
     for (let k = 0; k < animals[i].accessories[j].length; k++) {
-        let permutation = allAccessoryArrays(i, j - 1, [[...perm[0], animals[i].accessories[j][k]]], arr)!;
-        if (permutation[0].length === animals[i].accessories.length) {
-            arr.push(...permutation)
+        if (include[i][j][k]) {
+            let permutation = allAccessoryArrays(i, include, j - 1, [[...perm[0], animals[i].accessories[j][k]]], arr)!;
+            if (permutation[0].length === animals[i].accessories.length) {
+                arr.push(...permutation)
+            }
         }
         //arr.push(...!)
     }

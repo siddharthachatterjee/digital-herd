@@ -80,15 +80,18 @@ export default function Explore() {
         if (tokens && tokens.length) {
             let cardAnimals: any = {};
             (tokens).forEach((id, i) => {
-                cardAnimals[id + ""] = (
-                    <AnimalCard 
-                        dropped = {dropped} 
-                        onLoad = {(obj) => {
-                            setLoaded(prev => prev + 1);
-                            setObjects((prev: any) => ({...prev, [id]: obj}))
-                        }} 
-                        id = {+id} key = {i} />
-                )
+               // console.log(id);
+                //if (id) {
+                    cardAnimals[id] = (
+                        <AnimalCard 
+                            dropped = {dropped} 
+                            onLoad = {(obj) => {
+                                setLoaded(prev => prev + 1);
+                                setObjects((prev: any) => ({...prev, [id]: obj}))
+                            }} 
+                            id = {+id} key = {i} />
+                    )
+                //}
             });
          // console.log(getShuffled((cardAnimals)));
             setCards({...cardAnimals});
