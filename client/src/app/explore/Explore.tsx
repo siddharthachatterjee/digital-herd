@@ -126,8 +126,8 @@ export default function Explore() {
                     </h2> */}
                 </div>
             </div>}
-            <div style = {{display: "grid", gridTemplateColumns: `repeat(2, auto)`, width: "100vw"}}>
-                {tokens.length && <div style = {{padding: "20px", minHeight: "100vh", borderRight: "2px solid var(--theme-green", background: "whitesmoke", width: "300px"}}>
+            <div style = {window.innerWidth > 500 ? {display: "grid", gridTemplateColumns: `repeat(2, auto)`, width: "100vw"} : {display: "flex", flexDirection: "column"}}>
+                {tokens.length && <div style = {{padding: "20px", borderRight: "2px solid var(--theme-green", background: "whitesmoke", ...(window.innerWidth > 500? {minHeight: "100vh",  width: "300px"} : {width: "100%", height: "max-content", borderBottom: "1px solid var(--theme-green)"})}}>
                     <h1 style = {{textAlign: "center", color: "var(--theme-green)"}}> Filter NFTs </h1>
                     <hr />
                     <h3>Animal Species: </h3> 
@@ -140,6 +140,7 @@ export default function Explore() {
                             </li>
                         ))}
                     </ul>}
+                  
                 </div>}
                 <div style = {{display: "none"}}>
                     {Object.values(cards).slice(0, show + NFT_DISPLAY)}
