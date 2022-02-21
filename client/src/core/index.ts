@@ -18,7 +18,7 @@ export const art = [
    //{"image": "/nfts/elephant.png", "species": "Pygmy Elephant"}
 ]
 
-export type animalSpeciesType = "Bengal Tiger" | "Javan Rhino";
+export type animalSpeciesType = "Bengal Tiger" | "Javan Rhino" | "Mountain Gorilla";
 export const animalNames: animalSpeciesType[] = ["Bengal Tiger", "Javan Rhino"]
 export const animals: Animal[]  = [
     {
@@ -101,7 +101,8 @@ export const animals: Animal[]  = [
         images: {
             
         },
-    }
+    },
+    
 ];
 
 

@@ -11,7 +11,7 @@ import { allAccessoryArrays, Animal, animalNames, animals, art, backdrops, ETH, 
 export default function Mint() {
     const {address, connect, contract} = useContext(Web3Context);
     const {ipfs} = useContext(IPFSContext);
-    const [tokens, setTokens] = useState<any>({0: [], 1: []});
+    const [tokens, setTokens] = useState<any>({0: [], 1: [], 2: []});
     const [checkedAnimal, setCheckedAnimal] = useState<{[K:number]: boolean}>({});
     const [number, setNumber] = useState("1000");
     const [animalLimit, setAnimalLimit] = useState<any>({});
@@ -102,7 +102,7 @@ export default function Mint() {
         shuffleArray(tokensToMint);
         console.log(tokensToMint);
         let len = Math.min(tokensToMint.length, 1e6);
-        let perTxn = 40;
+        let perTxn = 30;
         for (let i = 0; i < len/perTxn; i++) {
         contract.methods.createCollectibles(tokensToMint.slice(i * perTxn, Math.min((i + 1) * perTxn, len))).send({from: address})
         }
@@ -124,7 +124,7 @@ export default function Mint() {
                 <input type = "number" value = {animalLimit[i] || 0} onChange = {e => setAnimalLimit((prev:any) => ({...prev, [i]: e.target.value}))}></input>
                 ({tokens[i]?.length} created)
                 <br />
-                Accessories:
+                Layers:
                <ol>
 
                     {animals[i].accessories.map((as: any[], j: number) => (
