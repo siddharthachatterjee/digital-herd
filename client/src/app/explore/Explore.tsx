@@ -126,16 +126,21 @@ export default function Explore() {
                     </h2> */}
                 </div>
             </div>}
-            {tokens.length === 0? "No tokens have been minted":
-            <>
-                {animals.map((animal: Animal, i: number) => (
-                    <div key = {i}>
-                        <input checked = {checkedAnimal[i]} type = "checkbox" onChange = {e => { setCheckedAnimal(prev => ({...prev, [i]: e.target.checked})) }} />
-                        {animal.species}
-                    </div>
-                ))}
-            </>}
-            <div style = {{display: "grid"}}>
+            <div style = {{display: "grid", gridTemplateColumns: `repeat(2, auto)`, width: "100vw"}}>
+                {tokens.length && <div style = {{padding: "20px", minHeight: "100vh", borderRight: "2px solid var(--theme-green", background: "whitesmoke", width: "300px"}}>
+                    <h1 style = {{textAlign: "center", color: "var(--theme-green)"}}> Filter NFTs </h1>
+                    <hr />
+                    <h3>Animal Species: </h3> 
+                    {tokens.length === 0? "No tokens have been minted":
+                    <ul>
+                        {animals.map((animal: Animal, i: number) => (
+                            <li key = {i} style = {{fontSize: 20}}>
+                                <input style = {{fill: "green"}} checked = {checkedAnimal[i]} type = "checkbox" onChange = {e => { setCheckedAnimal(prev => ({...prev, [i]: e.target.checked})) }} />
+                                {animal.species}
+                            </li>
+                        ))}
+                    </ul>}
+                </div>}
                 <div style = {{display: "none"}}>
                     {Object.values(cards).slice(0, show + NFT_DISPLAY)}
                 </div> 
@@ -152,10 +157,10 @@ export default function Explore() {
                         
                         ))} */}
                 </div>
-                {show < filterCards().length && load() && <div style = {{display: "flex", width: "100%", justifyContent: "center"}}>
-                        <button className= "call-to-action primary" onClick = {() => setShow(prev => prev + NFT_DISPLAY)}> Load More </button>
-                </div>}
             </div>
+            {show < filterCards().length && load() && <div style = {{display: "flex", width: "100%", justifyContent: "center"}}>
+                    <button className= "call-to-action primary" onClick = {() => setShow(prev => prev + NFT_DISPLAY)}> Load More </button>
+            </div>}
         </div>
     )
 }
