@@ -19,6 +19,7 @@ export default function Explore() {
     const [checkedAnimal, setCheckedAnimal] = useState<{[K:number]: boolean}>({});
     const [objects, setObjects] = useState<any>([]);
     const [cards, setCards] = useState<any[]>([]);
+    const [nfts, setNFTs] = useState<any[]>([]);
 
     function load() {
         return loaded >= (NFTS_TO_LOAD);
@@ -102,6 +103,10 @@ export default function Explore() {
         //     setTokens(newTokens);
         // }
     }, [tokens])
+
+    useEffect(() => {
+        setNFTs((Object.keys(cards)).filter((id) => checkedAnimal[animalNames.indexOf(objects[id]?.species)]))
+    }, [checkedAnimal])
     return (
         <div id = "explore" className = "background-container">
             <header>
@@ -116,10 +121,10 @@ export default function Explore() {
             {(!load() && tokens.length) &&
             <div className= "loading">
                 <div>
-                    <h2> Loading NFT images...({Math.floor(Math.max(100 * loaded/Math.min(show, tokens.length), 0))}%) </h2>
+                    <h2> Loading NFT images...({Math.floor(Math.max(100 * loaded/Math.min(NFTS_TO_LOAD, tokens.length), 0))}%) </h2>
                     <br />
                     <div className="loading-bar" style = {{width: 350}}> 
-                        <div className="progress" style = {{width: (loaded) * (350/Math.min(show, tokens.length))}}/> 
+                        <div className="progress" style = {{width: (loaded) * (350/Math.min(NFTS_TO_LOAD, tokens.length))}}/> 
                     </div>
                     {/* <h2>
                     If this page is not loading, try checking to see if you are securely connected(https) or try switching browsers
@@ -152,7 +157,7 @@ export default function Explore() {
                     {(Object.keys(cards)).map((id) => (
                     <div style = {{display: checkedAnimal[animalNames.indexOf(objects[id]?.species)]? "block" : "none"}}> 
                     {cards[+id]}
-                    </div>)).slice(0, Math.min(show, tokens.length))}
+                    </div>)).slice(0, Math.min(1000, tokens.length))}
                     
                         {/* {tokens.slice(0, Math.min(show, tokens.length)).map((id, i) => (
                         
@@ -162,6 +167,7 @@ export default function Explore() {
             {show < filterCards().length && load() && <div style = {{display: "flex", width: "100%", justifyContent: "center"}}>
                     <button className= "call-to-action primary" onClick = {() => setShow(prev => prev + NFT_DISPLAY)}> Load More </button>
             </div>}
+            Loading more tokens...
         </div>
     )
 }
