@@ -13,6 +13,7 @@ import { useHistory } from "react-router";
 interface AnimalCardProps {
     id: number;
     onLoad?: (obj: any) => void;
+    onFetch?: (obj: any) => void;
     dropped?: number;
 }
 
@@ -42,11 +43,12 @@ export default function AnimalCard(props: AnimalCardProps) {
         for await (const chunk of stream) {
             chunks.push(...chunk);
         }
+         console.log(`${props.id} image fetched`)
         //   if (chunks)
         const data = "data:image/png;base64," + Buffer.from(chunks).toString("base64");
         setAnimal((prev: any) => ({
             ...prev,
-            image: data
+            imageData: data
         }));
     }
     useEffect(() => {   
@@ -61,19 +63,22 @@ export default function AnimalCard(props: AnimalCardProps) {
                 //     getIPFSImage(localStorage.getItem(`nft-${props.id}`)!);
                    
                 // } else {
-
-                    const uri:string = await contract.methods.tokenURI(props.id).call({from: address})
+                
+                    const uri:string =  localStorage.getItem(`nft-${props.id}`) || await contract.methods.tokenURI(props.id).call({from: address});
+                    localStorage.setItem(`nft-${props.id}`, uri);
                     //if (uri && uri.split("https://ipfs.io/ipfs/")[1]) {
                      //   .then((uri: any) => {
                           //console.log(uri);
                             
                           // localStorage.setItem(`nft-${props.id}`, data);
                     
+                          if (props.onFetch)
+                           props.onFetch!({...JSON.parse(uri)});
                            setAnimal(() => ({
                                ...JSON.parse(uri),
                                
                            }));
-                           getIPFSImage(uri);
+                            getIPFSImage(uri);
     
                             // fetch(uri)
                             //     .then(data => data.json())
@@ -101,7 +106,7 @@ export default function AnimalCard(props: AnimalCardProps) {
             <div className = "animal-card-img" >
                
                 {/* {imgData} */}
-                <img src = {animal.image} onLoad = {() => (props.onLoad) && props.onLoad!(animal)} />
+                {"imageData" in animal && <img src = {animal.imageData} onLoad = {() => (props.onLoad) && props.onLoad!(animal)} />}
                 {/* <AnimalImage canvasRef = {canvasRef} image = {"/nfts/elephant.png"} /> */}
             </div>
             {true? <div className = "basic-info">
