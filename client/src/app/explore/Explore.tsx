@@ -112,6 +112,7 @@ export default function Explore() {
     // }, [checkedAnimal])
     return (
         <div id = "explore" className = "background-container">
+           
             <header>
                 <h1> Marketplace </h1>
                 {dropped == 0 && 

@@ -102,7 +102,7 @@ export default function Mint() {
         shuffleArray(tokensToMint);
         console.log(tokensToMint);
         let len = Math.min(tokensToMint.length, 1e6);
-        let perTxn = 30;
+        let perTxn = 20;
         for (let i = 0; i < len/perTxn; i++) {
         contract.methods.createCollectibles(tokensToMint.slice(i * perTxn, Math.min((i + 1) * perTxn, len))).send({from: address})
         }

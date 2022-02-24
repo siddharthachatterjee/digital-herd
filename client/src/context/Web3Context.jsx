@@ -4,6 +4,7 @@ import WalletLink from "walletlink";
 
 import DigitalHerdNFTContract from "../contracts/DigitalHerdNFT.json";
 import { network } from "../core";
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 
 function initWeb3(ethereum = window.ethereum) {
     return new Promise((res, rej) => {
@@ -17,10 +18,13 @@ function initWeb3(ethereum = window.ethereum) {
             const web3 = window.web3;
             res(web3);
         } else {
-            const provider = new Web3.providers.HttpProvider(
-                `https://${network}.infura.io/v3/` +
+            console.log( process.env.REACT_APP_MNEMONIC);
+            const provider = new HDWalletProvider({
+                
+                mnemonic: {phrase: process.env.REACT_APP_MNEMONIC},
+                providerOrUrl: `https://${network}.infura.io/v3/` +
                     process.env.REACT_APP_INFURA_API_KEY
-            );
+            });
 
             res(new Web3(provider));
             // rej({message: "Could not load Ethereum wallet. Make sure you have an Ethereum wallet installed then try again. Download MetaMask at https://metamask.io"});
@@ -78,6 +82,8 @@ export function Web3ContextProvider(props) {
             setLoading(true);
             initWeb3(ethereum)
                 .then((res) => {
+                    console.log(res.eth);
+                   // await res.eth.enable();
                     setLoading(false);
                     if (res.eth === null) {
                         setError({
@@ -89,6 +95,7 @@ export function Web3ContextProvider(props) {
                         return;
                     }
                     res.eth.getAccounts().then((accounts) => {
+                        console.log(accounts);
                         // console.log(window.ethereum.accounts);
                         setAddress(accounts[0]);
                         res.eth.defaultAccount = accounts[0];
