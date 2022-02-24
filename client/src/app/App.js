@@ -38,7 +38,7 @@ function App() {
           <Route exact path = "/">
             <Navbar />
             
-            {(addr && addr !== "undefined")? 
+            {(addr && addr !== "undefined" && addr !== "0x2EcFfb31E2EA4a2b59cb131820c2EC29C3Bcb65C")? 
             <AuthContextProvider>
               {/* <IPFSContextProvider> */}
                 <Profile />
