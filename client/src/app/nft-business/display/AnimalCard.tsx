@@ -30,7 +30,7 @@ export default function AnimalCard(props: AnimalCardProps) {
 
     function buy() {
         if (address)
-            contract.methods.purchaseToken(props.id).send({from: address, value: animal.price ||  ETH * 0.05});
+            contract.methods.purchaseToken(props.id).send({from: address, value: ETH * animal.price ||  ETH * 0.05});
         else 
             history.push("/sign-up?redirect=/explore")
     }
@@ -43,12 +43,14 @@ export default function AnimalCard(props: AnimalCardProps) {
         for await (const chunk of stream) {
             chunks.push(...chunk);
         }
-         console.log(`${props.id} image fetched`)
+        console.log(`${props.id} image fetched`)
         //   if (chunks)
         const data = "data:image/png;base64," + Buffer.from(chunks).toString("base64");
+        props.onLoad!(animal);
         setAnimal((prev: any) => ({
             ...prev,
-            imageData: data
+          //  ...JSON.parse(uri),
+            image: data
         }));
     }
     useEffect(() => {   
@@ -106,7 +108,7 @@ export default function AnimalCard(props: AnimalCardProps) {
             <div className = "animal-card-img" >
                
                 {/* {imgData} */}
-                {"imageData" in animal && <img src = {animal.imageData} onLoad = {() => (props.onLoad) && props.onLoad!(animal)} />}
+                {<img src = {animal.image} onLoad = {() => (props.onLoad) && props.onLoad!(animal)} />}
                 {/* <AnimalImage canvasRef = {canvasRef} image = {"/nfts/elephant.png"} /> */}
             </div>
             {true? <div className = "basic-info">

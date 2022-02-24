@@ -58,7 +58,7 @@ export default function Mint() {
        // console.log(new File(["foo"], "foo.txt", {type: "text/plain"}))
     }, []);
 
-    function onDrawn(canvasRef: any, animal: any, backdrop: string) {
+    function onDrawn(canvasRef: any, images: string[], animal: any, backdrop: string) {
         //if (!counted[url]) {
          const buffer = Buffer.from(canvasRef.current.toDataURL().split(",")[1], "base64");
            // if (!counted[buffer.toString()]) {
@@ -80,7 +80,7 @@ export default function Mint() {
                     //                 }
                     //setA("data:image/png;base64," + Buffer.from(chunks).toString("base64"));
                 //    console.log(JSON.stringify(chunks) == JSON.stringify(buffer));
-                    const obj = JSON.stringify({name:`${animal.species},${backdrop}`,artist:"Alyse Gamson", image:url,species:animal.species});
+                    const obj = JSON.stringify({price: animal.species === "Javan Rhino?"? 0.1 : 0.05,  name:`${animal.species},${backdrop}`,artist:"Alyse Gamson", image:url,species:animal.species,images});
                 /// if (!counted[url])
                     setTokens((prev: any) => ({...prev, [animalNames.indexOf(animal.species)]: [...prev[animalNames.indexOf(animal.species)], obj]}));
                   //  counted[buffer.toString()] = true;
@@ -162,7 +162,7 @@ export default function Mint() {
                         accessories.map((accessory, l) => (
                             <div style = {{display: "inline-block"}}>
 
-                                <AnimalImage i = {i} accessories = {accessory} onDrawn = {(cnvsRef: any) => {onDrawn(cnvsRef, animal, bd)}}  image = {face} background = {bd}  />
+                                <AnimalImage i = {i} accessories = {accessory} onDrawn = {(cnvsRef: any, images: string[]) => {onDrawn(cnvsRef, images, animal, bd)}}  image = {face} background = {bd}  />
                             </div>
                         ))
                     ))

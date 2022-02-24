@@ -13,6 +13,7 @@ contract DigitalHerdNFT is ERC721URIStorage, Ownable {
         YetToDrop,
         Dropped
     }
+
     struct User {
         string username;
         uint256[] tokens;
@@ -23,6 +24,11 @@ contract DigitalHerdNFT is ERC721URIStorage, Ownable {
 
     modifier ifDropped() {
         require(state == CollectionState.Dropped);
+        _;
+    }
+
+    modifier ifNotDropped() {
+        require(state == CollectionState.YetToDrop);
         _;
     }
 
@@ -45,7 +51,7 @@ contract DigitalHerdNFT is ERC721URIStorage, Ownable {
         _mint(receiver, newItemId);
         users[receiver].tokens.push(newItemId);
         _setTokenURI(newItemId, tokenURI);
-      //  price[newItemId] = price_;
+        price[newItemId] = 5 * 1e16;
         tokenCount++;
         //  cidExists[]
         return newItemId;
@@ -55,11 +61,12 @@ contract DigitalHerdNFT is ERC721URIStorage, Ownable {
         for (uint256 i = 0; i < uris.length; i++) createCollectible(uris[i]);
     }
 
-    function dropCollection() public {
+    function dropCollection() public onlyOwner {
         state = CollectionState.Dropped;
     }
 
-    function purchaseToken(uint256 _tokenId) public payable ifDropped {
+    function purchaseToken(uint256 _tokenId) public payable  {
+        
         require(_tokenId < tokenCount, "Token does not exist");
         require(msg.value >= price[_tokenId], "Insufficient funds");
         address itemOwner = ownerOf(_tokenId);
@@ -79,5 +86,13 @@ contract DigitalHerdNFT is ERC721URIStorage, Ownable {
         ];
         users[itemOwner].tokens.pop();
         payable(owner()).transfer(msg.value);
+    }
+
+    function totalSupply() public view returns (uint256) {
+        return tokenCount;
+    }
+
+    function setPrice(uint id) public onlyOwner {
+
     }
 }

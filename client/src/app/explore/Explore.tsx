@@ -65,11 +65,11 @@ export default function Explore() {
             contract.methods.state().call({from: address})
                 .then((res: number) => {
                     let date = new Date();
-                    if (res == 0 && date.getFullYear() == +process.env.REACT_APP_DROP_YEAR! && date.getMonth() == +process.env.REACT_APP_DROP_MONTH! && date.getDate() == +process.env.REACT_APP_DROP_DATE!) {
-                        setDropped(res);
+                    if (date.getFullYear() == +process.env.REACT_APP_DROP_YEAR! && date.getMonth() == +process.env.REACT_APP_DROP_MONTH! && date.getDate() == +process.env.REACT_APP_DROP_DATE!) {
+                        setDropped(1);
                         contract.methods.dropCollection.call({from: address});
                     }
-                    else setDropped(res);
+                    else setDropped(0);
                 })
             // let date = new Date();
             // if (date.getFullYear() == +process.env.REACT_APP_DROP_YEAR!) {
@@ -97,6 +97,7 @@ export default function Explore() {
                 //}
             });
          // console.log(getShuffled((cardAnimals)));
+            
             setCards({...cardAnimals});
         }
         // if (tokens && tokens.length) {
