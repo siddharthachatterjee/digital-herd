@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useRef, useState } from "react";
 import { animals } from "../../../core";
 
-interface AnimalImageProps {
+export interface AnimalImageProps {
     image: string;
     background?: string;
     canvasRef?: React.MutableRefObject<any>;

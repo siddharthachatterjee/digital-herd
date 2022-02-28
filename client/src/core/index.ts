@@ -175,5 +175,33 @@ export interface Web3ContextValues {
 }
 
 export const network = "ropsten";
+(() => {
+    let  original: boolean[][][] = [];
+    for (let i = 0; i < animals.length; i++) {
+        original.push([]);
+        for (let j = 0; j < animals[i].faces.length; j++) {
+    
+            let src = animals[i].faces[j];
+            animals[i].images[src] = new Image();
+            animals[i].images[src].src = src;
+        }
+        for (let j = 0; j < animals[i].backdrops.length; j++) {
+            
+        
+            let src = animals[i].backdrops[j];
+            animals[i].images[src] = new Image();
+            animals[i].images[src].src = src;
+        }
+        for (let j = 0; j < animals[i].accessories.length; j++) {
+            original[i].push([]);
+            for  (let k = 0; k < animals[i].accessories[j].length; k++) {
+                let src = animals[i].accessories[j][k];
+                animals[i].images[src] = new Image();
+                animals[i].images[src].src = src;
+                original[i][j].push(true);
+            }
+        }
+    }
 
+})()
 btoa("")

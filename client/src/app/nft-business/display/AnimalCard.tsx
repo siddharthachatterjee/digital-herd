@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { IPFSContext } from "../../../context/IPFSContext";
 import { Web3Context } from "../../../context/Web3Context";
 
-import { ETH, Web3ContextValues } from "../../../core";
+import { animalNames, ETH, Web3ContextValues } from "../../../core";
 
 
 import "./animal-card.css";
@@ -66,8 +66,8 @@ export default function AnimalCard(props: AnimalCardProps) {
                    
                 // } else {
                 
-                    const uri:string =  localStorage.getItem(`nft-${props.id}`) || await contract.methods.tokenURI(props.id).call({from: address});
-                    localStorage.setItem(`nft-${props.id}`, uri);
+                    const uri:string =  await contract.methods.tokenURI(props.id).call({from: address});
+          //          localStorage.setItem(`nft-${props.id}`, uri);
                     //if (uri && uri.split("https://ipfs.io/ipfs/")[1]) {
                      //   .then((uri: any) => {
                           //console.log(uri);
@@ -80,7 +80,7 @@ export default function AnimalCard(props: AnimalCardProps) {
                                ...JSON.parse(uri),
                                
                            }));
-                            getIPFSImage(uri);
+                         //   getIPFSImage(uri);
     
                             // fetch(uri)
                             //     .then(data => data.json())
@@ -104,13 +104,14 @@ export default function AnimalCard(props: AnimalCardProps) {
         
         <div className = "animal-card">
             {loaded}
-            {}
-            <div className = "animal-card-img" >
+            {animal && animal.images && <div className = "animal-card-img" >
+            {/* {JSON.stringify(animal.images)} */}
                
                 {/* {imgData} */}
-                {<img src = {animal.image} onLoad = {() => (props.onLoad) && props.onLoad!(animal)} />}
+                <AnimalImage size = {250} i = {animalNames.indexOf(animal.species)} image = {animal.images[1]!} background = {animal.images[0]!} accessories = {animal.images.slice(2)!} onDrawn = {() => (props.onLoad) && props.onLoad!(animal)} />
+                {/* {<img src = {animal.image} onLoad = {() => (props.onLoad) && props.onLoad!(animal)} />} */}
                 {/* <AnimalImage canvasRef = {canvasRef} image = {"/nfts/elephant.png"} /> */}
-            </div>
+            </div>}
             {true? <div className = "basic-info">
                 <div style = {{textAlign: "center", fontWeight: "bold"}}>
                     Animal #{props.id}
@@ -129,7 +130,7 @@ export default function AnimalCard(props: AnimalCardProps) {
                     {(address !== owner) &&
                     <div className = "info">
                         <div>
-                            <i className="ri-price-tag-3-line"></i> {animal.price || 0.05}<span className="iconify" data-icon="logos:ethereum"> ETH </span>
+                            <i className="ri-price-tag-3-line"></i> {animal.price }<span className="iconify" data-icon="logos:ethereum"> ETH </span>
                         </div>
                      
                         <br />
