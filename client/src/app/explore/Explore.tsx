@@ -110,7 +110,7 @@ export default function Explore() {
     // useEffect(() => {
     //     setNFTs((Object.keys(cards)).filter((id) => checkedAnimal[animalNames.indexOf(objects[id]?.species)]))
     // }, [checkedAnimal])
-    return (
+    return tokens.length && (
         <div id = "explore" className = "background-container">
            
             <header>
@@ -123,7 +123,7 @@ export default function Explore() {
                 </p> */}
             </header>
             
-            {(!load() && tokens.length) &&
+            {(!load() && tokens.length && false) &&
             <div className= "loading">
                 <div>
                     <h2> Loading NFT images...({Math.floor(Math.max(100 * loaded/tokens.length, 0))}%) </h2>
