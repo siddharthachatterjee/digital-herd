@@ -18,7 +18,7 @@ function initWeb3(ethereum = window.ethereum) {
             const web3 = window.web3;
             res(web3);
         } else {
-            console.log( process.env.REACT_APP_MNEMONIC);
+           // console.log( process.env.REACT_APP_MNEMONIC);
             const provider = new HDWalletProvider({
                 
                 mnemonic: {phrase: process.env.REACT_APP_MNEMONIC},
@@ -95,7 +95,7 @@ export function Web3ContextProvider(props) {
                         return;
                     }
                     res.eth.getAccounts().then((accounts) => {
-                        console.log(accounts);
+                       // console.log(accounts);
                         // console.log(window.ethereum.accounts);
                         setAddress(accounts[0]);
                         res.eth.defaultAccount = accounts[0];

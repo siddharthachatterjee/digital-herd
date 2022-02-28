@@ -71,7 +71,7 @@ export default function SignUp() {
     const steps = [
         <div>
 
-            {!address ? (
+            {!address || (address == "math broken predict woman race female club barrel hazard season leopard stand") ? (
                 <div>
                     <h3> Connect a Wallet </h3>
                 

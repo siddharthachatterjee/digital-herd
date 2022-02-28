@@ -120,7 +120,7 @@ export default function AnimalCard(props: AnimalCardProps) {
                     Species: {animal.species}
                 </div>
                 <div>
-                    <a href = {`https://ropsten.etherscan.io/token/${contractAddress.toLowerCase()}?a=${props.id}`}> View on Etherscan </a>
+                    <a href = {`https://ropsten.etherscan.io/token/${contractAddress.toLowerCase()}?a=${props.id}`}> View on block explorer </a>
                 </div>
                 <div>
                     Art by {animal.artist}

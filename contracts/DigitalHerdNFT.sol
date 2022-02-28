@@ -32,7 +32,7 @@ contract DigitalHerdNFT is ERC721URIStorage, Ownable {
         _;
     }
 
-    constructor() ERC721("DigitalHerdAnimal", "DHA") {
+    constructor() ERC721("DigitalHerdNFT", "HRD") {
         tokenCount = 0;
         state = CollectionState.YetToDrop;
     }
