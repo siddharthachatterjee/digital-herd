@@ -10,6 +10,7 @@ import Modal from "../../components/Modal";
 export default function LandingPage() {
     const {connect, loading, error} = useContext(Web3Context);
     const history = useHistory();
+
     return (
         <div id = "landing-page">
             <div className = "content">
@@ -30,6 +31,8 @@ export default function LandingPage() {
                             <button className = "call-to-action secondary" onClick = {() => history.push("/explore")}>
                                 Explore Marketplace
                             </button>
+                            <br />
+                            <button className = "mint"> Mint </button>
                         </div>
                         {error && !loading &&  (
                             <div style = {{color: "red"}}>

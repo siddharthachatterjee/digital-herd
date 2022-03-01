@@ -42,24 +42,23 @@ contract DigitalHerdNFT is ERC721URIStorage, Ownable {
         return users[addr];
     }
 
-    function createCollectible(string memory tokenURI)
+    function createCollectible(string memory tokenURI, address receiver)
         public
-        onlyOwner
+        payable
         returns (uint256)
     {
-        address receiver = address(this);
+
         uint256 newItemId = tokenCount;
         _mint(receiver, newItemId);
         users[receiver].tokens.push(newItemId);
         _setTokenURI(newItemId, tokenURI);
-        price[newItemId] = 5 * 1e16;
         tokenCount++;
-        //  cidExists[]
+        payable(owner()).transfer(msg.value);
         return newItemId;
     }
 
-    function createCollectibles(string[] memory uris) public onlyOwner {
-        for (uint256 i = 0; i < uris.length; i++) createCollectible(uris[i]);
+    function createCollectibles(string[] memory uris, address receiver) public onlyOwner {
+        for (uint256 i = 0; i < uris.length; i++) createCollectible(uris[i], receiver);
     }
 
     function dropCollection() public onlyOwner {

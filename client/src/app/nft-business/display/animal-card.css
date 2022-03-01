@@ -51,6 +51,13 @@
     padding: 1em;
 }
 
+.sold {
+    background: red;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+}
 /* .animal-card:hover .call-to-action {
     background: black;
 }  */

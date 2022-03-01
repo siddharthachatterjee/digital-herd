@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { IPFSContext } from "../../../context/IPFSContext";
-import { Web3Context } from "../../../context/Web3Context";
+import { Web3Context, Web3ContextProvider } from "../../../context/Web3Context";
 
 import { animalNames, ETH, Web3ContextValues } from "../../../core";
 
@@ -76,9 +76,10 @@ export default function AnimalCard(props: AnimalCardProps) {
                     
                           if (props.onFetch)
                            props.onFetch!({...JSON.parse(uri)});
+                           let data = JSON.parse(uri);
                            setAnimal(() => ({
                                ...JSON.parse(uri),
-                               
+                               price: data.species === "Javan Rhino"? 0.15 : 0.1
                            }));
                          //   getIPFSImage(uri);
     
@@ -134,9 +135,14 @@ export default function AnimalCard(props: AnimalCardProps) {
                         </div>
                      
                         <br />
-                        {(props.dropped == null || props.dropped! ==  1)? <button title = "Purchase Token" onClick = {buy} className = "call-to-action primary" style = {{width: "100%", display: "block", margin: 0}}>
+                        {(props.dropped == null || props.dropped! ==  0)? 
+                        (owner !== contractAddress?
+                        <button title = "Purchase Token" onClick = {buy} className = "call-to-action primary" style = {{width: "100%", display: "block", margin: 0}}>
                             Buy 
-                        </button> : "Wait until full collection is dropped to buy"}
+                        </button>:
+                        (owner === address?
+                        "You own this NFT" :
+                        <div className="sold"> Sold to {owner.slice(0, 4)}...{owner.slice(owner.length - 3)}! </div>)) : "Wait until full collection is dropped to buy"}
                     </div>}
                 </div>
             </div> : 

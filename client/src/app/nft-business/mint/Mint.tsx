@@ -9,7 +9,7 @@ import { allAccessoryArrays, Animal, animalNames, animals, art, backdrops, ETH, 
 //console.log(allAccessoryArrays(0))
 
 export default function Mint() {
-    const {address, connect, contract} = useContext(Web3Context);
+    const {address, connect, contract, contractAddress} = useContext(Web3Context);
     const {ipfs} = useContext(IPFSContext);
     const [tokens, setTokens] = useState<any>({0: [], 1: [], 2: []});
     const [checkedAnimal, setCheckedAnimal] = useState<{[K:number]: boolean}>({});
@@ -80,7 +80,7 @@ export default function Mint() {
                     //                 }
                     //setA("data:image/png;base64," + Buffer.from(chunks).toString("base64"));
                 //    console.log(JSON.stringify(chunks) == JSON.stringify(buffer));
-                    const obj = JSON.stringify({price: animal.species === "Javan Rhino"? 0.07 : 0.05,  name:`${animal.species},${backdrop}`,artist:"Alyse Gamson", image:url,species:animal.species,images});
+                    const obj = JSON.stringify({image:url,artist:"Alyse Gamson",species:animal.species,images});
                 /// if (!counted[url])
                     setTokens((prev: any) => ({...prev, [animalNames.indexOf(animal.species)]: [...prev[animalNames.indexOf(animal.species)], obj]}));
                   //  counted[buffer.toString()] = true;
@@ -103,9 +103,12 @@ export default function Mint() {
         console.log(tokensToMint);
         let len = Math.min(tokensToMint.length, 1e6);
         let perTxn = 20;
-        for (let i = 0; i < len/perTxn; i++) {
-        contract.methods.createCollectibles(tokensToMint.slice(i * perTxn, Math.min((i + 1) * perTxn, len))).send({from: address})
+        for (let i = 0; i < len; i++) {
+            contract.methods.createCollectible(tokensToMint[i], contractAddress).send({from: address})
         }
+        // for (let i = 0; i < len/perTxn; i++) {
+        // contract.methods.createCollectibles(tokensToMint.slice(i * perTxn, Math.min((i + 1) * perTxn, len))).send({from: address})
+        // }
     }
 
 

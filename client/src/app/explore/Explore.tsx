@@ -39,28 +39,31 @@ export default function Explore() {
     }, [])
     useEffect(() => {
         if (contract && contractAddress) {
-            contract.methods.getUser(contractAddress).call({from:address}).then((res:{tokens:any[]}) => {
-               //r let tokens = res.tokens.join("").split("");
-               // shuffleArray(tokens);
-               // console.log(tok)
-                setTokens((res.tokens));
-            //    console.log(res.tokens);
+            // contract.methods.getUser(contractAddress).call({from:address}).then((res:{tokens:any[]}) => {
+            //    //r let tokens = res.tokens.join("").split("");
+            //    // shuffleArray(tokens);
+            //    // console.log(tok)
+            //     setTokens((res.tokens));
+            // //    console.log(res.tokens);
                
 
-                // (async() => {
+            //     // (async() => {
 
-                //     res.tokens.forEach((id, i) => {
-                //         (async () => {
-                //             const uri:string = await contract.methods.tokenURI(id).call({from: address})
-                //             setObjects(prev => [...prev, {id, ...JSON.parse(uri)}])
-                //         })()
-                //         //
-                //     })
-                // })()
-              //  console.log(res.tokens);
-            })
+            //     //     res.tokens.forEach((id, i) => {
+            //     //         (async () => {
+            //     //             const uri:string = await contract.methods.tokenURI(id).call({from: address})
+            //     //             setObjects(prev => [...prev, {id, ...JSON.parse(uri)}])
+            //     //         })()
+            //     //         //
+            //     //     })
+            //     // })()
+            //   //  console.log(res.tokens);
+            // })
             contract.methods.tokenCount().call({from: address})
-                .then((res: number) => setTokenCount(res));
+                .then((res: number) => {
+                    setTokenCount(res);
+                    setTokens(Array(res).fill(null).map((_, i) => i));
+                });
             
             contract.methods.state().call({from: address})
                 .then((res: number) => {
