@@ -32,7 +32,7 @@ export default function LandingPage() {
                                 Explore Marketplace
                             </button>
                             <br />
-                            <button className = "mint"> Mint </button>
+                            <button className = "mint" onClick = {() => history.push("/sign-up?redirect=/mint-nft")}> Mint an NFT </button>
                         </div>
                         {error && !loading &&  (
                             <div style = {{color: "red"}}>

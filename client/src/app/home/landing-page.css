@@ -143,3 +143,20 @@
         display: none;
     } */
 }
+
+.mint {
+    font-size: 25px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+
+    font-size: 21px;
+    transition: all 1s;
+    cursor: pointer;
+    margin: 10px;
+    background-color: var(--theme-green2);
+    color: white;
+    width: 200px;
+
+}

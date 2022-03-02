@@ -6,14 +6,14 @@ import { Web3Context } from "../../../context/Web3Context";
 import { art, backdrops } from "../../../core";
 import AnimalImage from "../display/AnimalImage";
 
+import "./mint-token.css";
+
 export default function MintToken(props: {animal: any, backdrop: string, i?: number}) {
     const {address, connect, web3, networkId, contract} = useContext(Web3Context);
     const {ipfs} = useContext(IPFSContext);
     const {animal, backdrop} = props;
 
     const canvasRef = useRef<any>(null);
-  //  const animal = art[Math.floor(Math.random() * art.length)] 
-    //const backdrop = backdrops[Math.floor(Math.random() * backdrops.length)];
     const [image, setImage] = useState("");
     const [minted, setMinted] = useState(false);
     
@@ -39,9 +39,8 @@ export default function MintToken(props: {animal: any, backdrop: string, i?: num
     }
     return contract && ipfs && (
         <>
-        <div style = {{display: "normal"/**"block" */}}>
-            {/* <img src = {image} /> */}
-            {/*{<AnimalImage onDrawn = {onDrawn} canvasRef = {canvasRef} image = {animal.image} background = {backdrop}  />}  */}
+        <div id="mint-token" style = {{display: "normal"/**"block" */}}>
+        
         </div>
         </>
     );

@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import MintToken from "./MintToken";
 import AnimalImage from "../display/AnimalImage";
 
+import {getDatabase, ref,set, get, child} from "firebase/database";
+
 import { Web3Context } from "../../../context/Web3Context";
 import {IPFSContext} from "../../../context/IPFSContext";
 import { allAccessoryArrays, Animal, animalNames, animals, art, backdrops, ETH, shuffleArray } from "../../../core";
@@ -111,6 +113,21 @@ export default function Mint() {
         // }
     }
 
+    function save() {   
+        const db =getDatabase();
+        let tokensToMint = [];
+        for (let i = 0; i < animalNames.length; i++) {
+            let shuffled = tokens[i];
+            shuffleArray(shuffled);
+            let len = Math.min(shuffled.length, +animalLimit[i]);
+            for (let j = 0; j < len; j++) {
+                tokensToMint.push(shuffled[j])
+            }
+        }
+        shuffleArray(tokensToMint);
+        set(ref(db, "/nfts"), tokensToMint);
+    }   
+
 
 
     return address  && ipfs && (
@@ -118,6 +135,7 @@ export default function Mint() {
         
         <h1> Mint these tokens: </h1>
         <button onClick = {mintAll}> Mint All </button>
+        <button onClick = {save}> Save to Database </button>
         <button onClick = {() => setTokens([])}> Reset </button>
         {animals.map((animal: Animal, i: number) => (
             <div key = {i}>
