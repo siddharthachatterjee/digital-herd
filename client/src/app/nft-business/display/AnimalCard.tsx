@@ -133,21 +133,22 @@ export default function AnimalCard(props: AnimalCardProps) {
                         <div>
                             <i className="ri-price-tag-3-line"></i> {animal.price }<span className="iconify" data-icon="logos:ethereum"> ETH </span>
                         </div>
-                     
+                       
+                        
                         <br />
-                        {(props.dropped == null || props.dropped! ==  0)? 
-                        ((owner === contractAddress)?
+                        {(owner.length && contractAddress && address && (props.dropped == null || props.dropped! ==  0))? 
+                        ((owner === contractAddress || owner === "")?
                         
                         <button title = "Purchase Token" onClick = {buy} className = "call-to-action primary" style = {{width: "100%", display: "block", margin: 0}}>
                             Buy 
                         </button>:
                         (
-                        owner == address?
+                        (owner === address && address != "" && owner.length > 5)?
                         <div>You own this NFT</div> :
                         <div className="sold"> Sold to {owner.slice(0, 4)}...{owner.slice(owner.length - 3)}! </div>)) : "Wait until full collection is dropped to buy"}
 
                     </div>:
-                    <div>You own this NFT</div>}
+                    (owner && <div>You own this NFT</div>)}
                 </div>
             </div> : 
             <div>

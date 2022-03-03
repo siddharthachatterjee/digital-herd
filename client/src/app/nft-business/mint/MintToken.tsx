@@ -30,6 +30,7 @@ export default function MintToken(props: {animal: any, backdrop: string, i?: num
                 if (snapshot.exists()) {
                     let nfts = snapshot.val();
                     setNFTs(nfts);
+                  //  console.log(nfts.length);
                     get(child(dbRef, `current-token`))
                         .then(snap2 => {
                             currentToken = snap2.val();
