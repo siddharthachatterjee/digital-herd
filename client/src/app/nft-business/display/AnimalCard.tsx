@@ -122,7 +122,7 @@ export default function AnimalCard(props: AnimalCardProps) {
                     Species: {animal.species}
                 </div>
                 <div>
-                    <a href = {`https://ropsten.etherscan.io/token/${contractAddress.toLowerCase()}?a=${props.id}`}> View on block explorer </a>
+                    <a href = {`https://etherscan.io/nft/${contractAddress.toLowerCase()}/${props.id}`}> View on block explorer </a>
                 </div>
                 <div>
                     Art by {animal.artist || "Alyse Gamson"}
