@@ -19,7 +19,7 @@ export default function MintToken(props: {animal: any, backdrop: string, i?: num
     const [minted, setMinted] = useState(false);
     const [data, setData] = useState<any>(null);
     const [tokens, setNFTs] = useState<any>(null);
-    let currentToken = -1;
+    const [currentToken, setCurrentToken] = useState<any>(-1);
     const history = useHistory();
     
     useEffect(() => {
@@ -33,7 +33,7 @@ export default function MintToken(props: {animal: any, backdrop: string, i?: num
                   //  console.log(nfts.length);
                     get(child(dbRef, `current-token`))
                         .then(snap2 => {
-                            currentToken = snap2.val();
+                            setCurrentToken(snap2.val());
                             setData(JSON.parse(nfts[snap2.val()]))
                         })
                 }
@@ -62,10 +62,11 @@ export default function MintToken(props: {animal: any, backdrop: string, i?: num
     
     function mint() {
         const db = getDatabase();
+        console.log(currentToken)
         if (address && address != defaultAccount) {
             contract.methods.createCollectible(JSON.stringify(data), address).send({from: address, value: ETH * 0.05})
                 .on("transactionHash", () => {
-                    set(ref(db, "/current-token"), currentToken + 1);
+                    set(ref(db, "current-token"), currentToken + 1);
                 })
                 .on("error", (err:any) => {
                     alert(err.message);
