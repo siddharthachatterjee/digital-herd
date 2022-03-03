@@ -174,7 +174,7 @@ export interface Web3ContextValues {
     contractAddress: string;
 }
 
-export const network = "ropsten";
+export const network = "mainnet";
 (() => {
     let  original: boolean[][][] = [];
     for (let i = 0; i < animals.length; i++) {

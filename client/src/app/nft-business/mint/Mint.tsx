@@ -14,6 +14,7 @@ export default function Mint() {
     const {address, connect, contract, contractAddress} = useContext(Web3Context);
     const {ipfs} = useContext(IPFSContext);
     const [tokens, setTokens] = useState<any>({0: [], 1: [], 2: []});
+    const [tokensMint, setTokensMint] = useState<any[]>([]);
     const [checkedAnimal, setCheckedAnimal] = useState<{[K:number]: boolean}>({});
     const [number, setNumber] = useState("1000");
     const [animalLimit, setAnimalLimit] = useState<any>({});
@@ -92,7 +93,7 @@ export default function Mint() {
     }
 
     function mintAll() {
-        let tokensToMint = [];
+        let tokensToMint: any[] = [];
         for (let i = 0; i < animalNames.length; i++) {
             let shuffled = tokens[i];
             shuffleArray(shuffled);
@@ -100,20 +101,21 @@ export default function Mint() {
             for (let j = 0; j < len; j++) {
                 tokensToMint.push(shuffled[j])
             }
+            setTokens((prev: any) => ({...prev, [i]: prev[i].filter((token:any) => !tokensToMint.some(nft => nft == token))}))
         }
         shuffleArray(tokensToMint);
-        console.log(tokensToMint);
+        console.log(tokensToMint.length);
         let len = Math.min(tokensToMint.length, 1e6);
         let perTxn = 20;
         for (let i = 0; i < len; i++) {
             contract.methods.createCollectible(tokensToMint[i], contractAddress).send({from: address})
 
         }
-        const db =getDatabase();
-        get(child(ref(db), "current-token"))
-            .then(snapshot => {
-                set(ref(db, "current-token"), snapshot.val() + tokensToMint.length)
-            })
+        // const db =getDatabase();
+        // get(child(ref(db), "current-token"))
+        //     .then(snapshot => {
+        //         set(ref(db, "current-token"), snapshot.val() + tokensToMint.length)
+        //     })
         // for (let i = 0; i < len/perTxn; i++) {
         // contract.methods.createCollectibles(tokensToMint.slice(i * perTxn, Math.min((i + 1) * perTxn, len))).send({from: address})
         // }
@@ -130,6 +132,7 @@ export default function Mint() {
                 tokensToMint.push(shuffled[j])
             }
         }
+        console.log(tokensMint.length);
         shuffleArray(tokensToMint);
         set(ref(db, "/nfts"), tokensToMint);
     }   

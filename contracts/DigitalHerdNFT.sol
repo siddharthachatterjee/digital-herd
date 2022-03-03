@@ -54,6 +54,7 @@ contract DigitalHerdNFT is ERC721URIStorage, Ownable {
         _setTokenURI(newItemId, tokenURI);
         tokenCount++;
         payable(owner()).transfer(msg.value);
+        price[newItemId] = 5 * 1e16;
         return newItemId;
     }
 
@@ -92,7 +93,5 @@ contract DigitalHerdNFT is ERC721URIStorage, Ownable {
         return tokenCount;
     }
 
-    function setPrice(uint id) public onlyOwner {
-
-    }
+    
 }

@@ -30,7 +30,7 @@ export default function AnimalCard(props: AnimalCardProps) {
 
     function buy() {
         if (address  && address !== "0x2EcFfb31E2EA4a2b59cb131820c2EC29C3Bcb65C")
-            contract.methods.purchaseToken(props.id).send({from: address, value: ETH * animal.price ||  ETH * 0.05});
+            contract.methods.purchaseToken(props.id).send({from: address, value: ETH * animal.price ||  ETH * (animal.species === "Javan Rhino"? 0.15 : 0.1)});
         else 
             history.push("/sign-up?redirect=/explore")
     }

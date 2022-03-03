@@ -77,7 +77,7 @@ export default function MintToken(props: {animal: any, backdrop: string, i?: num
     return (
         <div id = "mint-token-container">
         <div id="mint-token" style = {{display: "normal"/**"block" */}}>
-            {tokens && currentToken < tokens.length - 10 ? (<>
+            {tokens && currentToken < tokens.length - 50 ? (<>
                 {!data && <h1> Creating image... </h1>}
                 {data && (
                 <>
