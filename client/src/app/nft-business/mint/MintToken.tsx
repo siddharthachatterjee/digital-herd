@@ -62,12 +62,12 @@ export default function MintToken(props: {animal: any, backdrop: string, i?: num
     function mint() {
         const db = getDatabase();
         if (address && address != defaultAccount) {
-            contract.methods.createCollectible(JSON.stringify(data), contractAddress).send({from: address, value: ETH * 0.05})
-                .on("error", (err:any) => {
-                    alert(err.message);
-                })
+            contract.methods.createCollectible(JSON.stringify(data), address).send({from: address, value: ETH * 0.05})
                 .on("transactionHash", () => {
                     set(ref(db, "/current-token"), currentToken + 1);
+                })
+                .on("error", (err:any) => {
+                    alert(err.message);
                 })
         }
         else {
