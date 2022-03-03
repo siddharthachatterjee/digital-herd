@@ -1,0 +1,23 @@
+#mint-token-container {
+    width:100vw;
+    height:100vh;
+    background: rgba(20, 20, 20, 0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#mint-token {
+    width: 40vw;
+    height: 70vh;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items:  center;
+    flex-direction: column;
+    padding: 2em 1em;
+
+}

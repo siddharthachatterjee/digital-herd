@@ -9,11 +9,13 @@ import Zoo from "../nft-business/display/Zoo";
 import AnimalImage from "../nft-business/display/AnimalImage";
 import MintToken from "../nft-business/mint/MintToken";
 import { art, backdrops } from "../../core";
+import { useHistory } from "react-router-dom";
 
 
 export default function Profile() {
     const {address, connect, web3, networkId, contract} = useContext(Web3Context);
     const user = useContext(AuthContext);
+    const history = useHistory();
    // const [account, setAccount] = useState(null);
     //const [contract, setContract] = useState(null);
   //  const [user, setUser] = useState<User | null>(null);
@@ -42,6 +44,7 @@ export default function Profile() {
            <> 
             {address? 
             <>
+
             
            <main>
                 <h2>
@@ -52,11 +55,9 @@ export default function Profile() {
                     </div>
                 </h2>
                 <hr />
-                <Tabs tabs = {["Herd", "Settings"]} content = {[
+                <Tabs tabs = {["Herd", "Mint"]} content = {[
                     <Zoo />,
-                    <div>
-                        settings
-                    </div>
+                        <button className = "mint" onClick = {() => history.push("/mint-nft")}> Mint an NFT </button>
                 ]}/>
                 
             </main> 

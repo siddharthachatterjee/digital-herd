@@ -82,7 +82,7 @@ export default function Mint() {
                     //                 }
                     //setA("data:image/png;base64," + Buffer.from(chunks).toString("base64"));
                 //    console.log(JSON.stringify(chunks) == JSON.stringify(buffer));
-                    const obj = JSON.stringify({image:url,artist:"Alyse Gamson",species:animal.species,images});
+                    const obj = JSON.stringify({image:url,species:animal.species,images});
                 /// if (!counted[url])
                     setTokens((prev: any) => ({...prev, [animalNames.indexOf(animal.species)]: [...prev[animalNames.indexOf(animal.species)], obj]}));
                   //  counted[buffer.toString()] = true;
@@ -107,7 +107,13 @@ export default function Mint() {
         let perTxn = 20;
         for (let i = 0; i < len; i++) {
             contract.methods.createCollectible(tokensToMint[i], contractAddress).send({from: address})
+
         }
+        const db =getDatabase();
+        get(child(ref(db), "current-token"))
+            .then(snapshot => {
+                set(ref(db, "current-token"), snapshot.val() + tokensToMint.length)
+            })
         // for (let i = 0; i < len/perTxn; i++) {
         // contract.methods.createCollectibles(tokensToMint.slice(i * perTxn, Math.min((i + 1) * perTxn, len))).send({from: address})
         // }

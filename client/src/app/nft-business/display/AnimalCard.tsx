@@ -125,10 +125,10 @@ export default function AnimalCard(props: AnimalCardProps) {
                     <a href = {`https://ropsten.etherscan.io/token/${contractAddress.toLowerCase()}?a=${props.id}`}> View on block explorer </a>
                 </div>
                 <div>
-                    Art by {animal.artist}
+                    Art by {animal.artist || "Alyse Gamson"}
                 </div>
                 <div>
-                    {(address !== owner) &&
+                    {(address !== owner) ?
                     <div className = "info">
                         <div>
                             <i className="ri-price-tag-3-line"></i> {animal.price }<span className="iconify" data-icon="logos:ethereum"> ETH </span>
@@ -136,14 +136,18 @@ export default function AnimalCard(props: AnimalCardProps) {
                      
                         <br />
                         {(props.dropped == null || props.dropped! ==  0)? 
-                        (owner !== contractAddress?
+                        (owner === contractAddress?
+                        
                         <button title = "Purchase Token" onClick = {buy} className = "call-to-action primary" style = {{width: "100%", display: "block", margin: 0}}>
                             Buy 
                         </button>:
-                        (owner === address?
-                        "You own this NFT" :
+                        (
+                        owner == address?
+                        <div>You own this NFT</div> :
                         <div className="sold"> Sold to {owner.slice(0, 4)}...{owner.slice(owner.length - 3)}! </div>)) : "Wait until full collection is dropped to buy"}
-                    </div>}
+
+                    </div>:
+                    <div>You own this NFT</div>}
                 </div>
             </div> : 
             <div>

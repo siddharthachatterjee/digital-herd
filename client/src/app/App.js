@@ -16,6 +16,7 @@ import { Web3Context, Web3ContextProvider } from '../context/Web3Context';
 import Mint from './nft-business/mint/Mint';
 import { IPFSContextProvider } from '../context/IPFSContext';
 import { allAccessoryArrays } from '../core';
+import MintToken from './nft-business/mint/MintToken';
 
 
 function App() {
@@ -65,6 +66,10 @@ function App() {
             
              <Mint />
            }
+          </Route>
+          <Route path = "/mint-nft">
+            <Navbar />
+            <MintToken />
           </Route>
         </Switch>
      //</div> </Web3ContextProvider>)}
