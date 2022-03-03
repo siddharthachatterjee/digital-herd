@@ -62,9 +62,10 @@ export default function Explore() {
             contract.methods.tokenCount().call({from: address})
                 .then((res: number) => {
                     setTokenCount(res);
+                    
                   //  console.log(Array(res).fill(null).map((_, i) => i));
                   if (res > 0)
-                    setTokens(Array(res).fill(null).map((_, i) => i));
+                    setTokens(Array(+res).fill(null).map((_, i) => i));
                 });
             
             contract.methods.state().call({from: address})
@@ -117,7 +118,7 @@ export default function Explore() {
     // }, [checkedAnimal])
     return tokens.length && (
         <div id = "explore" className = "background-container">
-           
+           {tokenCount}
             <header>
                 <h1> Marketplace </h1>
                 {dropped == 0 && 
