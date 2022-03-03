@@ -128,7 +128,7 @@ export default function AnimalCard(props: AnimalCardProps) {
                     Art by {animal.artist || "Alyse Gamson"}
                 </div>
                 <div>
-                    {(address !== owner) ?
+                    {(owner && contractAddress && address !== owner) ?
                     <div className = "info">
                         <div>
                             <i className="ri-price-tag-3-line"></i> {animal.price }<span className="iconify" data-icon="logos:ethereum"> ETH </span>
@@ -136,7 +136,7 @@ export default function AnimalCard(props: AnimalCardProps) {
                      
                         <br />
                         {(props.dropped == null || props.dropped! ==  0)? 
-                        (owner === contractAddress?
+                        ((owner === contractAddress)?
                         
                         <button title = "Purchase Token" onClick = {buy} className = "call-to-action primary" style = {{width: "100%", display: "block", margin: 0}}>
                             Buy 

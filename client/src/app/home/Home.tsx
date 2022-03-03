@@ -33,6 +33,14 @@ export default function Home(): JSX.Element {
                     ERROR: {error.message}
                 </div>
             )}
+            <div style = {{fontSize: 24}}>
+                <a href = "https://twitter.com/DigitalHerdNFT"> Follow us on twitter </a>
+                <br />
+                <br />
+                <a href = "https://discord.gg/T2etBanX"> Join our discord </a>
+                <br />
+                Copyright (c) Siddhartha Chatterjee 2022
+            </div>
         </div>
         </>
     )

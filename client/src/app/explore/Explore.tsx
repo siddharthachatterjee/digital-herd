@@ -118,7 +118,6 @@ export default function Explore() {
     // }, [checkedAnimal])
     return tokens.length && (
         <div id = "explore" className = "background-container">
-           {tokenCount}
             <header>
                 <h1> Marketplace </h1>
                 {dropped == 0 && 
