@@ -67,21 +67,25 @@ export default function AnimalCard(props: AnimalCardProps) {
                 // } else {
                 
                     const uri:string =  await contract.methods.tokenURI(props.id).call({from: address});
+                   // console.log(uri);
           //          localStorage.setItem(`nft-${props.id}`, uri);
                     //if (uri && uri.split("https://ipfs.io/ipfs/")[1]) {
                      //   .then((uri: any) => {
                           //console.log(uri);
                             
-                          // localStorage.setItem(`nft-${props.id}`, data);
-                    
+                          // localStorage.etItem(`nft-${props.id}`, data);
+                        if(uri[0] != "i") {
                           if (props.onFetch)
                            props.onFetch!({...JSON.parse(uri)});
+
+
                            let data = JSON.parse(uri);
                            setAnimal(() => ({
                                ...JSON.parse(uri),
                                price: data.species === "Javan Rhino"? 0.15 : 0.1
                            }));
-                         //   getIPFSImage(uri);
+                        }
+                         //   getIPFSImag'e(uri);
     
                             // fetch(uri)
                             //     .then(data => data.json())

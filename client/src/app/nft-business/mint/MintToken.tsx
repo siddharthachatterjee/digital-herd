@@ -18,13 +18,16 @@ export default function MintToken(props: {animal: any, backdrop: string, i?: num
     const [image, setImage] = useState("");
     const [minted, setMinted] = useState(false);
     const [data, setData] = useState<any>(null);
+    const [obj, setObj] = useState<any>(null);
     const [tokens, setNFTs] = useState<any>(null);
     const [currentToken, setCurrentToken] = useState<any>(-1);
+    const [loading, setLoading] = useState<boolean>(false);
     const history = useHistory();
     
     useEffect(() => {
         autoConnect()
         const dbRef = ref(getDatabase());
+        if (ipfs) {
         get(child(dbRef, "nfts"))
             .then(snapshot => {
                 if (snapshot.exists()) {
@@ -32,15 +35,36 @@ export default function MintToken(props: {animal: any, backdrop: string, i?: num
                     setNFTs(nfts);
                   //  console.log(nfts.length);
                     get(child(dbRef, `current-token`))
-                        .then(snap2 => {
+                        .then(async snap2 => {
                             setCurrentToken(snap2.val());
-                            setData(JSON.parse(nfts[snap2.val()]))
+                            let json = JSON.parse(nfts[snap2.val()]);
+                            setObj(json);
+                            const chunks: any[] = [];
+                            const stream = ipfs.cat(json.image.split("https://ipfs.io/ipfs/")[1]);
+                            // setAnimal(JSON.parse(uri));
+                    
+                            for await (const chunk of stream) {
+                                chunks.push(...chunk);
+                            }
+                      //      console.log(`${props.id} image fetched`)
+                            //   if (chunks)
+                          
                         })
                 }
             })
-    }, [])
-    function onDrawn() {
+        }
+    }, [ipfs])
+    function onDrawn(canvasRef: any, json: any) {
+        
         setMinted(true);
+        (async () => {
+
+            const data = canvasRef.current.toDataURL();
+            json.image = data;
+            const result = await ipfs.add({path: "/tmp/", content: JSON.stringify(json)}, {pin: true}); 
+            const {cid} = result;
+            setData("ipfs://" + cid);
+        })()
         if (canvasRef && canvasRef.current) {
            // console.log(contract);
           // if (address) {
@@ -64,12 +88,15 @@ export default function MintToken(props: {animal: any, backdrop: string, i?: num
         const db = getDatabase();
         console.log(currentToken)
         if (address && address != defaultAccount) {
-            contract.methods.createCollectible(JSON.stringify(data), address).send({from: address, value: ETH * 0.05})
+            setLoading(true);
+            contract.methods.createCollectible(data, address).send({from: address, value: ETH * 0.05})
                 .on("transactionHash", () => {
+                 //   setLoading(false);
                     set(ref(db, "current-token"), currentToken + 1)
                         .then(() => window.location.reload());
                 })
                 .on("error", (err:any) => {
+                    setLoading(false);
                     alert(err.message);
                 })
         }
@@ -82,14 +109,15 @@ export default function MintToken(props: {animal: any, backdrop: string, i?: num
         <div id="mint-token" style = {{display: "normal"/**"block" */}}>
             {tokens && currentToken < tokens.length - 50 ? (<>
                 {!data && <h1> Creating image... </h1>}
-                {data && (
+                {obj && (
                 <>
-                <AnimalImage i = {animalNames.indexOf(data.species)} background={data.images![0]} image = {data.images![1]} accessories = {data.images!.slice(2)} onDrawn = {onDrawn} />
+                <AnimalImage size = {350} i = {animalNames.indexOf(obj.species)} background={obj.images![0]} image = {obj.images![1]} accessories = {obj.images!.slice(2)} onDrawn = {(canvasRef) => onDrawn(canvasRef, obj)} />
                 {minted &&
                 <>
                 <br />
-                <button className="mint" onClick = {mint}> Mint this NFT (0.05 ETH fee) </button>
+                <button disabled = {loading} className="mint" onClick = {mint}> Mint this NFT (0.05 ETH fee) </button>
                 </>}
+                {data}
                 </>
                 )}
             </>): tokens && "Sorry :( All tokens have been minted."}

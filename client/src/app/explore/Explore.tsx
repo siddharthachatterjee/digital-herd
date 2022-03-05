@@ -116,8 +116,9 @@ export default function Explore() {
     // useEffect(() => {
     //     setNFTs((Object.keys(cards)).filter((id) => checkedAnimal[animalNames.indexOf(objects[id]?.species)]))
     // }, [checkedAnimal])
-    return tokens.length && (
-        <div id = "explore" className = "background-container">
+    return (
+        <>
+        {tokens.length? <div id = "explore" className = "background-container">
             <header>
                 <h1> Marketplace </h1>
                 {dropped == 0 && 
@@ -127,7 +128,7 @@ export default function Explore() {
                     The rarer the species, the more expensive. Stay tuned for when new NFTs will be minted.
                 </p> */}
             </header>
-            
+             
             {(!load() && tokens.length && false) &&
             <div className= "loading">
                 <div>
@@ -179,6 +180,9 @@ export default function Explore() {
                     <button className= "call-to-action primary" onClick = {() => setShow(prev => prev + NFT_DISPLAY)}> Load More </button>
             </div>} */}
             Loading more tokens... ({Object.keys(objects).length}/{tokens.length})
-        </div>
+
+        </div>: !address && <>Connecting to an account...(make sure you are signed in to wallet and connected).<br/> If you are using MetaMask, check to see if you received a popup notification in the corner for signing in. <br/>Once you are connected, try reloading the page</>}
+        </>
+
     )
 }

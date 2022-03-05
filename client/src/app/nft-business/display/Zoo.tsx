@@ -29,7 +29,7 @@ export default function Zoo() {
             <br />
           
             {Object.values(zoo).length? Object.values(zoo).map((item: any, i) => (
-                <div key = {i}>
+                <div key = {i} style = {{display: "inline-block"}}>
                     <AnimalCard id = {account.tokens[i]} />
                 </div>
             )) : 
