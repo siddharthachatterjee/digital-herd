@@ -74,7 +74,7 @@ export default function AnimalCard(props: AnimalCardProps) {
                           //console.log(uri);
                             
                           // localStorage.etItem(`nft-${props.id}`, data);
-                        if(uri[0] != "i") {
+                        if (uri[0] == "{") {
                           if (props.onFetch)
                            props.onFetch!({...JSON.parse(uri)});
 
@@ -84,6 +84,28 @@ export default function AnimalCard(props: AnimalCardProps) {
                                ...JSON.parse(uri),
                                price: data.species === "Javan Rhino"? 0.15 : 0.1
                            }));
+                        }
+                        else {
+                            const stream =   ipfs.cat(uri.split("//")[1]);
+                            const chunks: any[] = [];
+                            
+                            for await (const chunk of stream) {
+                                // chunks of data are returned as a Buffer, convert it back to a string
+                                chunks.push(Buffer.from(chunk));
+                            }
+                            const data: any = JSON.parse(Buffer.concat(chunks).toString());
+                            if (props.onFetch)
+                            props.onFetch!({...data});
+                            setAnimal(() => ({
+                                ...data,
+                                price: data.species === "Javan Rhino"? 0.15 : 0.1
+                            }));
+                            // console.log(data);
+                            //console.log(Buffer.from(chunks).toString("base64"))
+                            // setAnimal(() => ({
+                            //     ...JSON.parse(data),
+                            //     price: data.species === "Javan Rhino"? 0.15 : 0.1
+                            // }));
                         }
                          //   getIPFSImag'e(uri);
     
