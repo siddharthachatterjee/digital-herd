@@ -21,6 +21,8 @@ export default function Mint() {
     const [include, setInclude] = useState<any>([]);
     const counted: any = {};
     const [a, setA] = useState<any>(null);
+    const [ipfsUrls, setIPFSURLs] = useState<any>({0: [], 1: [], 2: []});
+    const [currentToken, setCurrentToken] = useState(0);
 
     function changeInclude(i: number, j: number, k: number) {
         let newInclude = [...include];
@@ -96,9 +98,10 @@ export default function Mint() {
         let tokensToMint: any[] = [];
         for (let i = 0; i < animalNames.length; i++) {
             let shuffled = tokens[i];
-            shuffleArray(shuffled);
+          //  shuffleArray(shuffled);
             let len = Math.min(shuffled.length, +animalLimit[i]);
             for (let j = 0; j < len; j++) {
+            
                 tokensToMint.push(shuffled[j])
             }
             setTokens((prev: any) => ({...prev, [i]: prev[i].filter((token:any) => !tokensToMint.some(nft => nft == token))}))
@@ -108,6 +111,9 @@ export default function Mint() {
         let len = Math.min(tokensToMint.length, 1e6);
         let perTxn = 20;
         for (let i = 0; i < len; i++) {
+          //  const json = 
+            //const data = canvasRef.current.toDataURL();
+          
             contract.methods.createCollectible(tokensToMint[i], contractAddress).send({from: address})
 
         }
@@ -137,6 +143,69 @@ export default function Mint() {
         set(ref(db, "/nfts"), tokensToMint);
     }   
 
+    function getFromDb() {
+        let data: {[k: number]: any[]} = {0: [], 1: [], 2: []};
+        get(child(ref(getDatabase()), "nfts"))
+            .then(snapshot => {
+                if (snapshot.exists()) {
+                    let nfts = snapshot.val();
+                    get(child(ref(getDatabase()), `current-token`))
+                        .then(snap2 => {
+                            setCurrentToken(snap2.val());
+                            for (let i = +snap2.val(); i < nfts.length; i++) {
+                                let json = JSON.parse(nfts[i]);
+                                json.image = "ipfs://" + json.image.split("https://ipfs.io/ipfs/")[1];
+                                console.log(json);
+                                ipfs.add({path: "/tmp/", content: JSON.stringify(json)}, {pin: true})
+                                    .then((result: any) => {
+
+                                        const {cid} = result;
+                                        setTokens((prev: any) => ({...prev, [animalNames.indexOf(json.species)]: [...prev[animalNames.indexOf(json.species)], "ipfs://" + cid]}));
+                                    })
+                               
+                            }
+                          //  setTokens(data);
+                        });
+                     //   console.log(obj);
+                      
+                   
+                   // setTokens(data);
+                }
+            })
+            
+    }
+ 
+    function onDrawnFromDb(canvasRef: any, json: any) {
+        
+        //setMinted(true);
+        (async () => {
+
+            const data = canvasRef.current.toDataURL();
+            json.image = data;
+            const result = await ipfs.add({path: "/tmp/", content: JSON.stringify(json)}, {pin: true}); 
+            const {cid} = result;
+            setIPFSURLs((prev: any) => ({...prev, [animalNames.indexOf(json.species)]: [...prev[animalNames.indexOf(json.species)], "ipfs://" + cid]}));
+           // setData("ipfs://" + cid);
+        })()
+        if (canvasRef && canvasRef.current) {
+           // console.log(contract);
+          // if (address) {
+             //   setImage(canvasRef.current.toDataURL());
+                 //console.log("");
+               // console.log(canvasRef.current!.toDataURL()!);
+            // ipfs.add(canvasRef.current.toDataURL())
+            //     .then(({cid}: {cid:string}) => {
+            //         contract.methods.tokenCount().call({from: address})
+            //             .then((res: number) => {
+            //                 const object = `{"name":"${animal.species},${backdrop}","image":"https://ipfs.io/ipfs/${cid}","species":"${animal.species}"}`;
+            //                 console.log(object)
+            //                 contract.methods.createCollectible(object).send({from: address});
+            //             })
+            //     })
+           
+        }
+    }
+
 
 
     return address  && ipfs && address === "0x8767810706336e2471444e260dA71D5cB60e09aC" && (
@@ -146,6 +215,7 @@ export default function Mint() {
         <button onClick = {mintAll}> Mint All </button>
         <button onClick = {save}> Save to Database </button>
         <button onClick = {() => setTokens([])}> Reset </button>
+        <button onClick = {getFromDb}> Get From Database </button>
         {animals.map((animal: Animal, i: number) => (
             <div key = {i}>
                 <input checked = {checkedAnimal[i]} type = "checkbox" onChange = {e => { setCheckedAnimal(prev => ({...prev, [i]: e.target.checked})) }} />
@@ -201,8 +271,16 @@ export default function Mint() {
             </>
         ))} 
         <br />
+
         
         <h2> Data: </h2>
+        {JSON.stringify(Object.values(tokens))}
+        {/* {JSON.stringify(Object.values(tokens))} */}
+        {/* {Object.values(tokens).map((arr: any, i) => (
+            arr.map((obj: any) => (
+                <AnimalImage size = {350} i = {animalNames.indexOf(JSON.parse(obj).species)} background={JSON.parse(obj).images![0]} image = {JSON.parse(obj).images![1]} accessories = {JSON.parse(obj).images!.slice(2)} onDrawn = {(canvasRef) => onDrawnFromDb(canvasRef, JSON.parse(obj))} />
+            ))
+        ))} */}
         {/* {a && <img src = {"data:image/png;base64," + Buffer.from(a).toString("base64")} />} */}
         
         <br />

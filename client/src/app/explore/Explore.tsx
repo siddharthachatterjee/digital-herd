@@ -64,7 +64,7 @@ export default function Explore() {
                     setTokenCount(res);       
                   //  console.log(Array(res).fill(null).map((_, i) => i));
                   if (res > 0)
-                    setTokens(Array(+res).fill(null).map((_, i) => i));
+                    setTokens(Array(+res).fill(null).map((_, i) => i).filter(i => i > 35));
                 });
             
             contract.methods.state().call({from: address})
@@ -128,7 +128,7 @@ export default function Explore() {
                 </p> */}
             </header>
              
-            {(!load() && tokens.length && false) &&
+            {(!load() && tokens.length) &&
             <div className= "loading">
                 <div>
                     <h2> Loading NFT images...({Math.floor(Math.max(100 * loaded/tokens.length, 0))}%) </h2>

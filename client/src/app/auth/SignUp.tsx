@@ -7,6 +7,7 @@ import {getDatabase, ref,set} from "firebase/database";
 
 import "./sign-up.css";
 import { useHistory, useLocation } from "react-router";
+import {defaultAccount} from "../../core";
 
 
 export default function SignUp() {
@@ -71,7 +72,7 @@ export default function SignUp() {
     const steps = [
         <div>
 
-            {!address || (address == "math broken predict woman race female club barrel hazard season leopard stand") ? (
+            {(!address || (address == defaultAccount)) ? (
                 <div>
                     <h3> Connect a Wallet </h3>
                 

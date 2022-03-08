@@ -22,6 +22,7 @@ export default function MintToken(props: {animal: any, backdrop: string, i?: num
     const [tokens, setNFTs] = useState<any>(null);
     const [currentToken, setCurrentToken] = useState<any>(-1);
     const [loading, setLoading] = useState<boolean>(false);
+    const [counter, setCounter] = useState(0);
     const history = useHistory();
     
     useEffect(() => {
@@ -53,7 +54,10 @@ export default function MintToken(props: {animal: any, backdrop: string, i?: num
                 }
             })
         }
-    }, [ipfs])
+        setTimeout(() => {
+            setCounter(prev => prev + 1);
+        }, 100);
+    }, [ipfs, counter])
     function onDrawn(canvasRef: any, json: any) {
         
         setMinted(true);
