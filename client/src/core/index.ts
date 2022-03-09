@@ -1,6 +1,6 @@
 export const ETH = 1e18;
 export const NFTS_TO_LOAD = 50;
-export const defaultAccount = "0x2EcFfb31E2EA4a2b59cb131820c2EC29C3Bcb65C"
+export const defaultAccount = "0x2EcFfb31E2EA4a2b59cb131820c2EC29C3Bcb65C".toLowerCase();
 export const NFT_DISPLAY = 50;
 
 export interface Animal {

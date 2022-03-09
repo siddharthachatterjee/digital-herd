@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { IPFSContext } from "../../../context/IPFSContext";
 import { Web3Context, Web3ContextProvider } from "../../../context/Web3Context";
 
-import { animalNames, ETH, Web3ContextValues } from "../../../core";
+import { animalNames, defaultAccount, ETH, Web3ContextValues } from "../../../core";
 
 
 import "./animal-card.css";
@@ -29,7 +29,7 @@ export default function AnimalCard(props: AnimalCardProps) {
     //const canvasRef = useRef(null);
 
     function buy() {
-        if (address  && address !== "0x2EcFfb31E2EA4a2b59cb131820c2EC29C3Bcb65C")
+        if (address  && address.toLowerCase() !==defaultAccount)
             contract.methods.purchaseToken(props.id).send({from: address, value: ETH * animal.price ||  ETH * (animal.species === "Javan Rhino"? 0.15 : 0.1)});
         else 
             history.push("/sign-up?redirect=/explore")
@@ -148,10 +148,10 @@ export default function AnimalCard(props: AnimalCardProps) {
                     Species: {animal.species}
                 </div>
                 <div>
-                    <a href = {`https://etherscan.io/nft/${contractAddress.toLowerCase()}/${props.id}`}> View on block explorer </a>
+                    <a href = {`https://opensea.io/assets/${contractAddress.toLowerCase()}/${props.id}`}> View on OpenSea </a>
                 </div>
                 <div>
-                    Art by {animal.artist || "Alyse Gamson"}
+                    Art by {animal.artist ||"Alyse Gamson"} {animal.species == "Javan Rhino" && "and Jay Hosfelt"}
                 </div>
                 <div>
                     {(owner && contractAddress && address !== owner) ?

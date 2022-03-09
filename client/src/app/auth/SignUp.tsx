@@ -22,7 +22,7 @@ export default function SignUp() {
     const history = useHistory();
 
     useEffect(() => {
-        if (address && curStep === 0) {
+        if (address && curStep === 0 && address.toLowerCase() != defaultAccount) {
             setCurStep(prev => prev + 1);
         }
     }, [address]);
@@ -72,7 +72,7 @@ export default function SignUp() {
     const steps = [
         <div>
 
-            {(!address || (address == defaultAccount)) ? (
+            {(!address || (address.toLowerCase() == defaultAccount)) ? (
                 <div>
                     <h3> Connect a Wallet </h3>
                 
@@ -104,6 +104,7 @@ export default function SignUp() {
             )}
         </div>,
         <div>
+            <br />
             Profile name:
             <InputBox className = "dark" state = {username} updateState = {setUsername} />
             <br />

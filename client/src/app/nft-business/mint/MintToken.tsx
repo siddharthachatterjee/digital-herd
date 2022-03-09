@@ -115,7 +115,7 @@ export default function MintToken(props: {animal: any, backdrop: string, i?: num
                 {!data && <h1> Creating image... </h1>}
                 {obj && (
                 <>
-                <AnimalImage size = {350} i = {animalNames.indexOf(obj.species)} background={obj.images![0]} image = {obj.images![1]} accessories = {obj.images!.slice(2)} onDrawn = {(canvasRef) => onDrawn(canvasRef, obj)} />
+                <AnimalImage size = {200} i = {animalNames.indexOf(obj.species)} background={obj.images![0]} image = {obj.images![1]} accessories = {obj.images!.slice(2)} onDrawn = {(canvasRef) => onDrawn(canvasRef, obj)} />
                 {minted &&
                 <>
                 <br />
